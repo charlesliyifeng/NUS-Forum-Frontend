@@ -1,15 +1,16 @@
-import BasicThreadList from "../components/BasicThreadList";
+import SearchBar from "../components/SearchBar";
+import SideBar from "../components/SideBar";
+import ThreadList from "../components/ThreadList";
+import { Box } from "@mui/material";
 import React from "react";
 
 const Home: React.FC = () => {
     return (
-        <>
-            <h3>
-                {"Welcome to CVWO's sample react app! Here's a basic list of forum threads for you to experiment with."}
-            </h3>
-            <br />
-            <BasicThreadList />
-        </>
+        <Box>
+            <SearchBar />
+            <SideBar />
+            <ThreadList />
+        </Box>
     );
 };
 
