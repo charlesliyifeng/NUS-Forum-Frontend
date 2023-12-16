@@ -1,5 +1,5 @@
 .App {
-    text-align: center;
+    text-align: left;
 }
 
 .App-logo {
@@ -43,4 +43,13 @@ li {
 
 ul {
     padding-inline-start: unset;
+}
+
+.link {
+    text-decoration: none;
+    color: #0055FF;
+}
+
+.link:hover {
+     color: #0000AA;
 }

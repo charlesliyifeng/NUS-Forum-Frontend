@@ -1,9 +1,9 @@
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
-import { AppBar, InputBase, Toolbar } from "@mui/material";
+import { AppBar, InputBase, Toolbar, Button, Box } from "@mui/material";
 import React from "react";
 
-// helper functions for SearchBar
+// styling functions for SearchBar
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
     left: 150,
@@ -45,6 +45,24 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+const BootstrapButton = styled(Button)({
+    fontSize: 16,
+    padding: "6px 12px",
+    border: "1px solid",
+    lineHeight: 1.5,
+    borderColor: "#FFFFFF",
+    color: "#FFFFFF",
+
+    "&:hover": {
+        borderColor: "#FFFFFF",
+        boxShadow: "none",
+    },
+    "&:active": {
+        boxShadow: "none",
+        borderColor: "#FFFFFF",
+    },
+});
+
 export default function SearchBar() {
     return (
         <AppBar position={"fixed"} sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -60,6 +78,9 @@ export default function SearchBar() {
                         onKeyDown={handleKeyPress}
                     />
                 </Search>
+                <Box position={"relative"} left={300}>
+                    <BootstrapButton variant="outlined">Login</BootstrapButton>
+                </Box>
             </Toolbar>
         </AppBar>
     );

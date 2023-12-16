@@ -5,6 +5,7 @@ type Comment = {
     author: string;
     timestamp: Date;
     votes: number;
+    accepted: boolean;
 };
 
 export default Comment;

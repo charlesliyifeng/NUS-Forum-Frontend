@@ -6,7 +6,7 @@ import React from "react";
 
 const Home: React.FC = () => {
     return (
-        <Box>
+        <Box display={"flex"}>
             <SearchBar />
             <SideBar />
             <ThreadList />
