@@ -47,7 +47,7 @@ const ThreadCard: React.FC<Props> = ({ thread }) => {
                 <CardContent>
                     <Box display={"flex"} flexDirection={"column"}>
                         <Typography variant="h5" component="div">
-                            <Link to="/" className="link">
+                            <Link to="/thread/1" className="link">
                                 {thread.body}
                             </Link>
                         </Typography>

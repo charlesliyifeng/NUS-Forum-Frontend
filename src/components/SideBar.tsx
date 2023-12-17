@@ -6,10 +6,28 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth: number = 150;
 
 export default function SideBar() {
+    const navigate = useNavigate();
+
+    const listItem = [
+        {
+            text: "Home",
+            onclick: () => navigate("/home"),
+        },
+        {
+            text: "History",
+            onclick: () => navigate("/thread/1"),
+        },
+        {
+            text: "Tags",
+            onclick: () => navigate("/thread/1"),
+        },
+    ];
+
     return (
         <Drawer
             variant={"permanent"}
@@ -23,10 +41,10 @@ export default function SideBar() {
             <Toolbar />
             <Box sx={{ overflow: "auto" }}>
                 <List>
-                    {["Home", "History", "Tags", "123"].map((text) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemText primary={text} />
+                    {listItem.map((item) => (
+                        <ListItem key={item.text} disablePadding>
+                            <ListItemButton onClick={item.onclick}>
+                                <ListItemText primary={item.text} />
                             </ListItemButton>
                         </ListItem>
                     ))}

@@ -7,7 +7,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ThreadList: React.FC = () => {
     // get threads
@@ -59,7 +59,9 @@ const ThreadList: React.FC = () => {
                 <BasicSelect placeholder={"Sort by"} choices={["votes", "answers", "views"]} />
                 <BasicSelect placeholder={"Filter by"} choices={["Accepted", "Not Accepted", "No Answer"]} />
                 <Box position={"relative"} left={300}>
-                    <Button variant="contained">Ask a Question</Button>
+                    <Button variant="contained" component={Link} to="/AskQuestion">
+                        Ask a Question
+                    </Button>
                 </Box>
             </Toolbar>
             <Box>
