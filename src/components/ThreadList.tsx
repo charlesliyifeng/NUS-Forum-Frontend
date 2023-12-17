@@ -9,12 +9,18 @@ import Button from "@mui/material/Button";
 
 import { Link } from "react-router-dom";
 
-const ThreadList: React.FC = () => {
+// props for ThreadList
+type Props = {
+    handleThreadClick: (thread: Thread) => void;
+};
+
+const ThreadList: React.FC<Props> = ({ handleThreadClick }) => {
     // get threads
     const Threads: Thread[] = [];
     Threads[0] = {
         id: "1",
-        body: "hello",
+        title: "hello",
+        body: "yes, this is the body!",
         author: "Bob",
         timestamp: new Date(2022, 10, 28, 10, 33, 30),
         votes: 5,
@@ -24,6 +30,7 @@ const ThreadList: React.FC = () => {
     };
     Threads[1] = {
         id: "2",
+        title: "guess what",
         body: "testing is the worst thing in the world.",
         author: "Cathy",
         timestamp: new Date(2022, 10, 28, 10, 33, 30),
@@ -34,7 +41,8 @@ const ThreadList: React.FC = () => {
     };
     Threads[2] = {
         id: "3",
-        body: "hello2",
+        title: "what is going on?",
+        body: "hello hello",
         author: "Alice",
         timestamp: new Date(2020, 12, 28, 10, 33, 2),
         votes: 1,
@@ -66,7 +74,7 @@ const ThreadList: React.FC = () => {
             </Toolbar>
             <Box>
                 {Threads.map((thread: Thread) => (
-                    <ThreadCard thread={thread} key={thread.id} />
+                    <ThreadCard thread={thread} handleThreadClick={handleThreadClick} key={thread.id} />
                 ))}
             </Box>
         </Box>

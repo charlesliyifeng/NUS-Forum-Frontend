@@ -1,10 +1,21 @@
 # NUS-Forum
 
-This sample React app is provided to help you experiment and practice web development fundamentals.
-It shows how certain functionality can be implemented.
-However, do note that this is **far from a model example**.
-After all, we want to see how you maximise your learning in web development
-and good software development practices.
+A forum dedicated to NUS students
+
+## TODO list
+
+### Frontend
+- Questions page
+- Thread page
+- add tags
+- sign-in page
+
+### Backend
+- Database
+    - threads
+    - answers
+    - users
+- search function
 
 ## Getting Started
 

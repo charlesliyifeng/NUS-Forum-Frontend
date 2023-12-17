@@ -16,7 +16,7 @@ export default function SideBar() {
     const listItem = [
         {
             text: "Home",
-            onclick: () => navigate("/home"),
+            onclick: () => navigate("/"),
         },
         {
             text: "History",

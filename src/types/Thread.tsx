@@ -1,5 +1,6 @@
 type Thread = {
     id: string;
+    title: string;
     body: string;
     author: string;
     timestamp: Date;

@@ -1,5 +1,5 @@
-type Comment = {
-    commentID: string;
+type Answer = {
+    answerID: string;
     threadID: string;
     body: string;
     author: string;
@@ -8,4 +8,4 @@ type Comment = {
     accepted: boolean;
 };
 
-export default Comment;
+export default Answer;
