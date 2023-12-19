@@ -52,14 +52,7 @@ const ThreadList: React.FC<Props> = ({ handleThreadClick }) => {
     };
 
     return (
-        <Box
-            display={"flex"}
-            flexDirection={"column"}
-            position={"relative"}
-            width={"100%"}
-            sx={{ flexGrow: 1, p: 3 }}
-            top={80}
-        >
+        <Box className="centerBox" sx={{ flexGrow: 1, p: 3 }} top={80}>
             <Toolbar>
                 <Typography variant="h4" position="static">
                     {"Top Questions"}

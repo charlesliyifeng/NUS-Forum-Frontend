@@ -36,13 +36,22 @@ const App: React.FC = () => {
         setcurrentThread(thread);
     }
 
+    function handleVoteChange(change: number) {
+        const newCurrentThread = structuredClone(currentThread);
+        newCurrentThread.votes += change;
+        setcurrentThread(newCurrentThread);
+    }
+
     return (
         <div className="App">
             <ThemeProvider theme={theme}>
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Home handleThreadClick={handleThreadClick} />} />
-                        <Route path="/thread/1" element={<ThreadView thread={currentThread} />} />
+                        <Route
+                            path="/thread/1"
+                            element={<ThreadView thread={currentThread} handleVoteChange={handleVoteChange} />}
+                        />
                         <Route path="/askQuestion" element={<AskQuestion />} />
                     </Routes>
                 </BrowserRouter>

@@ -5,8 +5,10 @@ A forum dedicated to NUS students
 ## TODO list
 
 ### Frontend
-- Questions page
+- Questions page - done
 - Thread page
+    - voting
+    - answer items
 - add tags
 - sign-in page
 
