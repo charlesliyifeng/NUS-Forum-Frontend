@@ -1,11 +1,10 @@
+import Item from "./Item";
 import Thread from "../types/Thread";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { styled } from "@mui/material/styles";
 
 import { Link } from "react-router-dom";
 import React from "react";
@@ -16,14 +15,6 @@ const cardStyle = {
     width: "100%",
     height: "15vw",
 };
-
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: "#000000",
-}));
 
 // helper function to format views
 function formatViews(views: number): string {

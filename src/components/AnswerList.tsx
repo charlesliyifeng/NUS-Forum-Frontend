@@ -1,10 +1,12 @@
 import VoteDisplay from "./VoteDisplay";
 import AnswerItem from "./AnswerItem";
+import Item from "./Item";
 import Thread from "../types/Thread";
 import Answer from "../types/Answer";
 import React, { useState } from "react";
 
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -52,7 +54,6 @@ const AnswerList: React.FC<Props> = ({ thread, handleThreadVoteChange }) => {
         votes: 1,
         accepted: false,
     };
-    const [Answers, setAnswers] = useState(answers);
 
     function handleAnswerVoteChange(answerID: string, change: number) {
         // update vote of target answer
@@ -68,14 +69,13 @@ const AnswerList: React.FC<Props> = ({ thread, handleThreadVoteChange }) => {
         // update backend
     }
 
-    /*
-    function fetchAnswers() {
+    function fetchAnswers(): Answer[] {
         // fetch answers from backend
         const newAnswers = structuredClone(answers);
-        setAnswers(newAnswers);
+        return newAnswers;
     }
 
-    //fetchAnswers();*/
+    const [Answers, setAnswers] = useState(fetchAnswers());
 
     return (
         <Box className="centerBox" sx={{ flexGrow: 1, p: 3 }} top={80}>
@@ -90,6 +90,13 @@ const AnswerList: React.FC<Props> = ({ thread, handleThreadVoteChange }) => {
                             <Typography>
                                 by {thread.author} on {thread.timestamp.toLocaleString()}
                             </Typography>
+                            <Stack direction="row" spacing={1} paddingTop={1} paddingBottom={1}>
+                                {thread.tags.map((tag: string) => (
+                                    <Item sx={{ backgroundColor: "#777", color: "#fff" }} key={tag}>
+                                        {tag}
+                                    </Item>
+                                ))}
+                            </Stack>
                             <Divider />
                             <Typography p={1}>{thread.body}</Typography>
                         </Box>

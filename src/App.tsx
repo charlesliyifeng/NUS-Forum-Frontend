@@ -2,6 +2,7 @@ import Home from "./pages/Home";
 import ThreadView from "./pages/ThreadView";
 import AskQuestion from "./pages/AskQuestion";
 import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 import Thread from "./types/Thread";
 
 import React, { useState } from "react";
@@ -56,6 +57,7 @@ const App: React.FC = () => {
                         />
                         <Route path="/askQuestion" element={<AskQuestion />} />
                         <Route path="/login" element={<LoginPage />} />
+                        <Route path="/signup" element={<SignupPage />} />
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>
