@@ -15,7 +15,7 @@ const ThreadView: React.FC<Props> = ({ thread, handleVoteChange }) => {
         <Box display={"flex"}>
             <SearchBar />
             <SideBar />
-            <AnswerList thread={thread} handleVoteChange={handleVoteChange} />
+            <AnswerList thread={thread} handleThreadVoteChange={handleVoteChange} />
         </Box>
     );
 };

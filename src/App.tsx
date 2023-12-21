@@ -1,6 +1,7 @@
 import Home from "./pages/Home";
 import ThreadView from "./pages/ThreadView";
 import AskQuestion from "./pages/AskQuestion";
+import LoginPage from "./pages/LoginPage";
 import Thread from "./types/Thread";
 
 import React, { useState } from "react";
@@ -27,6 +28,7 @@ const emptyThread: Thread = {
     accepted: false,
     answers: 0,
     views: 0,
+    tags: [],
 };
 
 const App: React.FC = () => {
@@ -53,6 +55,7 @@ const App: React.FC = () => {
                             element={<ThreadView thread={currentThread} handleVoteChange={handleVoteChange} />}
                         />
                         <Route path="/askQuestion" element={<AskQuestion />} />
+                        <Route path="/login" element={<LoginPage />} />
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>

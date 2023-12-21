@@ -18,7 +18,7 @@ const cardStyle = {
 };
 
 const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+    backgroundColor: "#fff",
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: "center",
@@ -67,6 +67,13 @@ const ThreadCard: React.FC<Props> = ({ thread, handleThreadClick }) => {
                                 answers: {thread.answers}
                             </Item>
                             <Item>views: {formatViews(thread.views)}</Item>
+                        </Stack>
+                        <Stack direction="row" spacing={1} paddingTop={2}>
+                            {thread.tags.map((tag: string) => (
+                                <Item sx={{ backgroundColor: "#777", color: "#fff" }} key={tag}>
+                                    {tag}
+                                </Item>
+                            ))}
                         </Stack>
                     </Box>
                 </CardContent>

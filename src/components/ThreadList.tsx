@@ -27,6 +27,7 @@ const ThreadList: React.FC<Props> = ({ handleThreadClick }) => {
         answers: 1,
         accepted: false,
         views: 1000000000,
+        tags: ["python", "testing"],
     };
     Threads[1] = {
         id: "2",
@@ -38,6 +39,7 @@ const ThreadList: React.FC<Props> = ({ handleThreadClick }) => {
         answers: 2,
         accepted: true,
         views: 1000,
+        tags: ["C++", "testing"],
     };
     Threads[2] = {
         id: "3",
@@ -49,6 +51,7 @@ const ThreadList: React.FC<Props> = ({ handleThreadClick }) => {
         answers: 1,
         accepted: false,
         views: 100,
+        tags: ["games", "NUS"],
     };
 
     return (

@@ -79,7 +79,9 @@ export default function SearchBar() {
                     />
                 </Search>
                 <Box position={"relative"} left={300}>
-                    <BootstrapButton variant="outlined">Login</BootstrapButton>
+                    <BootstrapButton variant="outlined" href="/login">
+                        Login
+                    </BootstrapButton>
                 </Box>
             </Toolbar>
         </AppBar>

@@ -8,6 +8,7 @@ type Thread = {
     answers: number;
     accepted: boolean;
     views: number;
+    tags: string[];
 };
 
 export default Thread;
