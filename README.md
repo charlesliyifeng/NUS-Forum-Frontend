@@ -67,7 +67,6 @@ Main directories/files to note:
 -   `.eslintrc.js` contains the configuration for ESLint. ESLint is a tool to help enforce code consistency.
 -   `.prettierrc.js` contains the configuration for Prettier. Prettier is a tool to help format code.
 
-Try changing some source code and see how the app changes.
 
 ## Additional Notes
 

@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const drawerWidth: number = 150;
 
-export default function SideBar() {
+const SideBar: React.FC = () => {
     const navigate = useNavigate();
 
     const listItem = [
@@ -52,4 +52,6 @@ export default function SideBar() {
             </Box>
         </Drawer>
     );
-}
+};
+
+export default SideBar;

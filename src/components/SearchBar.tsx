@@ -63,7 +63,16 @@ const BootstrapButton = styled(Button)({
     },
 });
 
-export default function SearchBar() {
+const SearchBar: React.FC = () => {
+    function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
+        if (event.key === "Enter") {
+            const value: string = event.currentTarget.value;
+            if (value) {
+                alert(value);
+            }
+        }
+    }
+
     return (
         <AppBar position={"fixed"} sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
             <Toolbar>
@@ -86,13 +95,6 @@ export default function SearchBar() {
             </Toolbar>
         </AppBar>
     );
-}
+};
 
-function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
-    if (event.key === "Enter") {
-        const value: string = event.currentTarget.value;
-        if (value) {
-            alert(value);
-        }
-    }
-}
+export default SearchBar;
