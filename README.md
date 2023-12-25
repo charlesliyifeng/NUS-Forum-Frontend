@@ -1,6 +1,6 @@
-# NUS-Forum
+# NUS-Forum-Frontend
 
-A forum dedicated to NUS students
+This is the frontend of NUS-Forum.
 
 ## TODO list
 
