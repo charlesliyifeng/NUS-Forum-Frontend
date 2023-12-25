@@ -22,7 +22,7 @@ const AskQuestionForm: React.FC = () => {
         setContent(inputContent);
     }
 
-    function handleSubmit(_event: React.MouseEvent<HTMLButtonElement>) {
+    function handleSubmit() {
         const newThread: Thread = {
             id: "999",
             title: title,
@@ -35,7 +35,6 @@ const AskQuestionForm: React.FC = () => {
             views: 0,
             tags: tags,
         };
-        _event;
         newThread;
     }
 
@@ -48,20 +47,24 @@ const AskQuestionForm: React.FC = () => {
             <Typography variant="h4" padding={2}>
                 Ask a question
             </Typography>
+
             <Typography variant="h6" display="block" padding={1}>
                 Title
             </Typography>
-            <TextField id="title" placeholder="Enter your question here" onChange={handleTitleChange} />
+            <TextField id="title" required placeholder="Enter your question here" onChange={handleTitleChange} />
+
             <Typography variant="h6" display="block" padding={1}>
                 Problem Details
             </Typography>
             <TextField
                 id="body"
                 multiline
+                required
                 rows={8}
                 placeholder="Describe the details of your question here"
                 onChange={handleContentChange}
             />
+
             <Typography variant="h6" display="block" padding={1}>
                 Tags
             </Typography>

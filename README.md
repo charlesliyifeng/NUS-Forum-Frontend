@@ -5,14 +5,24 @@ A forum dedicated to NUS students
 ## TODO list
 
 ### Frontend
-- Ask Questions page
-- Thread page
-    - voting
+(CRUD)
+- Threads
     - accept answer
-- add tags
-- sign-in page
+    - edit threads
+    - delete threads
+- Answers
+    - create answer
+    - edit answers
+    - delete answer
+- Comments
+    - create comments
+    - read comments
+    - update comments
+    - delete comments
+
 
 ### Backend
+- API integration
 - Database
     - threads
     - answers

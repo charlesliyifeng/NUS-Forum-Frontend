@@ -1,5 +1,6 @@
 import VoteDisplay from "./VoteDisplay";
 import AnswerItem from "./AnswerItem";
+import EditBar from "./EditBar";
 import Item from "./Item";
 import Thread from "../types/Thread";
 import Answer from "../types/Answer";
@@ -11,6 +12,8 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
+import TextField from "@mui/material/TextField";
+import { Button } from "@mui/material";
 
 // props for AnswerList
 type Props = {
@@ -25,7 +28,6 @@ const AnswerList: React.FC<Props> = ({ thread, handleThreadVoteChange }) => {
         - AnswerItems
     */
 
-    // get answers from backend and set as initial state
     const answers: Answer[] = [];
     answers[0] = {
         answerID: "1",
@@ -55,6 +57,20 @@ const AnswerList: React.FC<Props> = ({ thread, handleThreadVoteChange }) => {
         accepted: false,
     };
 
+    const [Answers, setAnswers] = useState(fetchAnswers());
+    const [userAnswer, setUserAnswer] = useState("");
+
+    function fetchAnswers(): Answer[] {
+        // get answers from backend and set as initial state
+        const newAnswers = structuredClone(answers);
+        return newAnswers;
+    }
+
+    function handleUserAnswerChange(event: React.ChangeEvent<HTMLInputElement>) {
+        const text: string = event.target.value;
+        setUserAnswer(text);
+    }
+
     function handleAnswerVoteChange(answerID: string, change: number) {
         // update vote of target answer
         const newAnswers: Answer[] = [];
@@ -69,46 +85,73 @@ const AnswerList: React.FC<Props> = ({ thread, handleThreadVoteChange }) => {
         // update backend
     }
 
-    function fetchAnswers(): Answer[] {
-        // fetch answers from backend
-        const newAnswers = structuredClone(answers);
-        return newAnswers;
+    function handleUserAnswerSubmit() {
+        if (userAnswer) {
+            // update backend
+        } else {
+            alert("Your answer cannot be empty");
+        }
     }
-
-    const [Answers, setAnswers] = useState(fetchAnswers());
 
     return (
         <Box className="centerBox" sx={{ flexGrow: 1, p: 3 }} top={80}>
-            <Card variant="outlined">
-                <CardContent>
-                    <Box display={"flex"} flexDirection={"row"}>
-                        <VoteDisplay votes={thread.votes} accepted={false} handleVoteChange={handleThreadVoteChange} />
-                        <Box display={"flex"} flexDirection={"column"} width="100%">
-                            <Typography variant="h5" p={0}>
-                                {thread.title}
-                            </Typography>
-                            <Typography>
-                                by {thread.author} on {thread.timestamp.toLocaleString()}
-                            </Typography>
-                            <Stack direction="row" spacing={1} paddingTop={1} paddingBottom={1}>
-                                {thread.tags.map((tag: string) => (
-                                    <Item sx={{ backgroundColor: "#777", color: "#fff" }} key={tag}>
-                                        {tag}
-                                    </Item>
-                                ))}
-                            </Stack>
-                            <Divider />
-                            <Typography p={1}>{thread.body}</Typography>
+            <Box padding={1}>
+                <Card variant="outlined">
+                    <CardContent>
+                        <Box display={"flex"} flexDirection={"row"}>
+                            <VoteDisplay
+                                votes={thread.votes}
+                                accepted={false}
+                                handleVoteChange={handleThreadVoteChange}
+                            />
+                            <Box display={"flex"} flexDirection={"column"} width="100%">
+                                <Typography variant="h5" p={0}>
+                                    {thread.title}
+                                </Typography>
+                                <Typography>
+                                    by {thread.author} on {thread.timestamp.toLocaleString()}
+                                </Typography>
+                                <Stack direction="row" spacing={1} paddingTop={1} paddingBottom={1}>
+                                    {thread.tags.map((tag: string) => (
+                                        <Item sx={{ backgroundColor: "#777", color: "#fff" }} key={tag}>
+                                            {tag}
+                                        </Item>
+                                    ))}
+                                </Stack>
+                                <Divider />
+                                <Typography p={1} minHeight="3vw">
+                                    {thread.body}
+                                </Typography>
+                                <EditBar />
+                            </Box>
                         </Box>
-                    </Box>
-                </CardContent>
-            </Card>
+                    </CardContent>
+                </Card>
+            </Box>
             <Typography variant="h5" padding={2}>
                 Answers
             </Typography>
             {Answers.map((answer: Answer) => (
                 <AnswerItem answer={answer} handleVoteChange={handleAnswerVoteChange} key={answer.threadID} />
             ))}
+            <Typography variant="h5" padding={2}>
+                Your Answer
+            </Typography>
+            <Box padding={1} sx={{ "& .MuiTextField-root": { width: "100ch" } }}>
+                <TextField
+                    id="body"
+                    multiline
+                    required
+                    rows={8}
+                    placeholder="Write your answer here"
+                    onChange={handleUserAnswerChange}
+                />
+                <Box position="relative" top={10} alignContent="center">
+                    <Button variant="contained" onClick={handleUserAnswerSubmit}>
+                        Post Answer
+                    </Button>
+                </Box>
+            </Box>
         </Box>
     );
 };

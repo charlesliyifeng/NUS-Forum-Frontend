@@ -1,4 +1,5 @@
 import VoteDisplay from "./VoteDisplay";
+import EditBar from "./EditBar";
 import Answer from "../types/Answer";
 
 import React from "react";
@@ -25,9 +26,10 @@ const AnswerItem: React.FC<Props> = ({ answer, handleVoteChange }) => {
                                 by {answer.author} on {answer.timestamp.toLocaleString()}
                             </Typography>
                             <Divider />
-                            <Typography p={1} component="div">
+                            <Typography p={1} minHeight="7vw">
                                 {answer.body}
                             </Typography>
+                            <EditBar />
                         </Box>
                     </Box>
                 </CardContent>
