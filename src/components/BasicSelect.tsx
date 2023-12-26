@@ -17,7 +17,6 @@ type Props = {
 const BasicSelect: React.FC<Props> = ({ placeholder, choices }) => {
     const [value, setValue] = React.useState("");
 
-    /* eslint-disable-next-line */
     const handleChange = (event: SelectChangeEvent) => {
         setValue(event.target.value as string);
     };

@@ -109,7 +109,7 @@ const AnswerList: React.FC<Props> = ({ thread, handleThreadVoteChange }) => {
                                     {thread.title}
                                 </Typography>
                                 <Typography>
-                                    by {thread.author} on {thread.timestamp.toLocaleString()}
+                                    by {thread.author} on {thread.created_at}
                                 </Typography>
                                 <Stack direction="row" spacing={1} paddingTop={1} paddingBottom={1}>
                                     {thread.tags.map((tag: string) => (

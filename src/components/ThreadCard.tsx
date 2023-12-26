@@ -16,7 +16,7 @@ const cardStyle = {
     height: "15vw",
 };
 
-// helper function to format views
+// helper functions to format views
 function formatViews(views: number): string {
     const postfix: string[] = ["", "k", "M", "B"];
     let index: number = 0;
@@ -45,7 +45,7 @@ const ThreadCard: React.FC<Props> = ({ thread, handleThreadClick }) => {
                             </Link>
                         </Typography>
                         <Typography color="text-secondary">
-                            by {thread.author} on {thread.timestamp.toLocaleString()}
+                            by {thread.author} on {thread.created_at}
                         </Typography>
                         <Stack direction="row" spacing={1}>
                             <Item>votes: {thread.votes}</Item>

@@ -1,9 +1,10 @@
 type Thread = {
-    id: string;
+    id: number;
     title: string;
     body: string;
     author: string;
-    timestamp: Date;
+    created_at: string;
+    updated_at: string;
     votes: number;
     answers: number;
     accepted: boolean;

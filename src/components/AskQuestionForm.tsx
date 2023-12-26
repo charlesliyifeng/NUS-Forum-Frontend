@@ -24,11 +24,12 @@ const AskQuestionForm: React.FC = () => {
 
     function handleSubmit() {
         const newThread: Thread = {
-            id: "999",
+            id: 0,
             title: title,
             body: content,
             author: "tester",
-            timestamp: new Date(),
+            created_at: "",
+            updated_at: "",
             votes: 0,
             answers: 0,
             accepted: false,

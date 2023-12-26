@@ -20,11 +20,12 @@ const theme = createTheme({
 
 // init currentThread state
 const emptyThread: Thread = {
-    id: "",
+    id: 0,
     title: "",
     body: "",
     author: "",
-    timestamp: new Date(),
+    created_at: "",
+    updated_at: "",
     votes: 0,
     accepted: false,
     answers: 0,
