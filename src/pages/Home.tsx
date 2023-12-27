@@ -1,6 +1,6 @@
 import SearchBar from "../components/SearchBar";
 import SideBar from "../components/SideBar";
-import ThreadList from "../components/ThreadList";
+import QuestionList from "../components/QuestionList";
 import { Box } from "@mui/material";
 import React from "react";
 
@@ -9,7 +9,7 @@ const Home: React.FC = () => {
         <Box display={"flex"}>
             <SearchBar />
             <SideBar />
-            <ThreadList />
+            <QuestionList />
         </Box>
     );
 };

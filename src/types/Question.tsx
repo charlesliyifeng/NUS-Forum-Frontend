@@ -1,4 +1,4 @@
-type Thread = {
+type Question = {
     id: number;
     title: string;
     body: string;
@@ -12,4 +12,4 @@ type Thread = {
     tags: string[];
 };
 
-export default Thread;
+export default Question;

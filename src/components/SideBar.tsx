@@ -19,12 +19,12 @@ const SideBar: React.FC = () => {
             onclick: () => navigate("/"),
         },
         {
-            text: "History",
-            onclick: () => navigate("/thread/1"),
+            text: "Questions",
+            onclick: () => navigate("/question"),
         },
         {
             text: "Tags",
-            onclick: () => navigate("/thread/1"),
+            onclick: () => navigate("/question/1"),
         },
     ];
 

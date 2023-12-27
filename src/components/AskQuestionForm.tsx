@@ -1,5 +1,5 @@
 import TagInput from "./TagInput";
-import Thread from "../types/Thread";
+import Question from "../types/Question";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -31,7 +31,7 @@ const AskQuestionForm: React.FC = () => {
             alert("Your body cannot be empty");
             return;
         }
-        const newThread: Thread = {
+        const newQuestion: Question = {
             id: 0,
             title: title,
             body: content,
@@ -44,7 +44,7 @@ const AskQuestionForm: React.FC = () => {
             views: 0,
             tags: tags,
         };
-        newThread;
+        newQuestion;
     }
 
     return (

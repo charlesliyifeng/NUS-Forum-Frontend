@@ -1,10 +1,5 @@
 import client from "./client";
-import Thread from "../../types/Thread";
-
-/*
-    Note: 'Thread' in frontend is the same as 'Question' in backend.
-    'Question' was used because 'Thread' is a reserved word in rails.
-*/
+import Question from "../../types/Question";
 
 // input/output param types
 type inputParams = {
@@ -32,8 +27,8 @@ type outputParams = {
     tags: string;
 };
 
-// helper functions to serialize/deserialize threads
-function serialize(t: Thread): outputParams {
+// helper functions to serialize/deserialize questions
+function serialize(t: Question): outputParams {
     const p: outputParams = {
         title: t.title,
         body: t.body,
@@ -48,8 +43,8 @@ function serialize(t: Thread): outputParams {
     return p;
 }
 
-function deserialize(params: inputParams): Thread {
-    const t: Thread = {
+function deserialize(params: inputParams): Question {
+    const t: Question = {
         id: params.id,
         title: params.title,
         body: params.body,
@@ -66,40 +61,40 @@ function deserialize(params: inputParams): Thread {
     return t;
 }
 
-function deserializeList(data: inputParams[]): Thread[] {
-    const threads: Thread[] = [];
+function deserializeList(data: inputParams[]): Question[] {
+    const questions: Question[] = [];
     data.forEach((params: inputParams) => {
-        const t: Thread = deserialize(params);
-        threads.push(t);
+        const t: Question = deserialize(params);
+        questions.push(t);
     });
-    return threads;
+    return questions;
 }
 
 // get
-export const getThreadList = () => {
+export const getQuestionList = () => {
     const response = client.get("/questions");
     return response.then((res) => deserializeList(res.data)).catch((err) => console.error(err));
 };
 
 // detail
-export const getThreadDetail = (id: number) => {
+export const getQuestionDetail = (id: number) => {
     const response = client.get(`/questions/${id}`);
     return response.then((res) => deserialize(res.data)).catch((err) => console.error(err));
 };
 
 // create
-export const createThread = (t: Thread) => {
+export const createQuestion = (t: Question) => {
     const params: outputParams = serialize(t);
     return client.post("/questions", params);
 };
 
 // update
-export const updateThread = (id: number, t: Thread) => {
+export const updateQuestion = (id: number, t: Question) => {
     const params: outputParams = serialize(t);
     return client.put(`/questions/${id}`, params);
 };
 
 // delete
-export const deleteThread = (id: number) => {
+export const deleteQuestion = (id: number) => {
     return client.delete(`/questions/${id}`);
 };

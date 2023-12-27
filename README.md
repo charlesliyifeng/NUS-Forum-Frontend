@@ -6,10 +6,10 @@ This is the frontend of NUS-Forum.
 
 ### Frontend
 (CRUD)
-- Threads
+- Questions
     - accept answer
-    - edit threads
-    - delete threads
+    - edit questions
+    - delete questions
 - Answers
     - create answer
     - edit answers
@@ -24,7 +24,7 @@ This is the frontend of NUS-Forum.
 ### Backend
 - API integration
 - Database
-    - threads
+    - questions
     - answers
     - users
 - search function

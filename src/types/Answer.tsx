@@ -1,6 +1,6 @@
 type Answer = {
     answerID: string;
-    threadID: string;
+    questionID: string;
     body: string;
     author: string;
     timestamp: Date;

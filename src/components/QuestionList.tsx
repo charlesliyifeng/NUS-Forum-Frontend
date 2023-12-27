@@ -1,7 +1,7 @@
-import ThreadCard from "./ThreadCard";
+import QuestionCard from "./QuestionCard";
 import BasicSelect from "./BasicSelect";
-import Thread from "../types/Thread";
-import { getThreadList } from "../lib/api/thread";
+import Question from "../types/Question";
+import { getQuestionList } from "../lib/api/question";
 import React, { useState, useEffect } from "react";
 
 import Box from "@mui/material/Box";
@@ -10,14 +10,14 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
-const ThreadList: React.FC = () => {
-    const [threads, setThreads] = useState<Thread[]>([]);
+const QuestionList: React.FC = () => {
+    const [questions, setQuestions] = useState<Question[]>([]);
 
-    // Fetch the list of threads from the API when the component mounts
+    // Fetch the list of questions from the API when the component mounts
     useEffect(() => {
-        getThreadList().then((data) => {
+        getQuestionList().then((data) => {
             if (data) {
-                setThreads(data);
+                setQuestions(data);
             }
         });
     }, []);
@@ -37,12 +37,12 @@ const ThreadList: React.FC = () => {
                 </Box>
             </Toolbar>
             <Box>
-                {threads.map((thread: Thread) => (
-                    <ThreadCard thread={thread} key={thread.id} />
+                {questions.map((question: Question) => (
+                    <QuestionCard question={question} key={question.id} />
                 ))}
             </Box>
         </Box>
     );
 };
 
-export default ThreadList;
+export default QuestionList;

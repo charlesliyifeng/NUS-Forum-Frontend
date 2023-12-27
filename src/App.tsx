@@ -1,5 +1,5 @@
 import Home from "./pages/Home";
-import ThreadView from "./pages/ThreadView";
+import QuestionView from "./pages/QuestionView";
 import AskQuestion from "./pages/AskQuestion";
 import EditQuestion from "./pages/EditQuestion";
 import LoginPage from "./pages/LoginPage";
@@ -26,7 +26,8 @@ const App: React.FC = () => {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/thread/:id" element={<ThreadView />} />
+                        <Route path="/question" element={<Home />} />
+                        <Route path="/question/:id" element={<QuestionView />} />
                         <Route path="/askQuestion" element={<AskQuestion />} />
                         <Route path="/editQuestion/:id" element={<EditQuestion />} />
                         <Route path="/login" element={<LoginPage />} />

@@ -2,9 +2,9 @@ import VoteDisplay from "./VoteDisplay";
 import AnswerItem from "./AnswerItem";
 import EditBar from "./EditBar";
 import Item from "./Item";
-import Thread from "../types/Thread";
+import Question from "../types/Question";
 import Answer from "../types/Answer";
-import { getThreadDetail } from "../lib/api/thread";
+import { getQuestionDetail } from "../lib/api/question";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -27,7 +27,7 @@ const AnswerList: React.FC = () => {
     const answers: Answer[] = [];
     answers[0] = {
         answerID: "1",
-        threadID: "1",
+        questionID: "1",
         body: "yes, this is the body!",
         author: "Bob1",
         timestamp: new Date(2022, 10, 28, 10, 33, 30),
@@ -36,7 +36,7 @@ const AnswerList: React.FC = () => {
     };
     answers[1] = {
         answerID: "2",
-        threadID: "1",
+        questionID: "1",
         body: "testing is the worst thing in the world.",
         author: "Cat",
         timestamp: new Date(2022, 10, 28, 10, 33, 30),
@@ -45,7 +45,7 @@ const AnswerList: React.FC = () => {
     };
     answers[2] = {
         answerID: "3",
-        threadID: "1",
+        questionID: "1",
         body: "hello hello",
         author: "Alice",
         timestamp: new Date(2020, 12, 28, 10, 33, 2),
@@ -53,8 +53,8 @@ const AnswerList: React.FC = () => {
         accepted: false,
     };
 
-    // get thread ID from URL
-    function getThreadID(): number {
+    // get question ID from URL
+    function getQuestionID(): number {
         const { id } = useParams();
         if (id) {
             return +id;
@@ -63,12 +63,12 @@ const AnswerList: React.FC = () => {
         }
     }
 
-    const threadID: number = getThreadID();
-    console.log(threadID);
+    const questionID: number = getQuestionID();
+    console.log(questionID);
     // handle page not found
 
-    // init Thread state
-    const emptyThread: Thread = {
+    // init Question state
+    const emptyQuestion: Question = {
         id: 0,
         title: "",
         body: "",
@@ -82,22 +82,22 @@ const AnswerList: React.FC = () => {
         tags: [],
     };
 
-    const [thread, setThread] = useState<Thread>(emptyThread);
+    const [question, setQuestion] = useState<Question>(emptyQuestion);
     const [Answers, setAnswers] = useState<Answer[]>(answers);
     const [userAnswer, setUserAnswer] = useState("");
 
-    // Fetch the thread from the API when the component mounts
+    // Fetch the question from the API when the component mounts
     useEffect(() => {
-        getThreadDetail(threadID).then((data) => {
+        getQuestionDetail(questionID).then((data) => {
             if (data) {
-                setThread(data);
+                setQuestion(data);
             } else {
                 // handle error
             }
         });
     }, []);
 
-    function handleThreadVoteChange() {}
+    function handleQuestionVoteChange() {}
 
     function handleUserAnswerChange(event: React.ChangeEvent<HTMLInputElement>) {
         const text: string = event.target.value;
@@ -133,19 +133,19 @@ const AnswerList: React.FC = () => {
                     <CardContent>
                         <Box display={"flex"} flexDirection={"row"}>
                             <VoteDisplay
-                                votes={thread!.votes}
+                                votes={question!.votes}
                                 accepted={false}
-                                handleVoteChange={handleThreadVoteChange}
+                                handleVoteChange={handleQuestionVoteChange}
                             />
                             <Box display={"flex"} flexDirection={"column"} width="100%">
                                 <Typography variant="h5" p={0}>
-                                    {thread!.title}
+                                    {question!.title}
                                 </Typography>
                                 <Typography>
-                                    by {thread!.author} on {thread!.created_at}
+                                    by {question!.author} on {question!.created_at}
                                 </Typography>
                                 <Stack direction="row" spacing={1} paddingTop={1} paddingBottom={1}>
-                                    {thread!.tags.map((tag: string) => (
+                                    {question!.tags.map((tag: string) => (
                                         <Item sx={{ backgroundColor: "#777", color: "#fff" }} key={tag}>
                                             {tag}
                                         </Item>
@@ -153,7 +153,7 @@ const AnswerList: React.FC = () => {
                                 </Stack>
                                 <Divider />
                                 <Typography p={1} minHeight="3vw">
-                                    {thread!.body}
+                                    {question!.body}
                                 </Typography>
                                 <EditBar />
                             </Box>

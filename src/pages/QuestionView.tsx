@@ -4,7 +4,7 @@ import AnswerList from "../components/AnswerList";
 import { Box } from "@mui/material";
 import React from "react";
 
-const ThreadView: React.FC = () => {
+const QuestionView: React.FC = () => {
     return (
         <Box display={"flex"}>
             <SearchBar />
@@ -14,4 +14,4 @@ const ThreadView: React.FC = () => {
     );
 };
 
-export default ThreadView;
+export default QuestionView;
