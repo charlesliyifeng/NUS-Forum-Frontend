@@ -4,7 +4,9 @@ import EditBar from "./EditBar";
 import Item from "./Item";
 import Thread from "../types/Thread";
 import Answer from "../types/Answer";
-import React, { useState } from "react";
+import { getThreadDetail } from "../lib/api/thread";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -13,15 +15,9 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
+import Button from "@mui/material/Button";
 
-// props for AnswerList
-type Props = {
-    thread: Thread;
-    handleThreadVoteChange: (change: number) => void;
-};
-
-const AnswerList: React.FC<Props> = ({ thread, handleThreadVoteChange }) => {
+const AnswerList: React.FC = () => {
     /*
         Structure: 
         - Card containing question title and body
@@ -57,14 +53,51 @@ const AnswerList: React.FC<Props> = ({ thread, handleThreadVoteChange }) => {
         accepted: false,
     };
 
-    const [Answers, setAnswers] = useState(fetchAnswers());
+    // get thread ID from URL
+    function getThreadID(): number {
+        const { id } = useParams();
+        if (id) {
+            return +id;
+        } else {
+            return -1;
+        }
+    }
+
+    const threadID: number = getThreadID();
+    console.log(threadID);
+    // handle page not found
+
+    // init Thread state
+    const emptyThread: Thread = {
+        id: 0,
+        title: "",
+        body: "",
+        author: "",
+        created_at: "",
+        updated_at: "",
+        votes: 0,
+        accepted: false,
+        answers: 0,
+        views: 0,
+        tags: [],
+    };
+
+    const [thread, setThread] = useState<Thread>(emptyThread);
+    const [Answers, setAnswers] = useState<Answer[]>(answers);
     const [userAnswer, setUserAnswer] = useState("");
 
-    function fetchAnswers(): Answer[] {
-        // get answers from backend and set as initial state
-        const newAnswers = structuredClone(answers);
-        return newAnswers;
-    }
+    // Fetch the thread from the API when the component mounts
+    useEffect(() => {
+        getThreadDetail(threadID).then((data) => {
+            if (data) {
+                setThread(data);
+            } else {
+                // handle error
+            }
+        });
+    }, []);
+
+    function handleThreadVoteChange() {}
 
     function handleUserAnswerChange(event: React.ChangeEvent<HTMLInputElement>) {
         const text: string = event.target.value;
@@ -100,19 +133,19 @@ const AnswerList: React.FC<Props> = ({ thread, handleThreadVoteChange }) => {
                     <CardContent>
                         <Box display={"flex"} flexDirection={"row"}>
                             <VoteDisplay
-                                votes={thread.votes}
+                                votes={thread!.votes}
                                 accepted={false}
                                 handleVoteChange={handleThreadVoteChange}
                             />
                             <Box display={"flex"} flexDirection={"column"} width="100%">
                                 <Typography variant="h5" p={0}>
-                                    {thread.title}
+                                    {thread!.title}
                                 </Typography>
                                 <Typography>
-                                    by {thread.author} on {thread.created_at}
+                                    by {thread!.author} on {thread!.created_at}
                                 </Typography>
                                 <Stack direction="row" spacing={1} paddingTop={1} paddingBottom={1}>
-                                    {thread.tags.map((tag: string) => (
+                                    {thread!.tags.map((tag: string) => (
                                         <Item sx={{ backgroundColor: "#777", color: "#fff" }} key={tag}>
                                             {tag}
                                         </Item>
@@ -120,7 +153,7 @@ const AnswerList: React.FC<Props> = ({ thread, handleThreadVoteChange }) => {
                                 </Stack>
                                 <Divider />
                                 <Typography p={1} minHeight="3vw">
-                                    {thread.body}
+                                    {thread!.body}
                                 </Typography>
                                 <EditBar />
                             </Box>
@@ -132,7 +165,7 @@ const AnswerList: React.FC<Props> = ({ thread, handleThreadVoteChange }) => {
                 Answers
             </Typography>
             {Answers.map((answer: Answer) => (
-                <AnswerItem answer={answer} handleVoteChange={handleAnswerVoteChange} key={answer.threadID} />
+                <AnswerItem answer={answer} handleVoteChange={handleAnswerVoteChange} key={answer.answerID} />
             ))}
             <Typography variant="h5" padding={2}>
                 Your Answer

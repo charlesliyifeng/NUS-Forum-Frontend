@@ -30,17 +30,16 @@ function formatViews(views: number): string {
 // props for threadcard
 type Props = {
     thread: Thread;
-    handleThreadClick: (thread: Thread) => void;
 };
 
-const ThreadCard: React.FC<Props> = ({ thread, handleThreadClick }) => {
+const ThreadCard: React.FC<Props> = ({ thread }) => {
     return (
         <Box padding={1}>
             <Card variant="outlined" style={cardStyle}>
                 <CardContent>
                     <Box display={"flex"} flexDirection={"column"}>
                         <Typography variant="h5" component="div">
-                            <Link to="/thread/1" className="link" onClick={() => handleThreadClick(thread)}>
+                            <Link to={`/thread/${thread.id}`} className="link">
                                 {thread.title}
                             </Link>
                         </Typography>

@@ -23,6 +23,14 @@ const AskQuestionForm: React.FC = () => {
     }
 
     function handleSubmit() {
+        if (!title) {
+            alert("Your title cannot be empty");
+            return;
+        }
+        if (!content) {
+            alert("Your body cannot be empty");
+            return;
+        }
         const newThread: Thread = {
             id: 0,
             title: title,
@@ -70,10 +78,17 @@ const AskQuestionForm: React.FC = () => {
                 Tags
             </Typography>
             <TagInput tags={tags} setTags={setTags} />
-            <Box padding={1} position="relative" top={10} alignContent="center">
-                <Button variant="contained" onClick={handleSubmit}>
-                    Submit
-                </Button>
+            <Box display={"flex"} flexDirection={"row"} padding={1}>
+                <Box paddingRight={2}>
+                    <Button variant="contained" onClick={handleSubmit} href="/">
+                        Submit
+                    </Button>
+                </Box>
+                <Box>
+                    <Button variant="outlined" href="/">
+                        Cancel
+                    </Button>
+                </Box>
             </Box>
         </Box>
     );
