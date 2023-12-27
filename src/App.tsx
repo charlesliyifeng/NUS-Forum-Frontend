@@ -4,6 +4,7 @@ import AskQuestion from "./pages/AskQuestion";
 import EditQuestion from "./pages/EditQuestion";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import NotFound from "./pages/NotFound";
 
 import React from "react";
 import "./App.css";
@@ -30,6 +31,7 @@ const App: React.FC = () => {
                         <Route path="/editQuestion/:id" element={<EditQuestion />} />
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/signup" element={<SignupPage />} />
+                        <Route path="*" element={<NotFound />} />
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>
