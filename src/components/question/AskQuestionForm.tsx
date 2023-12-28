@@ -1,5 +1,5 @@
 import TagInput from "../TagInput";
-import Question from "../../types/Question";
+import { Question, emptyQuestion } from "../../types/Question";
 import { createQuestion } from "../../lib/api/question";
 
 import React, { useState } from "react";
@@ -11,46 +11,53 @@ import Button from "@mui/material/Button";
 
 const AskQuestionForm: React.FC = () => {
     const navigate = useNavigate();
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
-    const [tags, setTags] = useState<string[]>([]);
+    const [question, setQuestion] = useState<Question>(emptyQuestion);
 
     function handleTitleChange(event: React.ChangeEvent<HTMLInputElement>) {
         const inputTitle: string = event.target.value;
-        setTitle(inputTitle);
+        const newQuestion: Question = structuredClone(question);
+        newQuestion.title = inputTitle;
+        setQuestion(newQuestion);
     }
 
     function handleContentChange(event: React.ChangeEvent<HTMLInputElement>) {
         const inputContent: string = event.target.value;
-        setContent(inputContent);
+        const newQuestion: Question = structuredClone(question);
+        newQuestion.body = inputContent;
+        setQuestion(newQuestion);
+    }
+
+    // Function to handle changes in input fields
+    function handleChange(event: React.ChangeEvent<HTMLInputElement> | "tags", newTags: string[] = []) {
+        // handle Change for input element
+        if (event !== "tags") {
+            const { name, value } = event.target;
+            // Update the state with the new value for the corresponding input field
+            setQuestion((prev) => ({
+                ...prev,
+                [name]: value,
+            }));
+        } else {
+            setQuestion((prev) => ({
+                ...prev,
+                tags: newTags,
+            }));
+        }
     }
 
     async function handleSubmit() {
-        if (!title) {
+        if (!question!.title) {
             alert("Your title cannot be empty");
             return;
         }
-        if (!content) {
+        if (!question!.body) {
             alert("Your body cannot be empty");
             return;
         }
-        const newQuestion: Question = {
-            id: 0,
-            title: title,
-            body: content,
-            author: "tester",
-            created_at: "",
-            updated_at: "",
-            votes: 0,
-            answers: 0,
-            accepted: false,
-            views: 0,
-            tags: tags,
-        };
 
         try {
             // create new question through API
-            await createQuestion(newQuestion);
+            await createQuestion(question!);
             navigate("/question");
         } catch (error) {
             console.error(error);
@@ -87,7 +94,7 @@ const AskQuestionForm: React.FC = () => {
             <Typography variant="h6" display="block" padding={1}>
                 Tags
             </Typography>
-            <TagInput tags={tags} setTags={setTags} />
+            <TagInput tags={question.tags} setTags={handleChange} />
             <Box display={"flex"} flexDirection={"row"} padding={1}>
                 <Box paddingRight={2}>
                     <Button variant="contained" onClick={handleSubmit}>

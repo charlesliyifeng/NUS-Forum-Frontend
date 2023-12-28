@@ -2,7 +2,7 @@ import AnswerItem from "./AnswerItem";
 import VoteDisplay from "../VoteDisplay";
 import EditBar from "../EditBar";
 import Item from "../Item";
-import Question from "../../types/Question";
+import { Question } from "../../types/Question";
 import Answer from "../../types/Answer";
 import { getQuestionDetail } from "../../lib/api/question";
 import React, { useState, useEffect } from "react";

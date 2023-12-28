@@ -1,4 +1,4 @@
-type Question = {
+export type Question = {
     id: number;
     title: string;
     body: string;
@@ -12,4 +12,16 @@ type Question = {
     tags: string[];
 };
 
-export default Question;
+export const emptyQuestion: Question = {
+    id: 0,
+    title: "",
+    body: "",
+    author: "",
+    created_at: "",
+    updated_at: "",
+    votes: 0,
+    answers: 0,
+    accepted: false,
+    views: 0,
+    tags: [],
+};

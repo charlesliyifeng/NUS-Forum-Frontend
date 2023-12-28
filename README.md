@@ -7,27 +7,31 @@ This is the frontend of NUS-Forum.
 ### Frontend
 (CRUD)
 - Questions
-    - accept answer
-    - edit questions
-    - delete questions
+    - separate input handle change and setTags
+    - question form
 - Answers
     - create answer
+    - read answer
     - edit answers
     - delete answer
+    - accept answer
 - Comments
     - create comments
     - read comments
     - update comments
     - delete comments
 
+- Bugs
+    - empty tags = dots
+    - no line breaks
 
 ### Backend
-- API integration
 - Database
     - questions
     - answers
     - users
 - search function
+- account-based authentication
 
 ## Getting Started
 

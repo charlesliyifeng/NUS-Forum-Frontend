@@ -1,5 +1,5 @@
 import client from "./client";
-import Question from "../../types/Question";
+import { Question } from "../../types/Question";
 
 // input/output param types
 type inputParams = {
