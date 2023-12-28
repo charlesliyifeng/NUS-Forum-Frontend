@@ -22,6 +22,7 @@ const AnswerList: React.FC = () => {
         Structure: 
         - Card containing question title and body
         - AnswerItems
+        - user answer
     */
 
     const answers: Answer[] = [];
@@ -159,7 +160,7 @@ const AnswerList: React.FC = () => {
             </Typography>
             <Box padding={1} sx={{ "& .MuiTextField-root": { width: "100ch" } }}>
                 <TextField
-                    id="body"
+                    id="userAnswer"
                     multiline
                     required
                     rows={8}

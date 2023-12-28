@@ -13,6 +13,8 @@ const EditQuestionForm: React.FC = () => {
     const [content, setContent] = useState("");
     const [tags, setTags] = useState<string[]>([]);
 
+    // get question from backend
+
     function handleTitleChange(event: React.ChangeEvent<HTMLInputElement>) {
         const inputTitle: string = event.target.value;
         setTitle(inputTitle);

@@ -1,14 +1,16 @@
 import TagInput from "../TagInput";
 import Question from "../../types/Question";
+import { createQuestion } from "../../lib/api/question";
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 const AskQuestionForm: React.FC = () => {
+    const navigate = useNavigate();
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [tags, setTags] = useState<string[]>([]);
@@ -23,7 +25,7 @@ const AskQuestionForm: React.FC = () => {
         setContent(inputContent);
     }
 
-    function handleSubmit() {
+    async function handleSubmit() {
         if (!title) {
             alert("Your title cannot be empty");
             return;
@@ -45,7 +47,14 @@ const AskQuestionForm: React.FC = () => {
             views: 0,
             tags: tags,
         };
-        newQuestion;
+
+        try {
+            // create new question through API
+            await createQuestion(newQuestion);
+            navigate("/question");
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (

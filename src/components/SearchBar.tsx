@@ -82,6 +82,7 @@ const SearchBar: React.FC = () => {
                         <SearchIcon />
                     </SearchIconWrapper>
                     <StyledInputBase
+                        id="search"
                         placeholder={"Search…"}
                         inputProps={{ "aria-label": "search" }}
                         onKeyDown={handleKeyPress}
