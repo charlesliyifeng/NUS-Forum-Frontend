@@ -1,6 +1,6 @@
 import SearchBar from "../components/SearchBar";
 import SideBar from "../components/SideBar";
-import QuestionList from "../components/QuestionList";
+import QuestionList from "../components/question/QuestionList";
 import { Box } from "@mui/material";
 import React from "react";
 

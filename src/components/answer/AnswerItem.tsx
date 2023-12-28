@@ -1,6 +1,6 @@
-import VoteDisplay from "./VoteDisplay";
-import EditBar from "./EditBar";
-import Answer from "../types/Answer";
+import VoteDisplay from "../VoteDisplay";
+import EditBar from "../EditBar";
+import Answer from "../../types/Answer";
 
 import React from "react";
 import { Box, Card, CardContent, Typography, Divider } from "@mui/material";

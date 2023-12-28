@@ -3,37 +3,38 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 // props for EditBar
 // display each button conditionally
 type Props = {
-    handleEdit?: React.MouseEventHandler<HTMLButtonElement>;
-    handleDelete?: React.MouseEventHandler<HTMLButtonElement>;
-    handleComment?: React.MouseEventHandler<HTMLButtonElement>;
-    handleAccept?: React.MouseEventHandler<HTMLButtonElement>;
+    allowEdit?: boolean;
+    allowDelete?: boolean;
+    allowComment?: boolean;
+    allowAccept?: boolean;
 };
 
 const EditBar: React.FC<Props> = (props) => {
     return (
         <Box paddingTop={1}>
             <Stack direction="row">
-                {props.handleEdit !== undefined ? (
-                    <Button variant="text" onClick={props.handleEdit}>
+                {props.allowEdit ? (
+                    <Button variant="text" component={Link} to="edit" relative="path">
                         Edit
                     </Button>
                 ) : null}
-                {props.handleDelete !== undefined ? (
-                    <Button variant="text" onClick={props.handleDelete}>
+                {props.allowDelete ? (
+                    <Button variant="text" component={Link} to="delete" relative="path">
                         Delete
                     </Button>
                 ) : null}
-                {props.handleComment !== undefined ? (
-                    <Button variant="text" onClick={props.handleComment}>
+                {props.allowComment ? (
+                    <Button variant="text" component={Link} to="/" relative="path">
                         Comment
                     </Button>
                 ) : null}
-                {props.handleAccept !== undefined ? (
-                    <Button variant="text" onClick={props.handleAccept}>
+                {props.allowAccept ? (
+                    <Button variant="text" component={Link} to="/" relative="path">
                         Accept
                     </Button>
                 ) : null}
@@ -43,10 +44,10 @@ const EditBar: React.FC<Props> = (props) => {
 };
 
 EditBar.defaultProps = {
-    handleEdit: undefined,
-    handleDelete: undefined,
-    handleComment: undefined,
-    handleAccept: undefined,
+    allowEdit: false,
+    allowDelete: false,
+    allowComment: false,
+    allowAccept: false,
 };
 
 export default EditBar;

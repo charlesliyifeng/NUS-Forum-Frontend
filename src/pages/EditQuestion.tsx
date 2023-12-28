@@ -1,6 +1,6 @@
 import SearchBar from "../components/SearchBar";
 import SideBar from "../components/SideBar";
-import EditQuestionForm from "../components/EditQuestionForm";
+import EditQuestionForm from "../components/question/EditQuestionForm";
 import { Box } from "@mui/material";
 import React from "react";
 

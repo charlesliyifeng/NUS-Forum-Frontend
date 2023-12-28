@@ -1,11 +1,12 @@
-import TagInput from "./TagInput";
-import Question from "../types/Question";
+import TagInput from "../TagInput";
+import Question from "../../types/Question";
+
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-
-import React, { useState } from "react";
 
 const AskQuestionForm: React.FC = () => {
     const [title, setTitle] = useState("");
@@ -80,12 +81,12 @@ const AskQuestionForm: React.FC = () => {
             <TagInput tags={tags} setTags={setTags} />
             <Box display={"flex"} flexDirection={"row"} padding={1}>
                 <Box paddingRight={2}>
-                    <Button variant="contained" onClick={handleSubmit} href="/">
+                    <Button variant="contained" onClick={handleSubmit}>
                         Submit
                     </Button>
                 </Box>
                 <Box>
-                    <Button variant="outlined" href="/">
+                    <Button variant="outlined" component={Link} to=".." relative="path">
                         Cancel
                     </Button>
                 </Box>

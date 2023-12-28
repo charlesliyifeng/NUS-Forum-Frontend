@@ -1,10 +1,10 @@
-import VoteDisplay from "./VoteDisplay";
 import AnswerItem from "./AnswerItem";
-import EditBar from "./EditBar";
-import Item from "./Item";
-import Question from "../types/Question";
-import Answer from "../types/Answer";
-import { getQuestionDetail } from "../lib/api/question";
+import VoteDisplay from "../VoteDisplay";
+import EditBar from "../EditBar";
+import Item from "../Item";
+import Question from "../../types/Question";
+import Answer from "../../types/Answer";
+import { getQuestionDetail } from "../../lib/api/question";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -64,25 +64,8 @@ const AnswerList: React.FC = () => {
     }
 
     const questionID: number = getQuestionID();
-    console.log(questionID);
-    // handle page not found
 
-    // init Question state
-    const emptyQuestion: Question = {
-        id: 0,
-        title: "",
-        body: "",
-        author: "",
-        created_at: "",
-        updated_at: "",
-        votes: 0,
-        accepted: false,
-        answers: 0,
-        views: 0,
-        tags: [],
-    };
-
-    const [question, setQuestion] = useState<Question>(emptyQuestion);
+    const [question, setQuestion] = useState<Question>();
     const [Answers, setAnswers] = useState<Answer[]>(answers);
     const [userAnswer, setUserAnswer] = useState("");
 
@@ -92,7 +75,7 @@ const AnswerList: React.FC = () => {
             if (data) {
                 setQuestion(data);
             } else {
-                // handle error
+                //handle not found
             }
         });
     }, []);
@@ -126,6 +109,10 @@ const AnswerList: React.FC = () => {
         }
     }
 
+    if (question === undefined) {
+        return <div></div>;
+    }
+
     return (
         <Box className="centerBox" sx={{ flexGrow: 1, p: 3 }} top={80}>
             <Box padding={1}>
@@ -133,19 +120,19 @@ const AnswerList: React.FC = () => {
                     <CardContent>
                         <Box display={"flex"} flexDirection={"row"}>
                             <VoteDisplay
-                                votes={question!.votes}
+                                votes={question.votes}
                                 accepted={false}
                                 handleVoteChange={handleQuestionVoteChange}
                             />
                             <Box display={"flex"} flexDirection={"column"} width="100%">
                                 <Typography variant="h5" p={0}>
-                                    {question!.title}
+                                    {question.title}
                                 </Typography>
                                 <Typography>
-                                    by {question!.author} on {question!.created_at}
+                                    by {question.author} on {question.created_at}
                                 </Typography>
                                 <Stack direction="row" spacing={1} paddingTop={1} paddingBottom={1}>
-                                    {question!.tags.map((tag: string) => (
+                                    {question.tags.map((tag: string) => (
                                         <Item sx={{ backgroundColor: "#777", color: "#fff" }} key={tag}>
                                             {tag}
                                         </Item>
@@ -153,9 +140,9 @@ const AnswerList: React.FC = () => {
                                 </Stack>
                                 <Divider />
                                 <Typography p={1} minHeight="3vw">
-                                    {question!.body}
+                                    {question.body}
                                 </Typography>
-                                <EditBar />
+                                <EditBar allowEdit={true} allowDelete={true} />
                             </Box>
                         </Box>
                     </CardContent>

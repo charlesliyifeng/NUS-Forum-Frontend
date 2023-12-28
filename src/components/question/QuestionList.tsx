@@ -1,7 +1,7 @@
 import QuestionCard from "./QuestionCard";
-import BasicSelect from "./BasicSelect";
-import Question from "../types/Question";
-import { getQuestionList } from "../lib/api/question";
+import BasicSelect from "../BasicSelect";
+import Question from "../../types/Question";
+import { getQuestionList } from "../../lib/api/question";
 import React, { useState, useEffect } from "react";
 
 import Box from "@mui/material/Box";
@@ -31,7 +31,7 @@ const QuestionList: React.FC = () => {
                 <BasicSelect placeholder={"Sort by"} choices={["votes", "answers", "views"]} />
                 <BasicSelect placeholder={"Filter by"} choices={["Accepted", "Not Accepted", "No Answer"]} />
                 <Box position={"relative"} left={300}>
-                    <Button variant="contained" component={Link} to="/AskQuestion">
+                    <Button variant="contained" component={Link} to="/question/new">
                         Ask a Question
                     </Button>
                 </Box>

@@ -76,6 +76,7 @@ const TagInput: React.FC<TagInputProps> = ({ tags, setTags }) => {
             <form onSubmit={handleOnSubmit}>
                 <TextField
                     fullWidth
+                    id="tags"
                     autoComplete="off"
                     inputRef={tagRef}
                     size="medium"

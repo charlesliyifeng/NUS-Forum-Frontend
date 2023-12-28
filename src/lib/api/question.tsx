@@ -7,8 +7,8 @@ type inputParams = {
     title: string;
     body: string;
     author: string;
-    created_at: string;
-    updated_at: string;
+    createdAt: string;
+    updatedAt: string;
     votes: number;
     answers: number;
     accepted: number;
@@ -49,8 +49,8 @@ function deserialize(params: inputParams): Question {
         title: params.title,
         body: params.body,
         author: params.author,
-        created_at: params.created_at,
-        updated_at: params.updated_at,
+        created_at: params.createdAt,
+        updated_at: params.updatedAt,
         votes: params.votes,
         answers: params.answers,
         accepted: !!params.accepted,

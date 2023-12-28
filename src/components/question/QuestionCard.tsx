@@ -1,5 +1,5 @@
-import Item from "./Item";
-import Question from "../types/Question";
+import Item from "../Item";
+import Question from "../../types/Question";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";

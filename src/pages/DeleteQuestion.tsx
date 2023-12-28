@@ -1,17 +1,17 @@
 import SearchBar from "../components/SearchBar";
 import SideBar from "../components/SideBar";
-import AskQuestionForm from "../components/question/AskQuestionForm";
+import DeleteQuestionForm from "../components/question/DeleteQuestionForm";
 import { Box } from "@mui/material";
 import React from "react";
 
-const AskQuestion: React.FC = () => {
+const DeleteQuestion: React.FC = () => {
     return (
         <Box display={"flex"}>
             <SearchBar />
             <SideBar />
-            <AskQuestionForm />
+            <DeleteQuestionForm />
         </Box>
     );
 };
 
-export default AskQuestion;
+export default DeleteQuestion;

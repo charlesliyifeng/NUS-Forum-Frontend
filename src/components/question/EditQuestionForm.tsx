@@ -1,11 +1,12 @@
-import TagInput from "./TagInput";
-import Question from "../types/Question";
+import TagInput from "../TagInput";
+import Question from "../../types/Question";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const EditQuestionForm: React.FC = () => {
     const [title, setTitle] = useState("");
@@ -54,25 +55,18 @@ const EditQuestionForm: React.FC = () => {
             top={80}
         >
             <Typography variant="h4" padding={2}>
-                Ask a question
+                Edit a question
             </Typography>
 
             <Typography variant="h6" display="block" padding={1}>
                 Title
             </Typography>
-            <TextField id="title" required placeholder="Enter your question here" onChange={handleTitleChange} />
+            <TextField id="title" required onChange={handleTitleChange} />
 
             <Typography variant="h6" display="block" padding={1}>
                 Problem Details
             </Typography>
-            <TextField
-                id="body"
-                multiline
-                required
-                rows={8}
-                placeholder="Describe the details of your question here"
-                onChange={handleContentChange}
-            />
+            <TextField id="body" multiline required rows={8} onChange={handleContentChange} />
 
             <Typography variant="h6" display="block" padding={1}>
                 Tags
@@ -80,12 +74,12 @@ const EditQuestionForm: React.FC = () => {
             <TagInput tags={tags} setTags={setTags} />
             <Box display={"flex"} flexDirection={"row"} padding={1}>
                 <Box paddingRight={2}>
-                    <Button variant="contained" onClick={handleSubmit} href="/">
-                        Submit
+                    <Button variant="contained" onClick={handleSubmit} color="secondary">
+                        Update
                     </Button>
                 </Box>
                 <Box>
-                    <Button variant="outlined" href="/">
+                    <Button variant="outlined" component={Link} to=".." relative="path">
                         Cancel
                     </Button>
                 </Box>
