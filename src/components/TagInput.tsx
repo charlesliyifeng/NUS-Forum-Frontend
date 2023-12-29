@@ -36,7 +36,7 @@ const Tag: React.FC<TagProps> = ({ data, handleDelete }) => {
 
 type TagInputProps = {
     tags: string[];
-    setTags: (event: React.ChangeEvent<HTMLInputElement> | "tags", newTags?: string[]) => void;
+    setTags: (newTags: string[]) => void;
 };
 
 const TagInput: React.FC<TagInputProps> = ({ tags, setTags }) => {
@@ -61,14 +61,14 @@ const TagInput: React.FC<TagInputProps> = ({ tags, setTags }) => {
         event.preventDefault();
         const inputElement = tagRef.current;
         if (inputElement && validateTags(inputElement.value)) {
-            setTags("tags", [...tags, inputElement.value]);
+            setTags([...tags, inputElement.value]);
             inputElement.value = "";
         }
     }
 
     function handleDelete(value: string) {
         const newtags = tags.filter((val) => val !== value);
-        setTags("tags", newtags);
+        setTags(newtags);
     }
 
     return (

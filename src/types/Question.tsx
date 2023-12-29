@@ -13,7 +13,7 @@ export type Question = {
 };
 
 export const emptyQuestion: Question = {
-    id: 0,
+    id: -1,
     title: "",
     body: "",
     author: "",

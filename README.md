@@ -7,7 +7,6 @@ This is the frontend of NUS-Forum.
 ### Frontend
 (CRUD)
 - Questions
-    - separate input handle change and setTags
     - question form
 - Answers
     - create answer
