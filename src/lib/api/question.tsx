@@ -44,6 +44,10 @@ function serialize(t: Question): outputParams {
 }
 
 function deserialize(params: inputParams): Question {
+    // remove empty tags
+    let tagArray = params.tags.split(",");
+    tagArray = tagArray.filter((x) => x);
+
     const t: Question = {
         id: params.id,
         title: params.title,
@@ -55,7 +59,7 @@ function deserialize(params: inputParams): Question {
         answers: params.answers,
         accepted: !!params.accepted,
         views: params.views,
-        tags: params.tags.split(","),
+        tags: tagArray,
     };
 
     return t;
@@ -83,14 +87,14 @@ export const getQuestionDetail = (id: number) => {
 };
 
 // create
-export const createQuestion = (t: Question) => {
-    const params: outputParams = serialize(t);
+export const createQuestion = (q: Question) => {
+    const params: outputParams = serialize(q);
     return client.post("/questions", params);
 };
 
 // update
-export const updateQuestion = (id: number, t: Question) => {
-    const params: outputParams = serialize(t);
+export const updateQuestion = (id: number, q: Question) => {
+    const params: outputParams = serialize(q);
     return client.put(`/questions/${id}`, params);
 };
 

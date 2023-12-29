@@ -2,12 +2,12 @@ import AnswerItem from "./AnswerItem";
 import VoteDisplay from "../VoteDisplay";
 import EditBar from "../EditBar";
 import Item from "../Item";
-import { Question } from "../../types/Question";
+import { Question, emptyQuestion } from "../../types/Question";
 import Answer from "../../types/Answer";
-import { getQuestionDetail } from "../../lib/api/question";
+import { getQuestionDetail, updateQuestion } from "../../lib/api/question";
+
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -66,7 +66,7 @@ const AnswerList: React.FC = () => {
 
     const questionID: number = getQuestionID();
 
-    const [question, setQuestion] = useState<Question>();
+    const [question, setQuestion] = useState<Question>(emptyQuestion);
     const [Answers, setAnswers] = useState<Answer[]>(answers);
     const [userAnswer, setUserAnswer] = useState("");
 
@@ -81,7 +81,19 @@ const AnswerList: React.FC = () => {
         });
     }, []);
 
-    function handleQuestionVoteChange() {}
+    async function handleQuestionVoteChange(change: number) {
+        // update display
+        const newQuestion = structuredClone(question);
+        newQuestion.votes += change;
+        setQuestion(newQuestion);
+
+        // update backend
+        try {
+            await updateQuestion(questionID, newQuestion);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     function handleUserAnswerChange(event: React.ChangeEvent<HTMLInputElement>) {
         const text: string = event.target.value;
@@ -110,7 +122,7 @@ const AnswerList: React.FC = () => {
         }
     }
 
-    if (question === undefined) {
+    if (question.id === -1) {
         return <div></div>;
     }
 
@@ -140,7 +152,7 @@ const AnswerList: React.FC = () => {
                                     ))}
                                 </Stack>
                                 <Divider />
-                                <Typography p={1} minHeight="3vw">
+                                <Typography p={1} minHeight="3vw" style={{ whiteSpace: "pre-line" }}>
                                     {question.body}
                                 </Typography>
                                 <EditBar allowEdit={true} allowDelete={true} />

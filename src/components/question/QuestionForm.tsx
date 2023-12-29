@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 type Props = {
     question: Question;
     setQuestion: React.Dispatch<React.SetStateAction<Question>>;
-    handleSubmit: () => Promise<void>;
+    handleSubmit: () => void;
     buttonType: string;
 };
 

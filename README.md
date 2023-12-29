@@ -7,7 +7,7 @@ This is the frontend of NUS-Forum.
 ### Frontend
 (CRUD)
 - Questions
-    - question form
+    - only 1 vote for each person
 - Answers
     - create answer
     - read answer
@@ -21,8 +21,7 @@ This is the frontend of NUS-Forum.
     - delete comments
 
 - Bugs
-    - empty tags = dots
-    - no line breaks
+
 
 ### Backend
 - Database

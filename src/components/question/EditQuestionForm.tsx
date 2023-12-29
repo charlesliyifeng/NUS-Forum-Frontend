@@ -34,18 +34,18 @@ const EditQuestionForm: React.FC = () => {
     }, []);
 
     async function handleSubmit() {
-        if (!question!.title) {
+        if (!question.title) {
             alert("Your title cannot be empty");
             return;
         }
-        if (!question!.body) {
+        if (!question.body) {
             alert("Your body cannot be empty");
             return;
         }
 
         // update backend
         try {
-            await updateQuestion(questionID, question!);
+            await updateQuestion(questionID, question);
             // navigate back
             navigate("..", { relative: "path" });
         } catch (error) {

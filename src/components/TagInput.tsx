@@ -44,12 +44,17 @@ const TagInput: React.FC<TagInputProps> = ({ tags, setTags }) => {
 
     // apply validation rules to new tags
     function validateTags(tag: string) {
+        const invalidChars: string[] = [","];
         if (tag) {
             if (tags.length >= 5) {
                 alert("enter no more than 5 tags");
                 return false;
             } else if (tags.find((x) => x === tag)) {
                 alert("no duplicate tags allowed");
+                return false;
+            } else if (invalidChars.reduce((ys, x) => ys || tag.includes(x), false)) {
+                // includes invalid chars
+                alert("tag cannot contain: " + invalidChars.join(" "));
                 return false;
             }
             return true;

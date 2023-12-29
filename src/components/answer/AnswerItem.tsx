@@ -26,7 +26,7 @@ const AnswerItem: React.FC<Props> = ({ answer, handleVoteChange }) => {
                                 by {answer.author} on {answer.timestamp.toLocaleString()}
                             </Typography>
                             <Divider />
-                            <Typography p={1} minHeight="7vw">
+                            <Typography p={1} minHeight="7vw" style={{ whiteSpace: "pre-line" }}>
                                 {answer.body}
                             </Typography>
                             <EditBar />
