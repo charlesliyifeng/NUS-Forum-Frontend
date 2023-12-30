@@ -1,13 +1,13 @@
 import VoteDisplay from "../VoteDisplay";
 import EditBar from "../EditBar";
-import Answer from "../../types/Answer";
+import { Answer } from "../../types/Answer";
 
 import React from "react";
 import { Box, Card, CardContent, Typography, Divider } from "@mui/material";
 
 type Props = {
     answer: Answer;
-    handleVoteChange: (answerID: string, change: number) => void;
+    handleVoteChange: (answerID: number, change: number) => void;
 };
 
 const AnswerItem: React.FC<Props> = ({ answer, handleVoteChange }) => {
@@ -23,7 +23,7 @@ const AnswerItem: React.FC<Props> = ({ answer, handleVoteChange }) => {
                         />
                         <Box display={"flex"} flexDirection={"column"} width={"100%"}>
                             <Typography color="text-secondary">
-                                by {answer.author} on {answer.timestamp.toLocaleString()}
+                                by {answer.author} on {answer.createdAt}
                             </Typography>
                             <Divider />
                             <Typography p={1} minHeight="7vw" style={{ whiteSpace: "pre-line" }}>

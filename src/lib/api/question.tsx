@@ -10,7 +10,7 @@ type inputParams = {
     createdAt: string;
     updatedAt: string;
     votes: number;
-    answers: number;
+    answersCount: number;
     accepted: number;
     views: number;
     tags: string;
@@ -21,7 +21,7 @@ type outputParams = {
     body: string;
     author: string;
     votes: number;
-    answers: number;
+    answersCount: number;
     accepted: number;
     views: number;
     tags: string;
@@ -34,7 +34,7 @@ function serialize(t: Question): outputParams {
         body: t.body,
         author: t.author,
         votes: t.votes,
-        answers: t.answers,
+        answersCount: t.answers,
         accepted: t.accepted ? 1 : 0,
         views: t.views,
         tags: t.tags.join(","),
@@ -53,10 +53,10 @@ function deserialize(params: inputParams): Question {
         title: params.title,
         body: params.body,
         author: params.author,
-        created_at: params.createdAt,
-        updated_at: params.updatedAt,
+        createdAt: params.createdAt,
+        updatedAt: params.updatedAt,
         votes: params.votes,
-        answers: params.answers,
+        answers: params.answersCount,
         accepted: !!params.accepted,
         views: params.views,
         tags: tagArray,

@@ -3,8 +3,9 @@ import VoteDisplay from "../VoteDisplay";
 import EditBar from "../EditBar";
 import Item from "../Item";
 import { Question, emptyQuestion } from "../../types/Question";
-import Answer from "../../types/Answer";
+import { Answer } from "../../types/Answer";
 import { getQuestionDetail, updateQuestion } from "../../lib/api/question";
+import { createAnswer, getAnswersOfQuestion } from "../../lib/api/answer";
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -25,35 +26,6 @@ const AnswerList: React.FC = () => {
         - user answer
     */
 
-    const answers: Answer[] = [];
-    answers[0] = {
-        answerID: "1",
-        questionID: "1",
-        body: "yes, this is the body!",
-        author: "Bob1",
-        timestamp: new Date(2022, 10, 28, 10, 33, 30),
-        votes: 5,
-        accepted: false,
-    };
-    answers[1] = {
-        answerID: "2",
-        questionID: "1",
-        body: "testing is the worst thing in the world.",
-        author: "Cat",
-        timestamp: new Date(2022, 10, 28, 10, 33, 30),
-        votes: 2,
-        accepted: true,
-    };
-    answers[2] = {
-        answerID: "3",
-        questionID: "1",
-        body: "hello hello",
-        author: "Alice",
-        timestamp: new Date(2020, 12, 28, 10, 33, 2),
-        votes: 1,
-        accepted: false,
-    };
-
     // get question ID from URL
     function getQuestionID(): number {
         const { id } = useParams();
@@ -65,16 +37,24 @@ const AnswerList: React.FC = () => {
     }
 
     const questionID: number = getQuestionID();
-
     const [question, setQuestion] = useState<Question>(emptyQuestion);
-    const [Answers, setAnswers] = useState<Answer[]>(answers);
+    const [Answers, setAnswers] = useState<Answer[]>([]);
     const [userAnswer, setUserAnswer] = useState("");
 
-    // Fetch the question from the API when the component mounts
     useEffect(() => {
+        // Fetch the question
         getQuestionDetail(questionID).then((data) => {
             if (data) {
                 setQuestion(data);
+            } else {
+                //handle not found
+            }
+        });
+
+        // fetch answers
+        getAnswersOfQuestion(questionID).then((data) => {
+            if (data) {
+                setAnswers(data);
             } else {
                 //handle not found
             }
@@ -100,7 +80,7 @@ const AnswerList: React.FC = () => {
         setUserAnswer(text);
     }
 
-    function handleAnswerVoteChange(answerID: string, change: number) {
+    function handleAnswerVoteChange(answerID: number, change: number) {
         // update vote of target answer
         const newAnswers: Answer[] = [];
         for (let i = 0; i < Answers.length; i++) {
@@ -114,9 +94,28 @@ const AnswerList: React.FC = () => {
         // update backend
     }
 
-    function handleUserAnswerSubmit() {
+    async function handleUserAnswerSubmit() {
         if (userAnswer) {
             // update backend
+            try {
+                // create new answer and submit to API
+                const newAnswer: Answer = {
+                    answerID: 0,
+                    questionID: questionID,
+                    body: userAnswer,
+                    author: "tester",
+                    createdAt: "",
+                    updatedAt: "",
+                    votes: 0,
+                    accepted: false,
+                };
+                await createAnswer(newAnswer);
+
+                // reload page
+                window.location.reload();
+            } catch (error) {
+                console.error(error);
+            }
         } else {
             alert("Your answer cannot be empty");
         }
@@ -142,7 +141,7 @@ const AnswerList: React.FC = () => {
                                     {question.title}
                                 </Typography>
                                 <Typography>
-                                    by {question.author} on {question.created_at}
+                                    by {question.author} on {question.createdAt}
                                 </Typography>
                                 <Stack direction="row" spacing={1} paddingTop={1} paddingBottom={1}>
                                     {question.tags.map((tag: string) => (

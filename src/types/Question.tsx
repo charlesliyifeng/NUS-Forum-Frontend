@@ -3,8 +3,8 @@ export type Question = {
     title: string;
     body: string;
     author: string;
-    created_at: string;
-    updated_at: string;
+    createdAt: string;
+    updatedAt: string;
     votes: number;
     answers: number;
     accepted: boolean;
@@ -17,8 +17,8 @@ export const emptyQuestion: Question = {
     title: "",
     body: "",
     author: "",
-    created_at: "",
-    updated_at: "",
+    createdAt: "",
+    updatedAt: "",
     votes: 0,
     answers: 0,
     accepted: false,

@@ -44,7 +44,7 @@ const QuestionCard: React.FC<Props> = ({ question }) => {
                             </Link>
                         </Typography>
                         <Typography color="text-secondary">
-                            by {question.author} on {question.created_at}
+                            by {question.author} on {question.createdAt}
                         </Typography>
                         <Stack direction="row" spacing={1}>
                             <Item>votes: {question.votes}</Item>

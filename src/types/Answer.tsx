@@ -1,11 +1,10 @@
-type Answer = {
-    answerID: string;
-    questionID: string;
+export type Answer = {
+    answerID: number;
+    questionID: number;
     body: string;
     author: string;
-    timestamp: Date;
+    createdAt: string;
+    updatedAt: string;
     votes: number;
     accepted: boolean;
 };
-
-export default Answer;
