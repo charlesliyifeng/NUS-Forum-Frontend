@@ -3,6 +3,8 @@ import QuestionView from "./pages/QuestionView";
 import AskQuestion from "./pages/AskQuestion";
 import EditQuestion from "./pages/EditQuestion";
 import DeleteQuestion from "./pages/DeleteQuestion";
+import EditAnswer from "./pages/EditAnswer";
+import DeleteAnswer from "./pages/DeleteAnswer";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import NotFound from "./pages/NotFound";
@@ -33,6 +35,8 @@ const App: React.FC = () => {
                         <Route path="/question/new" element={<AskQuestion />} />
                         <Route path="/question/:id/edit" element={<EditQuestion />} />
                         <Route path="/question/:id/delete" element={<DeleteQuestion />} />
+                        <Route path="/answer/:id/edit" element={<EditAnswer />} />
+                        <Route path="/answer/:id/delete" element={<DeleteAnswer />} />
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/signup" element={<SignupPage />} />
                         <Route path="*" element={<NotFound />} />

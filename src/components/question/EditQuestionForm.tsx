@@ -47,7 +47,7 @@ const EditQuestionForm: React.FC = () => {
         try {
             await updateQuestion(questionID, question);
             // navigate back
-            navigate("..", { relative: "path" });
+            navigate(-1);
         } catch (error) {
             console.error(error);
         }

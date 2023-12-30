@@ -154,7 +154,7 @@ const AnswerList: React.FC = () => {
                                 <Typography p={1} minHeight="3vw" style={{ whiteSpace: "pre-line" }}>
                                     {question.body}
                                 </Typography>
-                                <EditBar allowEdit={true} allowDelete={true} />
+                                <EditBar subjectType="question" id={questionID} allowEdit allowDelete />
                             </Box>
                         </Box>
                     </CardContent>

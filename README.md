@@ -10,7 +10,6 @@ This is the frontend of NUS-Forum.
     - only 1 vote for each person
 - Answers
     - edit answers
-    - delete answer
     - accept answer
 - Comments
     - create comments

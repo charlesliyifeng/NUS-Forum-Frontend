@@ -29,7 +29,7 @@ const AnswerItem: React.FC<Props> = ({ answer, handleVoteChange }) => {
                             <Typography p={1} minHeight="7vw" style={{ whiteSpace: "pre-line" }}>
                                 {answer.body}
                             </Typography>
-                            <EditBar />
+                            <EditBar subjectType="answer" id={answer.answerID} allowEdit allowDelete />
                         </Box>
                     </Box>
                 </CardContent>
