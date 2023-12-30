@@ -8,3 +8,14 @@ export type Answer = {
     votes: number;
     accepted: boolean;
 };
+
+export const emptyAnswer: Answer = {
+    answerID: -1,
+    questionID: -1,
+    body: "",
+    author: "",
+    createdAt: "",
+    updatedAt: "",
+    votes: 0,
+    accepted: false,
+};

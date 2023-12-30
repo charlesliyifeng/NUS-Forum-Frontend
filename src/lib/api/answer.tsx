@@ -83,7 +83,7 @@ export const createAnswer = (a: Answer) => {
 };
 
 // update
-export const updateQAnswer = (id: number, a: Answer) => {
+export const updateAnswer = (id: number, a: Answer) => {
     const params: outputParams = serialize(a);
     return client.put(`/answers/${id}`, params);
 };

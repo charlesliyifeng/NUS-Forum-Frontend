@@ -1,6 +1,6 @@
 import SearchBar from "../components/SearchBar";
 import SideBar from "../components/SideBar";
-import DeleteAnswerForm from "../components/answer/DeleteAnswerForm";
+import EditAnswerForm from "../components/answer/EditAnswerForm";
 import { Box } from "@mui/material";
 import React from "react";
 
@@ -9,7 +9,7 @@ const EditAnswer: React.FC = () => {
         <Box display={"flex"}>
             <SearchBar />
             <SideBar />
-            <DeleteAnswerForm />
+            <EditAnswerForm />
         </Box>
     );
 };

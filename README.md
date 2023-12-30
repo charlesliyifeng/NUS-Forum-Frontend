@@ -9,8 +9,9 @@ This is the frontend of NUS-Forum.
 - Questions
     - only 1 vote for each person
 - Answers
-    - edit answers
     - accept answer
+    - answer vote change
+    - answer count change
 - Comments
     - create comments
     - read comments

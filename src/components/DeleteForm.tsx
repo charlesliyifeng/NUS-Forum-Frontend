@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function capitalize(word: string): string {
     return word.charAt(0).toUpperCase() + word.slice(1);
@@ -15,6 +15,8 @@ type Props = {
 };
 
 const DeleteForm: React.FC<Props> = ({ subjectType, handleSubmit }) => {
+    const navigate = useNavigate();
+
     return (
         <Box
             className="centerBox"
@@ -37,7 +39,7 @@ const DeleteForm: React.FC<Props> = ({ subjectType, handleSubmit }) => {
                     </Button>
                 </Box>
                 <Box>
-                    <Button variant="outlined" component={Link} to=".." relative="path">
+                    <Button variant="outlined" onClick={() => navigate(-1)}>
                         Cancel
                     </Button>
                 </Box>
