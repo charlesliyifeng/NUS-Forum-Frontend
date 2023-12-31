@@ -16,7 +16,7 @@ export const emptyQuestion: Question = {
     id: -1,
     title: "",
     body: "",
-    author: "",
+    author: "placeholder",
     createdAt: "",
     updatedAt: "",
     votes: 0,

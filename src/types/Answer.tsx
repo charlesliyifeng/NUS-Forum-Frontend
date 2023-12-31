@@ -13,7 +13,7 @@ export const emptyAnswer: Answer = {
     answerID: -1,
     questionID: -1,
     body: "",
-    author: "",
+    author: "placeholder",
     createdAt: "",
     updatedAt: "",
     votes: 0,
