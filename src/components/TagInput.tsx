@@ -26,7 +26,17 @@ const Tag: React.FC<TagProps> = ({ data, handleDelete }) => {
         >
             <Item sx={{ backgroundColor: "#ADDAE6" }}>
                 <Stack direction="row" gap={1}>
-                    <Typography fontSize={14}>{data}</Typography>
+                    <Typography
+                        fontSize={14}
+                        sx={{
+                            display: "-webkit-box",
+                            overflow: "hidden",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 1,
+                        }}
+                    >
+                        {data}
+                    </Typography>
                     <Cancel fontSize="small" sx={{ cursor: "pointer" }} onClick={() => handleDelete(data)} />
                 </Stack>
             </Item>
@@ -44,7 +54,7 @@ const TagInput: React.FC<TagInputProps> = ({ tags, setTags }) => {
 
     // apply validation rules to new tags
     function validateTags(tag: string) {
-        const invalidChars: string[] = [","];
+        const invalidChars: string[] = [",", " "];
         if (tag) {
             if (tags.length >= 5) {
                 alert("enter no more than 5 tags");
@@ -54,7 +64,7 @@ const TagInput: React.FC<TagInputProps> = ({ tags, setTags }) => {
                 return false;
             } else if (invalidChars.reduce((ys, x) => ys || tag.includes(x), false)) {
                 // includes invalid chars
-                alert("tag cannot contain: " + invalidChars.join(" "));
+                alert("tag cannot contain: " + invalidChars.join(" ") + "or spaces");
                 return false;
             }
             return true;

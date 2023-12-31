@@ -16,7 +16,7 @@ type inputParams = {
     tags: string;
 };
 
-type outputParams = {
+type outputCreateParams = {
     title: string;
     body: string;
     author: string;
@@ -27,9 +27,16 @@ type outputParams = {
     tags: string;
 };
 
+type outputUpdateParams = {
+    title: string;
+    body: string;
+    author: string;
+    tags: string;
+};
+
 // helper functions to serialize/deserialize questions
-function serialize(t: Question): outputParams {
-    const p: outputParams = {
+function serializeCreate(t: Question): outputCreateParams {
+    const p: outputCreateParams = {
         title: t.title,
         body: t.body,
         author: t.author,
@@ -37,6 +44,17 @@ function serialize(t: Question): outputParams {
         answersCount: t.answers,
         accepted: t.accepted ? 1 : 0,
         views: t.views,
+        tags: t.tags.join(","),
+    };
+
+    return p;
+}
+
+function serializeUpdate(t: Question): outputUpdateParams {
+    const p: outputUpdateParams = {
+        title: t.title,
+        body: t.body,
+        author: t.author,
         tags: t.tags.join(","),
     };
 
@@ -88,13 +106,13 @@ export const getQuestionDetail = (id: number) => {
 
 // create
 export const createQuestion = (q: Question) => {
-    const params: outputParams = serialize(q);
+    const params: outputCreateParams = serializeCreate(q);
     return client.post("/questions", params);
 };
 
 // update
 export const updateQuestion = (id: number, q: Question) => {
-    const params: outputParams = serialize(q);
+    const params: outputUpdateParams = serializeUpdate(q);
     return client.put(`/questions/${id}`, params);
 };
 

@@ -17,7 +17,7 @@ const DeleteQuestionForm: React.FC = () => {
     // function to handle deletion of answer
     const handleDelete = async (id: number) => {
         try {
-            // Delete the question from API
+            // Delete the answer from API
             await deleteAnswer(id);
         } catch (error) {
             console.error(error);

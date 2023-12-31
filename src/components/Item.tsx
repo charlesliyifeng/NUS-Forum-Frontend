@@ -7,6 +7,7 @@ const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(1),
     textAlign: "center",
     color: "#000000",
+    height: 20,
 }));
 
 export default Item;
