@@ -88,6 +88,7 @@ export const getAnswerDetail = (id: number) => {
 
 // get_answers
 export const getAnswersOfQuestion = (questionID: number) => {
+    // get all answers related to the question
     const response = client.get(`/questions/${questionID}/get_answers`);
     return response.then((res) => deserializeList(res.data)).catch((err) => console.error(err));
 };
@@ -102,6 +103,12 @@ export const createAnswer = (a: Answer) => {
 export const updateAnswer = (id: number, a: Answer) => {
     const params: outputUpdateParams = serializeUpdate(a);
     return client.put(`/answers/${id}`, params);
+};
+
+// toggle_accept
+export const toggleAccept = (id: number) => {
+    // toggle the accept status of answer
+    return client.put(`/answers/${id}/accept`);
 };
 
 // delete

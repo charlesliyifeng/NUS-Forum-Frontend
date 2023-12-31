@@ -8,7 +8,6 @@ This is the frontend of NUS-Forum.
 (CRUD)
 - Questions
     - only 1 vote for each person
-    - delete question delete all answers
 - Answers
     - accept answer
     - answer vote change

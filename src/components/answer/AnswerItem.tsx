@@ -7,10 +7,11 @@ import { Box, Card, CardContent, Typography, Divider } from "@mui/material";
 
 type Props = {
     answer: Answer;
+    questionAccepted: boolean;
     handleVoteChange: (answerID: number, change: number) => void;
 };
 
-const AnswerItem: React.FC<Props> = ({ answer, handleVoteChange }) => {
+const AnswerItem: React.FC<Props> = ({ answer, questionAccepted, handleVoteChange }) => {
     return (
         <Box padding={1}>
             <Card variant="outlined">
@@ -29,7 +30,14 @@ const AnswerItem: React.FC<Props> = ({ answer, handleVoteChange }) => {
                             <Typography p={1} minHeight="7vw" style={{ whiteSpace: "pre-line" }}>
                                 {answer.body}
                             </Typography>
-                            <EditBar subjectType="answer" id={answer.answerID} allowEdit allowDelete />
+                            <EditBar
+                                subjectType="answer"
+                                id={answer.answerID}
+                                answer={answer}
+                                allowEdit
+                                allowDelete
+                                allowAccept={answer.accepted || !questionAccepted}
+                            />
                         </Box>
                     </Box>
                 </CardContent>

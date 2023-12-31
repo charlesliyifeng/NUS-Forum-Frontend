@@ -66,6 +66,9 @@ const TagInput: React.FC<TagInputProps> = ({ tags, setTags }) => {
                 // includes invalid chars
                 alert("tag cannot contain: " + invalidChars.join(" ") + "or spaces");
                 return false;
+            } else if (tag.length >= 30) {
+                alert("length of tag cannot exceed 30 characters");
+                return false;
             }
             return true;
         }
