@@ -38,8 +38,12 @@ const App: React.FC = () => {
         try {
             const response = await getSession();
             setUserID(response.data.userId);
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) { // eslint-disable-line
+            if (error.message === "missing token") {
+                console.log("token not found");
+            } else {
+                console.error(error);
+            }
         }
     };
 

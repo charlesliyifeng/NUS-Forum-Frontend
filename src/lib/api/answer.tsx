@@ -1,5 +1,6 @@
 import client from "./client";
 import { Answer } from "../../types/Answer";
+import loadHeader from "../helper/loadHeader";
 
 // input/output param types
 type inputParams = {
@@ -93,25 +94,29 @@ export const getAnswersOfQuestion = (questionID: number) => {
     return response.then((res) => deserializeList(res.data)).catch((err) => console.error(err));
 };
 
-// create
+// create  (need token authentication)
 export const createAnswer = (a: Answer) => {
+    const header = loadHeader();
     const params: outputCreateParams = serializeCreate(a);
-    return client.post("/answers", params);
+    return client.post("/answers", params, { headers: header });
 };
 
-// update
+// update  (need token authentication)
 export const updateAnswer = (id: number, a: Answer) => {
+    const header = loadHeader();
     const params: outputUpdateParams = serializeUpdate(a);
-    return client.put(`/answers/${id}`, params);
+    return client.put(`/answers/${id}`, params, { headers: header });
 };
 
-// toggle_accept
+// toggle_accept  (need token authentication)
 export const toggleAccept = (id: number) => {
+    const header = loadHeader();
     // toggle the accept status of answer
-    return client.put(`/answers/${id}/accept`);
+    return client.put(`/answers/${id}/accept`, { headers: header });
 };
 
-// delete
+// delete  (need token authentication)
 export const deleteAnswer = (id: number) => {
-    return client.delete(`/answers/${id}`);
+    const header = loadHeader();
+    return client.delete(`/answers/${id}`, { headers: header });
 };

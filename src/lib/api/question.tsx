@@ -1,5 +1,6 @@
 import client from "./client";
 import { Question } from "../../types/Question";
+import loadHeader from "../helper/loadHeader";
 
 // input/output param types
 type inputParams = {
@@ -104,19 +105,22 @@ export const getQuestionDetail = (id: number) => {
     return response.then((res) => deserialize(res.data)).catch((err) => console.error(err));
 };
 
-// create
+// create  (need token authentication)
 export const createQuestion = (q: Question) => {
+    const header = loadHeader();
     const params: outputCreateParams = serializeCreate(q);
-    return client.post("/questions", params);
+    return client.post("/questions", params, { headers: header });
 };
 
-// update
+// update  (need token authentication)
 export const updateQuestion = (id: number, q: Question) => {
+    const header = loadHeader();
     const params: outputUpdateParams = serializeUpdate(q);
-    return client.put(`/questions/${id}`, params);
+    return client.put(`/questions/${id}`, params, { headers: header });
 };
 
-// delete
+// delete  (need token authentication)
 export const deleteQuestion = (id: number) => {
-    return client.delete(`/questions/${id}`);
+    const header = loadHeader();
+    return client.delete(`/questions/${id}`, { headers: header });
 };

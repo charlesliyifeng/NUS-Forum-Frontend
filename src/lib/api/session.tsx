@@ -1,15 +1,10 @@
 import client from "./client";
+import loadHeader from "../helper/loadHeader";
 
-// get
+// get  (need token authentication)
 export const getSession = () => {
-    const token = sessionStorage.getItem("token");
-    if (token) {
-        // if token exists
-        console.log(token);
-        return client.get("/sessions", { headers: { auth_token: token } });
-    } else {
-        throw new Error("missing token");
-    }
+    const header = loadHeader();
+    return client.get("/sessions", { headers: header });
 };
 
 // create
@@ -21,13 +16,8 @@ export const createSession = (email: string, password: string) => {
     return client.post("/sessions", params);
 };
 
-// delete
+// delete  (need token authentication)
 export const deleteSession = (id: number) => {
-    const token = sessionStorage.getItem("token");
-    if (token) {
-        // if token exists
-        return client.delete(`/sessions/${id}`, { headers: { auth_token: token } });
-    } else {
-        throw new Error("missing token");
-    }
+    const header = loadHeader();
+    return client.delete(`/sessions/${id}`, { headers: header });
 };
