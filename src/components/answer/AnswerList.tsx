@@ -6,9 +6,10 @@ import { Question, emptyQuestion } from "../../types/Question";
 import { Answer } from "../../types/Answer";
 import { getQuestionDetail, updateQuestion } from "../../lib/api/question";
 import { createAnswer, getAnswersOfQuestion } from "../../lib/api/answer";
+import getQuestionID from "../../lib/helper/get_url_id";
 
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -26,17 +27,8 @@ const AnswerList: React.FC = () => {
         - user answer
     */
 
-    // get question ID from URL
-    function getQuestionID(): number {
-        const { id } = useParams();
-        if (id) {
-            return +id;
-        } else {
-            return -1;
-        }
-    }
-
     const questionID: number = getQuestionID();
+    const navigate = useNavigate();
     const [question, setQuestion] = useState<Question>(emptyQuestion);
     const [Answers, setAnswers] = useState<Answer[]>([]);
     const [userAnswer, setUserAnswer] = useState("");
@@ -48,6 +40,7 @@ const AnswerList: React.FC = () => {
                 setQuestion(data);
             } else {
                 //handle not found
+                navigate("/404");
             }
         });
 
@@ -57,6 +50,7 @@ const AnswerList: React.FC = () => {
                 setAnswers(data);
             } else {
                 //handle not found
+                navigate("/404");
             }
         });
     }, []);

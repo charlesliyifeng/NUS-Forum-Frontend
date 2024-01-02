@@ -1,24 +1,15 @@
 import { Answer, emptyAnswer } from "../../types/Answer";
 import { getAnswerDetail, updateAnswer } from "../../lib/api/answer";
+import getAnswerID from "../../lib/helper/get_url_id";
 
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 const EditQuestionForm: React.FC = () => {
-    // get question ID from URL
-    function getAnswerID(): number {
-        const { id } = useParams();
-        if (id) {
-            return +id;
-        } else {
-            return -1;
-        }
-    }
-
     const answerID: number = getAnswerID();
     const navigate = useNavigate();
     const [answer, setAnswer] = useState<Answer>(emptyAnswer);
@@ -30,6 +21,7 @@ const EditQuestionForm: React.FC = () => {
                 setAnswer(data);
             } else {
                 //handle not found
+                navigate("/404");
             }
         });
     }, []);

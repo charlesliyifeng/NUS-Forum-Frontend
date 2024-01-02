@@ -1,19 +1,11 @@
 import { deleteAnswer } from "../../lib/api/answer";
+import getAnswerID from "../../lib/helper/get_url_id";
 import DeleteForm from "../DeleteForm";
 
 import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const DeleteQuestionForm: React.FC = () => {
-    function getAnswerID(): number {
-        const { id } = useParams();
-        if (id) {
-            return +id;
-        } else {
-            return -1;
-        }
-    }
-
     // function to handle deletion of answer
     const handleDelete = async (id: number) => {
         try {

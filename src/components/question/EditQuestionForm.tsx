@@ -1,23 +1,14 @@
 import QuestionForm from "./QuestionForm";
 import { Question, emptyQuestion } from "../../types/Question";
 import { getQuestionDetail, updateQuestion } from "../../lib/api/question";
+import getQuestionID from "../../lib/helper/get_url_id";
 
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 const EditQuestionForm: React.FC = () => {
-    // get question ID from URL
-    function getQuestionID(): number {
-        const { id } = useParams();
-        if (id) {
-            return +id;
-        } else {
-            return -1;
-        }
-    }
-
     const questionID: number = getQuestionID();
     const navigate = useNavigate();
     const [question, setQuestion] = useState<Question>(emptyQuestion);
@@ -29,6 +20,7 @@ const EditQuestionForm: React.FC = () => {
                 setQuestion(data);
             } else {
                 //handle not found
+                navigate("/404");
             }
         });
     }, []);
