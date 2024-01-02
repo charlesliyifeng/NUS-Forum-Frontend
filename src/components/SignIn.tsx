@@ -1,4 +1,7 @@
-import React from "react";
+import UserIdContext from "../contexts/UserIdContext";
+import { createSession } from "../lib/api/session";
+
+import React, { useContext } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,16 +14,36 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { useNavigate } from "react-router-dom";
 
-export default function SignIn() {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+const SignIn: React.FC = () => {
+    const { userID, setUserID } = useContext(UserIdContext);
+    const navigate = useNavigate();
+
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get("email"),
-            password: data.get("password"),
-        });
-    };
+        const email = data.get("email")!.toString();
+        const password = data.get("password")!.toString();
+
+        // create session from API
+        try {
+            const response = await createSession(email, password);
+            // set userID
+            console.log(userID);
+            console.log(response.data.userId);
+            setUserID(response.data.userId);
+            console.log("signed in");
+
+            // store token
+            sessionStorage.setItem("token", response.data.authToken);
+
+            // navigate back
+            navigate("/");
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <Container component="main" maxWidth="xs">
@@ -80,4 +103,6 @@ export default function SignIn() {
             </Box>
         </Container>
     );
-}
+};
+
+export default SignIn;

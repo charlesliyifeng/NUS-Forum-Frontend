@@ -1,7 +1,10 @@
+import UserIdContext from "../contexts/UserIdContext";
+import { deleteSession } from "../lib/api/session";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { AppBar, InputBase, Toolbar, Button, Box } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 // styling functions for SearchBar
 const Search = styled("div")(({ theme }) => ({
@@ -64,11 +67,32 @@ const BootstrapButton = styled(Button)({
 });
 
 const SearchBar: React.FC = () => {
+    const navigate = useNavigate();
+    const { userID, setUserID } = useContext(UserIdContext);
+
     function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
         if (event.key === "Enter") {
             const value: string = event.currentTarget.value;
             if (value) {
                 alert(value);
+            }
+        }
+    }
+
+    async function handleSigninButton() {
+        if (userID === -1) {
+            // signed in
+            navigate("/signin");
+        } else {
+            // sign out
+            try {
+                console.log(userID);
+                await deleteSession(userID);
+                setUserID(-1);
+                sessionStorage.removeItem("token");
+                window.location.reload();
+            } catch (error) {
+                console.error(error);
             }
         }
     }
@@ -89,8 +113,8 @@ const SearchBar: React.FC = () => {
                     />
                 </Search>
                 <Box position={"relative"} left={300}>
-                    <BootstrapButton variant="outlined" href="/login">
-                        Login
+                    <BootstrapButton variant="outlined" onClick={handleSigninButton}>
+                        {userID === -1 ? "Sign in" : "Sign out"}
                     </BootstrapButton>
                 </Box>
             </Toolbar>
