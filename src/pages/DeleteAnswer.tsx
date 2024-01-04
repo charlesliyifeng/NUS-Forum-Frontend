@@ -1,8 +1,9 @@
 import SearchBar from "../components/SearchBar";
 import SideBar from "../components/SideBar";
 import DeleteAnswerForm from "../components/answer/DeleteAnswerForm";
-import { Box } from "@mui/material";
+
 import React from "react";
+import { Box } from "@mui/material";
 
 const DeleteAnswer: React.FC = () => {
     return (

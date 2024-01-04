@@ -2,13 +2,14 @@ import AnswerItem from "./AnswerItem";
 import VoteDisplay from "../VoteDisplay";
 import EditBar from "../EditBar";
 import Item from "../Item";
-import { Question, emptyQuestion } from "../../types/Question";
-import { Answer } from "../../types/Answer";
+import { Question, newQuestion } from "../../types/Question";
+import { Answer, newAnswer } from "../../types/Answer";
 import { getQuestionDetail, updateQuestion } from "../../lib/api/question";
 import { createAnswer, getAnswersOfQuestion } from "../../lib/api/answer";
 import getQuestionID from "../../lib/helper/get_url_id";
+import UserIdContext from "../../contexts/UserIdContext";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -29,7 +30,9 @@ const AnswerList: React.FC = () => {
 
     const questionID: number = getQuestionID();
     const navigate = useNavigate();
-    const [question, setQuestion] = useState<Question>(emptyQuestion);
+    // eslint-disable-next-line
+    const { userID, setUserID } = useContext(UserIdContext);
+    const [question, setQuestion] = useState<Question>(newQuestion(userID));
     const [Answers, setAnswers] = useState<Answer[]>([]);
     const [userAnswer, setUserAnswer] = useState("");
 
@@ -89,21 +92,18 @@ const AnswerList: React.FC = () => {
     }
 
     async function handleUserAnswerSubmit() {
+        // if not signed in
+        if (userID === -1) {
+            alert("please sign in first");
+            return;
+        }
+
         if (userAnswer) {
             // update backend
             try {
                 // create new answer and submit to API
-                const newAnswer: Answer = {
-                    answerID: 0,
-                    questionID: questionID,
-                    body: userAnswer,
-                    author: "tester",
-                    createdAt: "",
-                    updatedAt: "",
-                    votes: 0,
-                    accepted: false,
-                };
-                await createAnswer(newAnswer);
+                const answer = newAnswer(userID, questionID, userAnswer);
+                await createAnswer(answer);
 
                 // reload page
                 window.location.reload();
@@ -135,7 +135,7 @@ const AnswerList: React.FC = () => {
                                     {question.title}
                                 </Typography>
                                 <Typography>
-                                    by {question.author} on {question.createdAt}
+                                    by {question.author.name} on {question.createdAt}
                                 </Typography>
                                 <Stack direction="row" spacing={1} paddingTop={1} paddingBottom={1}>
                                     {question.tags.map((tag: string) => (
@@ -148,7 +148,12 @@ const AnswerList: React.FC = () => {
                                 <Typography p={1} minHeight="3vw" style={{ whiteSpace: "pre-line" }}>
                                     {question.body}
                                 </Typography>
-                                <EditBar subjectType="question" id={questionID} allowEdit allowDelete />
+                                <EditBar
+                                    subjectType="question"
+                                    id={questionID}
+                                    allowEdit={question.author.id === userID}
+                                    allowDelete={question.author.id === userID}
+                                />
                             </Box>
                         </Box>
                     </CardContent>
@@ -176,6 +181,7 @@ const AnswerList: React.FC = () => {
                     rows={8}
                     placeholder="Write your answer here"
                     onChange={handleUserAnswerChange}
+                    disabled={userID === -1}
                 />
                 <Box position="relative" top={10} alignContent="center">
                     <Button variant="contained" onClick={handleUserAnswerSubmit}>

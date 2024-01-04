@@ -1,21 +1,26 @@
+import { User, newUser } from "./User";
+
 export type Answer = {
     answerID: number;
     questionID: number;
     body: string;
-    author: string;
+    author: User;
     createdAt: string;
     updatedAt: string;
     votes: number;
     accepted: boolean;
 };
 
-export const emptyAnswer: Answer = {
-    answerID: -1,
-    questionID: -1,
-    body: "",
-    author: "placeholder",
-    createdAt: "",
-    updatedAt: "",
-    votes: 0,
-    accepted: false,
-};
+export function newAnswer(author = -1, questionID = -1, body = ""): Answer {
+    const ans: Answer = {
+        answerID: -1,
+        questionID: questionID,
+        body: body,
+        author: newUser(author),
+        createdAt: "",
+        updatedAt: "",
+        votes: 0,
+        accepted: false,
+    };
+    return ans;
+}

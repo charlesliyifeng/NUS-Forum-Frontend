@@ -3,7 +3,11 @@ export type User = {
     name: string;
 };
 
-export const emptyUser: User = {
-    id: -1,
-    name: "",
-};
+export function newUser(userID = -1, name = ""): User {
+    const newUser: User = {
+        id: userID,
+        name: name,
+    };
+
+    return newUser;
+}

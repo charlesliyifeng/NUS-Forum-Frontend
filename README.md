@@ -16,11 +16,7 @@ This is the frontend of NUS-Forum.
     - update comments
     - delete comments
 
-- users
-
 - register
-
-- disable features if not signed in
 
 - fix bugs
 

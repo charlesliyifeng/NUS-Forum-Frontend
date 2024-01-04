@@ -1,13 +1,14 @@
 import Item from "../Item";
 import { Question } from "../../types/Question";
+import formatViews from "../../lib/helper/formatViews";
+
+import React from "react";
+import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-
-import { Link } from "react-router-dom";
-import React from "react";
 
 // styles
 const cardStyle = {
@@ -15,17 +16,6 @@ const cardStyle = {
     width: "100%",
     height: "15vw",
 };
-
-// helper functions to format views
-function formatViews(views: number): string {
-    const postfix: string[] = ["", "k", "M", "B"];
-    let index: number = 0;
-    while (views >= 1000) {
-        views = Math.floor(views / 1000);
-        index++;
-    }
-    return String(views) + postfix[index];
-}
 
 // props for questioncard
 type Props = {
@@ -44,7 +34,7 @@ const QuestionCard: React.FC<Props> = ({ question }) => {
                             </Link>
                         </Typography>
                         <Typography color="text-secondary">
-                            by {question.author} on {question.createdAt}
+                            by {question.author.name} on {question.createdAt}
                         </Typography>
                         <Stack direction="row" spacing={1}>
                             <Item>votes: {question.votes}</Item>
@@ -54,7 +44,7 @@ const QuestionCard: React.FC<Props> = ({ question }) => {
                                     color: question.accepted ? "#FFFFFF" : "#000000",
                                 }}
                             >
-                                answers: {question.answers}
+                                answers: {question.answersCount}
                             </Item>
                             <Item>views: {formatViews(question.views)}</Item>
                         </Stack>

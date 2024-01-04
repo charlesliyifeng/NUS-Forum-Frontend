@@ -18,7 +18,6 @@ type Props = {
 const QuestionForm: React.FC<Props> = ({ question, setQuestion, handleSubmit, buttonType }) => {
     // Function to handle changes in input fields
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-        // handle Change for input element
         const { name, value } = event.target;
         // Update the state with the new value for the corresponding input field
         setQuestion((prev) => ({

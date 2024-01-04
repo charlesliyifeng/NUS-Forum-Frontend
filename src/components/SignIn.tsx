@@ -17,6 +17,7 @@ import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 
 const SignIn: React.FC = () => {
+    // eslint-disable-next-line
     const { userID, setUserID } = useContext(UserIdContext);
     const navigate = useNavigate();
 
@@ -30,8 +31,6 @@ const SignIn: React.FC = () => {
         try {
             const response = await createSession(email, password);
             // set userID
-            console.log(userID);
-            console.log(response.data.userId);
             setUserID(response.data.userId);
             console.log("signed in");
 
@@ -39,7 +38,7 @@ const SignIn: React.FC = () => {
             sessionStorage.setItem("token", response.data.authToken);
 
             // navigate back
-            navigate("/");
+            navigate(-1);
         } catch (error) {
             console.error(error);
         }

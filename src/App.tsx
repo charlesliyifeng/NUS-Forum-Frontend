@@ -8,6 +8,7 @@ import DeleteAnswer from "./pages/DeleteAnswer";
 import SigninPage from "./pages/SigninPage";
 import SignupPage from "./pages/SignupPage";
 import NotFound from "./pages/NotFound";
+import AccessDenied from "./pages/AccessDenied";
 import UserIdContext from "./contexts/UserIdContext";
 import { getSession } from "./lib/api/session";
 
@@ -38,7 +39,8 @@ const App: React.FC = () => {
         try {
             const response = await getSession();
             setUserID(response.data.userId);
-        } catch (error: any) { // eslint-disable-line
+            // eslint-disable-next-line
+        } catch (error: any) {
             if (error.message === "missing token") {
                 console.log("token not found");
             } else {
@@ -64,6 +66,7 @@ const App: React.FC = () => {
                             <Route path="/signin" element={<SigninPage />} />
                             <Route path="/signup" element={<SignupPage />} />
                             <Route path="/404" element={<NotFound />} />
+                            <Route path="/access_denied" element={<AccessDenied />} />
                             <Route path="*" element={<Navigate replace to="/404" />} />
                         </Routes>
                     </UserIdContext.Provider>

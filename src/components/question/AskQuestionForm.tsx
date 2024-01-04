@@ -1,15 +1,18 @@
 import QuestionForm from "./QuestionForm";
-import { Question, emptyQuestion } from "../../types/Question";
+import { Question, newQuestion } from "../../types/Question";
 import { createQuestion } from "../../lib/api/question";
+import UserIdContext from "../../contexts/UserIdContext";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 const AskQuestionForm: React.FC = () => {
     const navigate = useNavigate();
-    const [question, setQuestion] = useState<Question>(emptyQuestion);
+    // eslint-disable-next-line
+    const { userID, setUserID } = useContext(UserIdContext);
+    const [question, setQuestion] = useState<Question>(newQuestion(userID));
 
     async function handleSubmit() {
         if (!question!.title) {

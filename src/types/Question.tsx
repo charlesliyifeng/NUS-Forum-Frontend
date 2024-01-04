@@ -1,27 +1,33 @@
+import { User, newUser } from "./User";
+
 export type Question = {
     id: number;
     title: string;
     body: string;
-    author: string;
+    author: User;
     createdAt: string;
     updatedAt: string;
     votes: number;
-    answers: number;
+    answersCount: number;
     accepted: boolean;
     views: number;
     tags: string[];
 };
 
-export const emptyQuestion: Question = {
-    id: -1,
-    title: "",
-    body: "",
-    author: "placeholder",
-    createdAt: "",
-    updatedAt: "",
-    votes: 0,
-    answers: 0,
-    accepted: false,
-    views: 0,
-    tags: [],
-};
+export function newQuestion(author = -1, title = "", body = "", tags: string[] = []): Question {
+    const question: Question = {
+        id: -1,
+        title: title,
+        body: body,
+        author: newUser(author),
+        createdAt: "",
+        updatedAt: "",
+        votes: 0,
+        answersCount: 0,
+        accepted: false,
+        views: 0,
+        tags: tags,
+    };
+
+    return question;
+}

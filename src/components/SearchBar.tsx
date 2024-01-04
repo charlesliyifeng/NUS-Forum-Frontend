@@ -81,16 +81,16 @@ const SearchBar: React.FC = () => {
 
     async function handleSigninButton() {
         if (userID === -1) {
-            // signed in
+            // sign in
             navigate("/signin");
         } else {
             // sign out
             try {
-                console.log(userID);
                 await deleteSession(userID);
                 setUserID(-1);
                 sessionStorage.removeItem("token");
-                window.location.reload();
+                console.log("signed out");
+                navigate("/");
             } catch (error) {
                 console.error(error);
             }

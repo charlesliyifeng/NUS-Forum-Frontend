@@ -1,9 +1,10 @@
-import { Answer, emptyAnswer } from "../../types/Answer";
+import { Answer, newAnswer } from "../../types/Answer";
 import { getAnswerDetail, updateAnswer } from "../../lib/api/answer";
 import getAnswerID from "../../lib/helper/get_url_id";
+import UserIdContext from "../../contexts/UserIdContext";
 
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -12,7 +13,9 @@ import Button from "@mui/material/Button";
 const EditQuestionForm: React.FC = () => {
     const answerID: number = getAnswerID();
     const navigate = useNavigate();
-    const [answer, setAnswer] = useState<Answer>(emptyAnswer);
+    // eslint-disable-next-line
+    const { userID, setUserID } = useContext(UserIdContext);
+    const [answer, setAnswer] = useState<Answer>(newAnswer());
 
     // get question details from backend
     useEffect(() => {
@@ -54,6 +57,11 @@ const EditQuestionForm: React.FC = () => {
 
     if (answer.answerID === -1) {
         return <div></div>;
+    }
+
+    // check if user is author
+    if (userID !== answer.author.id) {
+        return <Navigate replace to="/access_denied" />;
     }
 
     return (
