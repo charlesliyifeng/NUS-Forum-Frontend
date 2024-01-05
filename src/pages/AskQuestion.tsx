@@ -1,4 +1,4 @@
-import SearchBar from "../components/SearchBar";
+import TopBar from "../components/TopBar";
 import SideBar from "../components/SideBar";
 import AskQuestionForm from "../components/question/AskQuestionForm";
 import UserIdContext from "../contexts/UserIdContext";
@@ -18,7 +18,7 @@ const AskQuestion: React.FC = () => {
 
     return (
         <Box display={"flex"}>
-            <SearchBar />
+            <TopBar />
             <SideBar />
             <AskQuestionForm />
         </Box>

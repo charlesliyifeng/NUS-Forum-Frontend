@@ -1,4 +1,5 @@
 import { createUser, createUserParams } from "../lib/api/user";
+import { validatePassword, validateEmail } from "../lib/helper/validator";
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -22,19 +23,22 @@ const SignUp: React.FC = () => {
             alert("name, email and password cannot be empty");
             return false;
         }
-
-        // validate password strength
-        if (params.password.length < 8) {
-            alert("password must have at least 8 characters");
+        // validate email
+        if (!validateEmail(params.email)) {
+            alert("please enter a valid email");
             return false;
         }
-
+        // validate password strength
+        const passwordErrors = validatePassword(params.password);
+        if (passwordErrors.length > 0) {
+            alert(passwordErrors.join("\n"));
+            return false;
+        }
         // check confirm password
         if (params.password !== confirmPassword) {
-            alert("passwords must be the same");
+            alert("passwords do not match");
             return false;
         }
-
         return true;
     }
 

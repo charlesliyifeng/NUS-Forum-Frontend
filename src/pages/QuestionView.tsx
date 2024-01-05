@@ -1,4 +1,4 @@
-import SearchBar from "../components/SearchBar";
+import TopBar from "../components/TopBar";
 import SideBar from "../components/SideBar";
 import AnswerList from "../components/answer/AnswerList";
 import { Box } from "@mui/material";
@@ -7,7 +7,7 @@ import React from "react";
 const QuestionView: React.FC = () => {
     return (
         <Box display={"flex"}>
-            <SearchBar />
+            <TopBar />
             <SideBar />
             <AnswerList />
         </Box>

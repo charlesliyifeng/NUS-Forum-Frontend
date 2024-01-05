@@ -1,4 +1,4 @@
-import SearchBar from "../components/SearchBar";
+import TopBar from "../components/TopBar";
 import SideBar from "../components/SideBar";
 import DeleteAnswerForm from "../components/answer/DeleteAnswerForm";
 
@@ -8,7 +8,7 @@ import { Box } from "@mui/material";
 const DeleteAnswer: React.FC = () => {
     return (
         <Box display={"flex"}>
-            <SearchBar />
+            <TopBar />
             <SideBar />
             <DeleteAnswerForm />
         </Box>
