@@ -11,7 +11,6 @@ type outputCreateParams = {
 
 type outputUpdateParams = {
     body: string;
-    userId: number;
     questionId: number;
 };
 
@@ -31,7 +30,6 @@ export function serializeCreate(t: Answer): outputCreateParams {
 export function serializeUpdate(t: Answer): outputUpdateParams {
     const p: outputUpdateParams = {
         body: t.body,
-        userId: t.author.id,
         questionId: t.questionID,
     };
 

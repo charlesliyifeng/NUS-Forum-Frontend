@@ -34,7 +34,7 @@ type dataParams = {
             data: {
                 id: string;
                 type: "user";
-            };
+            } | null;
         };
     };
     meta: {
@@ -55,7 +55,8 @@ function buildUsers(data: userParams[]): Dictionary<User> {
 
 function processData(data: dataParams, authors: Dictionary<User>): Question {
     // look up username from authors dict
-    const author: User = authors[+data.relationships.user.data.id];
+    const userdata = data.relationships.user.data;
+    const author: User = userdata ? authors[+userdata.id] : { id: 0, name: "deleted user" };
 
     // remove empty tags
     let tagArray = data.attributes.tags.split(",");

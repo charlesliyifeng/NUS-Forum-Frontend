@@ -13,7 +13,6 @@ type outputCreateParams = {
 type outputUpdateParams = {
     title: string;
     body: string;
-    userId: number;
     tags: string;
 };
 
@@ -35,7 +34,6 @@ export function serializeUpdate(t: Question): outputUpdateParams {
     const p: outputUpdateParams = {
         title: t.title,
         body: t.body,
-        userId: t.author.id,
         tags: t.tags.join(","),
     };
 
