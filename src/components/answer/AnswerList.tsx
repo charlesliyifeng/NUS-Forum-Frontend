@@ -164,7 +164,7 @@ const AnswerList: React.FC = () => {
             </Typography>
             {Answers.map((answer: Answer) => (
                 <AnswerItem
-                    questionAccepted={question.accepted}
+                    question={question}
                     answer={answer}
                     handleVoteChange={handleAnswerVoteChange}
                     key={answer.answerID}

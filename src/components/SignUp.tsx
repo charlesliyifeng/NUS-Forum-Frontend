@@ -1,10 +1,11 @@
+import { createUser, createUserParams } from "../lib/api/user";
+
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -12,15 +13,52 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-export default function SignUp() {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+const SignUp: React.FC = () => {
+    const navigate = useNavigate();
+
+    function validateInput(params: createUserParams, confirmPassword: string): boolean {
+        // validate input
+        if (!(params.email && params.password && params.name)) {
+            alert("name, email and password cannot be empty");
+            return false;
+        }
+
+        // validate password strength
+        if (params.password.length < 8) {
+            alert("password must have at least 8 characters");
+            return false;
+        }
+
+        // check confirm password
+        if (params.password !== confirmPassword) {
+            alert("passwords must be the same");
+            return false;
+        }
+
+        return true;
+    }
+
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get("email"),
-            password: data.get("password"),
-        });
-    };
+        const params: createUserParams = {
+            name: data.get("username")!.toString(),
+            email: data.get("email")!.toString(),
+            password: data.get("password")!.toString(),
+        };
+
+        if (!validateInput(params, data.get("confirmPassword")!.toString())) {
+            return;
+        }
+
+        try {
+            await createUser(params);
+            navigate("/");
+        } catch (error) {
+            console.error(error);
+            alert("email is invalid");
+        }
+    }
 
     return (
         <Container component="main" maxWidth="xs">
@@ -41,25 +79,15 @@ export default function SignUp() {
                 </Typography>
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12}>
                             <TextField
-                                autoComplete="given-name"
-                                name="firstName"
+                                autoComplete="username"
+                                name="username"
                                 required
                                 fullWidth
-                                id="firstName"
-                                label="First Name"
+                                id="username"
+                                label="Username"
                                 autoFocus
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                fullWidth
-                                id="lastName"
-                                label="Last Name"
-                                name="lastName"
-                                autoComplete="family-name"
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -84,9 +112,14 @@ export default function SignUp() {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <FormControlLabel
-                                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                label="I want to receive inspiration, marketing promotions and updates via email."
+                            <TextField
+                                required
+                                fullWidth
+                                name="confirmPassword"
+                                label="Confirm Password"
+                                type="password"
+                                id="confirmPassword"
+                                autoComplete="new-password"
                             />
                         </Grid>
                     </Grid>
@@ -95,7 +128,7 @@ export default function SignUp() {
                     </Button>
                     <Grid container justifyContent="flex-end">
                         <Grid item>
-                            <Link href="/login" variant="body2">
+                            <Link href="/signin" variant="body2">
                                 Already have an account? Sign in
                             </Link>
                         </Grid>
@@ -104,4 +137,6 @@ export default function SignUp() {
             </Box>
         </Container>
     );
-}
+};
+
+export default SignUp;

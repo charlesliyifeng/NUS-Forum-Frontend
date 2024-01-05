@@ -6,20 +6,17 @@ This is the frontend of NUS-Forum.
 
 ### Frontend
 (CRUD)
-- Questions
-    - only 1 vote for each person
-- Answers
-    - answer vote change
 - Comments
     - create comments
     - read comments
     - update comments
     - delete comments
 
-- register
-
+- user profile page
+    - delete user
+- voting system
 - fix bugs
-
+    - delete user
 
 
 ## Getting Started

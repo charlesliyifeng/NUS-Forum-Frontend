@@ -1,5 +1,5 @@
 import UserIdContext from "../contexts/UserIdContext";
-import { createSession } from "../lib/api/session";
+import { createSession, createSessionParams } from "../lib/api/session";
 
 import React, { useContext } from "react";
 import Avatar from "@mui/material/Avatar";
@@ -21,15 +21,31 @@ const SignIn: React.FC = () => {
     const { userID, setUserID } = useContext(UserIdContext);
     const navigate = useNavigate();
 
+    function validateInput(params: createSessionParams): boolean {
+        // validate input
+        if (!(params.email && params.password)) {
+            alert("email and password cannot be empty");
+            return false;
+        }
+
+        return true;
+    }
+
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const email = data.get("email")!.toString();
-        const password = data.get("password")!.toString();
+        const params: createSessionParams = {
+            email: data.get("email")!.toString(),
+            password: data.get("password")!.toString(),
+        };
+
+        if (!validateInput(params)) {
+            return;
+        }
 
         // create session from API
         try {
-            const response = await createSession(email, password);
+            const response = await createSession(params);
             // set userID
             setUserID(response.data.userId);
             console.log("signed in");
@@ -38,9 +54,10 @@ const SignIn: React.FC = () => {
             sessionStorage.setItem("token", response.data.authToken);
 
             // navigate back
-            navigate(-1);
+            navigate("/");
         } catch (error) {
             console.error(error);
+            alert("email or password is incorrect");
         }
     }
 

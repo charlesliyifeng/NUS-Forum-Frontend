@@ -1,6 +1,11 @@
 import client from "./client";
 import loadHeader from "../helper/loadHeader";
 
+export interface createSessionParams {
+    email: string;
+    password: string;
+}
+
 // get  (need token authentication)
 export const getSession = () => {
     const header = loadHeader();
@@ -8,11 +13,7 @@ export const getSession = () => {
 };
 
 // create
-export const createSession = (email: string, password: string) => {
-    const params = {
-        email: email,
-        password: password,
-    };
+export const createSession = (params: createSessionParams) => {
     return client.post("/sessions", params);
 };
 

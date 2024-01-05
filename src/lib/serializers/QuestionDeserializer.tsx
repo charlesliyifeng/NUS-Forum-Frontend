@@ -45,9 +45,11 @@ type dataParams = {
 
 function buildUsers(data: userParams[]): Dictionary<User> {
     const authors: Dictionary<User> = {};
-    data.forEach((user: userParams) => {
-        authors[+user.id] = { id: +user.id, name: user.attributes.name };
-    });
+    if (data) {
+        data.forEach((user: userParams) => {
+            authors[+user.id] = { id: +user.id, name: user.attributes.name };
+        });
+    }
     return authors;
 }
 
@@ -105,10 +107,12 @@ export function deserializeQuestionList(response: listResponse): Question[] {
     const authors = buildUsers(response.included);
 
     // process main body
-    response.data.forEach((data: dataParams) => {
-        const q = processData(data, authors);
-        questions.push(q);
-    });
+    if (response.data) {
+        response.data.forEach((data: dataParams) => {
+            const q = processData(data, authors);
+            questions.push(q);
+        });
+    }
 
     return questions;
 }

@@ -1,6 +1,7 @@
 import VoteDisplay from "../VoteDisplay";
 import EditBar from "../EditBar";
 import { Answer } from "../../types/Answer";
+import { Question } from "../../types/Question";
 import UserIdContext from "../../contexts/UserIdContext";
 
 import React, { useContext } from "react";
@@ -8,11 +9,11 @@ import { Box, Card, CardContent, Typography, Divider } from "@mui/material";
 
 type Props = {
     answer: Answer;
-    questionAccepted: boolean;
+    question: Question;
     handleVoteChange: (answerID: number, change: number) => void;
 };
 
-const AnswerItem: React.FC<Props> = ({ answer, questionAccepted, handleVoteChange }) => {
+const AnswerItem: React.FC<Props> = ({ answer, question, handleVoteChange }) => {
     // eslint-disable-next-line
     const { userID, setUserID } = useContext(UserIdContext);
 
@@ -40,7 +41,7 @@ const AnswerItem: React.FC<Props> = ({ answer, questionAccepted, handleVoteChang
                                 answer={answer}
                                 allowEdit={answer.author.id === userID}
                                 allowDelete={answer.author.id === userID}
-                                allowAccept={answer.author.id === userID && (answer.accepted || !questionAccepted)}
+                                allowAccept={question.author.id === userID && (answer.accepted || !question.accepted)}
                             />
                         </Box>
                     </Box>
