@@ -1,6 +1,6 @@
 import { deleteAnswer, getAnswerDetail } from "../../lib/api/answer";
 import getAnswerID from "../../lib/helper/get_url_id";
-import DeleteForm from "../DeleteForm";
+import DeleteForm from "../shared/DeleteForm";
 import { Answer, newAnswer } from "../../types/Answer";
 import UserIdContext from "../../contexts/UserIdContext";
 

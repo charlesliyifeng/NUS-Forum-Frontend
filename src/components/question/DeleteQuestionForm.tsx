@@ -1,4 +1,4 @@
-import DeleteForm from "../DeleteForm";
+import DeleteForm from "../shared/DeleteForm";
 import { Question, newQuestion } from "../../types/Question";
 import { getQuestionDetail, deleteQuestion } from "../../lib/api/question";
 import getQuestionID from "../../lib/helper/get_url_id";

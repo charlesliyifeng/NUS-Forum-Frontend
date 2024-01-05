@@ -1,5 +1,5 @@
-import { Answer } from "../types/Answer";
-import { toggleAccept } from "../lib/api/answer";
+import { Answer } from "../../types/Answer";
+import { toggleAccept } from "../../lib/api/answer";
 import React from "react";
 import { Link } from "react-router-dom";
 

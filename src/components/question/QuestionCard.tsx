@@ -1,4 +1,4 @@
-import Item from "../Item";
+import Item from "../shared/Item";
 import { Question } from "../../types/Question";
 import formatViews from "../../lib/helper/formatViews";
 

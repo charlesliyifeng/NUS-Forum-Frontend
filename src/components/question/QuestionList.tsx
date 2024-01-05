@@ -1,5 +1,5 @@
 import QuestionCard from "./QuestionCard";
-import BasicSelect from "../BasicSelect";
+import BasicSelect from "../shared/BasicSelect";
 import { Question } from "../../types/Question";
 import { getQuestionList } from "../../lib/api/question";
 import React, { useState, useEffect } from "react";

@@ -1,5 +1,5 @@
-import VoteDisplay from "../VoteDisplay";
-import EditBar from "../EditBar";
+import VoteDisplay from "../shared/VoteDisplay";
+import EditBar from "../shared/EditBar";
 import { Answer } from "../../types/Answer";
 import { Question } from "../../types/Question";
 import UserIdContext from "../../contexts/UserIdContext";
