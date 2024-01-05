@@ -38,11 +38,10 @@ export const updateAnswer = (id: number, a: Answer) => {
 };
 
 // toggle_accept  (need token authentication)
-export const toggleAccept = (id: number) => {
+export const toggleAccept = (id: number, status: boolean) => {
     const header = loadHeader();
-    console.log(header);
     // toggle the accept status of answer
-    return client.put(`/answers/${id}/accept`, {}, { headers: header });
+    return client.put(`/answers/${id}/accept`, { accepted: status }, { headers: header });
 };
 
 // delete  (need token authentication)

@@ -22,16 +22,16 @@ type Props = {
 const EditBar: React.FC<Props> = (props) => {
     const path: string = `../../${props.subjectType}/${props.id}`;
 
-    const handleAccept = async (id: number) => {
+    async function handleAccept() {
         try {
             // toggle accept status from API
-            await toggleAccept(id);
+            await toggleAccept(props.id, !props.answer!.accepted);
             // reload page
             window.location.reload();
         } catch (error) {
             console.error(error);
         }
-    };
+    }
 
     return (
         <Box paddingTop={1}>
@@ -52,7 +52,7 @@ const EditBar: React.FC<Props> = (props) => {
                     </Button>
                 ) : null}
                 {props.allowAccept ? (
-                    <Button variant="text" onClick={() => handleAccept(props.id)}>
+                    <Button variant="text" onClick={handleAccept}>
                         {props.answer!.accepted ? "Unaccept" : "Accept"}
                     </Button>
                 ) : null}
