@@ -10,7 +10,7 @@ function capitalize(word: string): string {
 }
 
 type Props = {
-    subjectType: "question" | "answer";
+    subjectType: string;
     handleSubmit: () => void;
 };
 

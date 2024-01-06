@@ -28,7 +28,7 @@ const AnswerList: React.FC = () => {
         - user answer
     */
 
-    const questionID: number = getQuestionID();
+    const questionID = getQuestionID();
     const navigate = useNavigate();
     // eslint-disable-next-line
     const { userID, setUserID } = useContext(UserIdContext);
@@ -42,7 +42,7 @@ const AnswerList: React.FC = () => {
             if (data) {
                 setQuestion(data);
             } else {
-                //handle not found
+                // handle not found
                 navigate("/404");
             }
         });

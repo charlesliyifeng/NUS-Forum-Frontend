@@ -9,7 +9,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 
 const DeleteQuestion: React.FC = () => {
     const navigate = useNavigate();
-    const questionID: number = getQuestionID();
+    const questionID = getQuestionID();
     // eslint-disable-next-line
     const { userID, setUserID } = useContext(UserIdContext);
     const [question, setQuestion] = useState<Question>(newQuestion());

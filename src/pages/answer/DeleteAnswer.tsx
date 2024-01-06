@@ -9,7 +9,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 
 const DeleteAnswer: React.FC = () => {
     const navigate = useNavigate();
-    const answerID: number = getAnswerID();
+    const answerID = getAnswerID();
     // eslint-disable-next-line
     const { userID, setUserID } = useContext(UserIdContext);
     const [answer, setAnswer] = useState<Answer>(newAnswer());

@@ -136,7 +136,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ userID }) => {
     }, []);
 
     function handleAvatarClick() {
-        navigate(`/`);
+        navigate(`/user/${userID}`);
     }
 
     // get initial of name

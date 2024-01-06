@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 // props for EditBar
 // display each button conditionally
 type Props = {
-    subjectType: "question" | "answer";
+    subjectType: "question" | "answer" | "user";
     id: number;
     answer?: Answer;
     allowEdit?: boolean;

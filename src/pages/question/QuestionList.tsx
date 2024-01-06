@@ -16,6 +16,12 @@ type Props = {
 };
 
 const QuestionList: React.FC<Props> = ({ isHome }) => {
+    /*
+        Structure: 
+        - Ask question and filter/order by
+        - QuestionCards
+    */
+
     const [questions, setQuestions] = useState<Question[]>([]);
 
     // Fetch the list of questions from the API when the component mounts

@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-const EditAnswer: React.FC = () => {
+const EditUser: React.FC = () => {
     const answerID = getAnswerID();
     const navigate = useNavigate();
     // eslint-disable-next-line
@@ -71,7 +71,7 @@ const EditAnswer: React.FC = () => {
             top={80}
         >
             <Typography variant="h4" padding={2}>
-                Edit an answer
+                Edit your profile
             </Typography>
 
             <TextField id="body" name="body" multiline required rows={8} onChange={handleChange} value={answer.body} />
@@ -92,4 +92,4 @@ const EditAnswer: React.FC = () => {
     );
 };
 
-export default EditAnswer;
+export default EditUser;

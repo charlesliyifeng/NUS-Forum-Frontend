@@ -65,7 +65,7 @@ const SignUp: React.FC = () => {
 
         try {
             await createUser(params);
-            navigate("/");
+            navigate("/signin");
         } catch (error) {
             console.error(error);
             alert("email is invalid");

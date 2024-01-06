@@ -7,6 +7,9 @@ import EditQuestion from "./pages/question/EditQuestion";
 import DeleteQuestion from "./pages/question/DeleteQuestion";
 import EditAnswer from "./pages/answer/EditAnswer";
 import DeleteAnswer from "./pages/answer/DeleteAnswer";
+import UserProfile from "./pages/user/UserProfile";
+import EditUser from "./pages/user/EditUser";
+import DeleteUser from "./pages/user/DeleteUser";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
@@ -72,7 +75,13 @@ const App: React.FC = () => {
                     <Route path=":id">
                         <Route path="edit" element={<EditAnswer />} />
                         <Route path="delete" element={<DeleteAnswer />} />
-                        <Route path="*" element={<Navigate replace to="/404" />} />
+                    </Route>
+                </Route>
+                <Route path="user" element={<PageLayout />}>
+                    <Route path=":id">
+                        <Route index element={<UserProfile />} />
+                        <Route path="edit" element={<EditUser />} />
+                        <Route path="delete" element={<DeleteUser />} />
                     </Route>
                 </Route>
                 <Route path="*" element={<Navigate replace to="/404" />} />

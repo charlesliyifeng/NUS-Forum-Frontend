@@ -10,7 +10,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 const EditQuestion: React.FC = () => {
-    const questionID: number = getQuestionID();
+    const questionID = getQuestionID();
     const navigate = useNavigate();
     // eslint-disable-next-line
     const { userID, setUserID } = useContext(UserIdContext);
