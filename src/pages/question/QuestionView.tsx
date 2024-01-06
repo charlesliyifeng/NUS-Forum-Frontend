@@ -1,6 +1,6 @@
-import TopBar from "../components/TopBar";
-import SideBar from "../components/SideBar";
-import AnswerList from "../components/answer/AnswerList";
+import TopBar from "../../components/TopBar";
+import SideBar from "../../components/SideBar";
+import AnswerList from "../../components/answer/AnswerList";
 import { Box } from "@mui/material";
 import React from "react";
 

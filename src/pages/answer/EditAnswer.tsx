@@ -1,6 +1,6 @@
-import TopBar from "../components/TopBar";
-import SideBar from "../components/SideBar";
-import EditAnswerForm from "../components/answer/EditAnswerForm";
+import TopBar from "../../components/TopBar";
+import SideBar from "../../components/SideBar";
+import EditAnswerForm from "../../components/answer/EditAnswerForm";
 import { Box } from "@mui/material";
 import React from "react";
 

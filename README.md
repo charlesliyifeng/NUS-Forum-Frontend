@@ -15,8 +15,10 @@ This is the frontend of NUS-Forum.
 - user profile page
     - delete user
 - voting system
+- search
+    - pages with batch queries
+    - sort and filter
 - fix bugs
-    - delete user
 
 
 ## Getting Started

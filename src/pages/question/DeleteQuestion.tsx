@@ -1,6 +1,6 @@
-import TopBar from "../components/TopBar";
-import SideBar from "../components/SideBar";
-import DeleteQuestionForm from "../components/question/DeleteQuestionForm";
+import TopBar from "../../components/TopBar";
+import SideBar from "../../components/SideBar";
+import DeleteQuestionForm from "../../components/question/DeleteQuestionForm";
 import { Box } from "@mui/material";
 import React from "react";
 

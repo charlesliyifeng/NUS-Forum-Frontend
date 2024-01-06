@@ -1,5 +1,6 @@
 import client from "./client";
-//import { User } from "../../types/User";
+import { deserializeUser } from "../serializers/UserDeserializer";
+import loadHeader from "../helper/loadHeader";
 
 export interface createUserParams {
     name: string;
@@ -7,10 +8,11 @@ export interface createUserParams {
     password: string;
 }
 
-// get
+// get (need token authorization)
 export const getUser = (id: number) => {
-    const response = client.get(`/users/${id}`);
-    return response.then().catch();
+    const header = loadHeader();
+    const response = client.get(`/users/${id}?fields[user]=name`, { headers: header });
+    return response.then((res) => deserializeUser(res.data)).catch((err) => console.error(err));
 };
 
 // create
@@ -20,5 +22,6 @@ export const createUser = (params: createUserParams) => {
 
 // delete (need token authorization)
 export const deleteUser = (id: number) => {
-    return client.delete(`/users/${id}`);
+    const header = loadHeader();
+    return client.delete(`/users/${id}`, { headers: header });
 };

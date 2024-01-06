@@ -35,7 +35,7 @@ const SignIn: React.FC = () => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const params: createSessionParams = {
-            email: data.get("email")!.toString(),
+            email: data.get("email")!.toString().trim(),
             password: data.get("password")!.toString(),
         };
 

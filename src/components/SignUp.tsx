@@ -46,8 +46,8 @@ const SignUp: React.FC = () => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const params: createUserParams = {
-            name: data.get("username")!.toString(),
-            email: data.get("email")!.toString(),
+            name: data.get("username")!.toString().trim(),
+            email: data.get("email")!.toString().trim(),
             password: data.get("password")!.toString(),
         };
 

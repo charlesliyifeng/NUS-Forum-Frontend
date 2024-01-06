@@ -1,7 +1,7 @@
-import TopBar from "../components/TopBar";
-import SideBar from "../components/SideBar";
-import AskQuestionForm from "../components/question/AskQuestionForm";
-import UserIdContext from "../contexts/UserIdContext";
+import TopBar from "../../components/TopBar";
+import SideBar from "../../components/SideBar";
+import AskQuestionForm from "../../components/question/AskQuestionForm";
+import UserIdContext from "../../contexts/UserIdContext";
 
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
