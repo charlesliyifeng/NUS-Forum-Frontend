@@ -14,12 +14,16 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
 const SignIn: React.FC = () => {
-    // eslint-disable-next-line
     const { userID, setUserID } = useContext(UserIdContext);
     const navigate = useNavigate();
+
+    // if signed in
+    if (userID !== -1) {
+        return <Navigate replace to="/" />;
+    }
 
     function validateInput(params: createSessionParams): boolean {
         // validate input

@@ -1,6 +1,6 @@
-import UserIdContext from "../contexts/UserIdContext";
-import { deleteSession } from "../lib/api/session";
-import { getUser } from "../lib/api/user";
+import UserIdContext from "../../contexts/UserIdContext";
+import { deleteSession } from "../../lib/api/session";
+import { getUser } from "../../lib/api/user";
 
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";

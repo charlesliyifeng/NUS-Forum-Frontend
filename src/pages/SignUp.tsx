@@ -1,8 +1,9 @@
 import { createUser, createUserParams } from "../lib/api/user";
 import { validatePassword, validateEmail } from "../lib/helper/validator";
+import UserIdContext from "../contexts/UserIdContext";
 
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,7 +16,14 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 const SignUp: React.FC = () => {
+    // eslint-disable-next-line
+    const { userID, setUserID } = useContext(UserIdContext);
     const navigate = useNavigate();
+
+    // if signed in
+    if (userID !== -1) {
+        return <Navigate replace to="/" />;
+    }
 
     function validateInput(params: createUserParams, confirmPassword: string): boolean {
         // validate input

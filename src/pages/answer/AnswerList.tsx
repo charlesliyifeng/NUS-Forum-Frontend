@@ -1,7 +1,7 @@
-import AnswerItem from "./AnswerItem";
-import VoteDisplay from "../shared/VoteDisplay";
-import EditBar from "../shared/EditBar";
-import Item from "../shared/Item";
+import AnswerItem from "../../components/answer/AnswerItem";
+import VoteDisplay from "../../components/sub-components/VoteDisplay";
+import EditBar from "../../components/sub-components/EditBar";
+import Item from "../../components/sub-components/Item";
 import { Question, newQuestion } from "../../types/Question";
 import { Answer, newAnswer } from "../../types/Answer";
 import { getQuestionDetail, updateQuestion } from "../../lib/api/question";

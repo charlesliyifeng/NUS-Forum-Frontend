@@ -1,5 +1,5 @@
-import SearchBar from "./shared/SearchBar";
-import TopBarOptions from "./TopBarOptions";
+import SearchBar from "./sub-components/SearchBar";
+import TopBarOptions from "./sub-components/TopBarOptions";
 
 import React from "react";
 import { AppBar, Toolbar } from "@mui/material";

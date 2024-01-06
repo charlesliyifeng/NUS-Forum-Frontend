@@ -1,5 +1,5 @@
-import QuestionCard from "./QuestionCard";
-import BasicSelect from "../shared/BasicSelect";
+import QuestionCard from "../../components/question/QuestionCard";
+import BasicSelect from "../../components/sub-components/BasicSelect";
 import { Question } from "../../types/Question";
 import { getQuestionList } from "../../lib/api/question";
 import React, { useState, useEffect } from "react";
@@ -10,7 +10,12 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
-const QuestionList: React.FC = () => {
+// props for QuestionList
+type Props = {
+    isHome: boolean;
+};
+
+const QuestionList: React.FC<Props> = ({ isHome }) => {
     const [questions, setQuestions] = useState<Question[]>([]);
 
     // Fetch the list of questions from the API when the component mounts
@@ -26,7 +31,7 @@ const QuestionList: React.FC = () => {
         <Box className="centerBox" sx={{ flexGrow: 1, p: 3 }} top={80}>
             <Toolbar>
                 <Typography variant="h4" position="static">
-                    {"Top Questions"}
+                    {isHome ? "Top Questions" : "All Questions"}
                 </Typography>
                 <BasicSelect placeholder={"Sort by"} choices={["votes", "answers", "views"]} />
                 <BasicSelect placeholder={"Filter by"} choices={["Accepted", "Not Accepted", "No Answer"]} />

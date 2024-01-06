@@ -1,4 +1,4 @@
-import TagInput from "../shared/TagInput";
+import TagInput from "../sub-components/TagInput";
 import { Question } from "../../types/Question";
 
 import React from "react";

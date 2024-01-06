@@ -1,17 +1,18 @@
-import QuestionList from "./question/QuestionList";
 import TopBar from "../components/TopBar";
 import SideBar from "../components/SideBar";
-import { Box } from "@mui/material";
-import React from "react";
 
-const Home: React.FC = () => {
+import React from "react";
+import { Outlet } from "react-router-dom";
+import { Box } from "@mui/material";
+
+const PageLayout: React.FC = () => {
     return (
         <Box display={"flex"}>
             <TopBar />
             <SideBar />
-            <QuestionList isHome />
+            <Outlet />
         </Box>
     );
 };
 
-export default Home;
+export default PageLayout;
