@@ -1,12 +1,14 @@
 import Home from "./pages/Home";
-import QuestionView from "./pages/question/QuestionView";
+import PageLayout from "./pages/PageLayout";
+import QuestionList from "./pages/question/QuestionList";
+import AnswerList from "./pages/answer/AnswerList";
 import AskQuestion from "./pages/question/AskQuestion";
 import EditQuestion from "./pages/question/EditQuestion";
 import DeleteQuestion from "./pages/question/DeleteQuestion";
 import EditAnswer from "./pages/answer/EditAnswer";
 import DeleteAnswer from "./pages/answer/DeleteAnswer";
-import SigninPage from "./pages/SigninPage";
-import SignupPage from "./pages/SignupPage";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
 import AccessDenied from "./pages/AccessDenied";
 import UserIdContext from "./contexts/UserIdContext";
@@ -14,7 +16,7 @@ import { getSession } from "./lib/api/session";
 
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { Route, Navigate, createBrowserRouter, RouterProvider, createRoutesFromElements } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { blue, orange, red } from "@mui/material/colors";
 
@@ -49,30 +51,41 @@ const App: React.FC = () => {
         }
     };
 
+    const router = createBrowserRouter(
+        createRoutesFromElements(
+            <Route path="/">
+                <Route index element={<Home />} />
+                <Route path="signin" element={<SignIn />} />
+                <Route path="signup" element={<SignUp />} />
+                <Route path="404" element={<NotFound />} />
+                <Route path="access_denied" element={<AccessDenied />} />
+                <Route path="question" element={<PageLayout />}>
+                    <Route index element={<QuestionList isHome={false} />} />
+                    <Route path="new" element={<AskQuestion />} />
+                    <Route path=":id">
+                        <Route index element={<AnswerList />} />
+                        <Route path="edit" element={<EditQuestion />} />
+                        <Route path="delete" element={<DeleteQuestion />} />
+                    </Route>
+                </Route>
+                <Route path="answer" element={<PageLayout />}>
+                    <Route path=":id">
+                        <Route path="edit" element={<EditAnswer />} />
+                        <Route path="delete" element={<DeleteAnswer />} />
+                        <Route path="*" element={<Navigate replace to="/404" />} />
+                    </Route>
+                </Route>
+                <Route path="*" element={<Navigate replace to="/404" />} />
+            </Route>,
+        ),
+    );
+
     return (
         <div className="App">
             <ThemeProvider theme={theme}>
-                <BrowserRouter>
-                    <UserIdContext.Provider value={{ userID: userID, setUserID: setUserID }}>
-                        <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/question" element={<Home />} />
-                            <Route path="/question/:id" element={<QuestionView />} />
-                            <Route path="/question/new" element={<AskQuestion />} />
-                            <Route path="/question/:id/edit" element={<EditQuestion />} />
-                            <Route path="/question/:id/delete" element={<DeleteQuestion />} />
-                            <Route path="/answer/:id/edit" element={<EditAnswer />} />
-                            <Route path="/answer/:id/delete" element={<DeleteAnswer />} />
-                            <Route path="/answer/:id/edit" element={<EditAnswer />} />
-                            <Route path="/answer/:id/delete" element={<DeleteAnswer />} />
-                            <Route path="/signin" element={<SigninPage />} />
-                            <Route path="/signup" element={<SignupPage />} />
-                            <Route path="/404" element={<NotFound />} />
-                            <Route path="/access_denied" element={<AccessDenied />} />
-                            <Route path="*" element={<Navigate replace to="/404" />} />
-                        </Routes>
-                    </UserIdContext.Provider>
-                </BrowserRouter>
+                <UserIdContext.Provider value={{ userID: userID, setUserID: setUserID }}>
+                    <RouterProvider router={router} />
+                </UserIdContext.Provider>
             </ThemeProvider>
         </div>
     );
