@@ -8,10 +8,9 @@ export interface createUserParams {
     password: string;
 }
 
-// get (need token authorization)
+// get
 export const getUser = (id: number) => {
-    const header = loadHeader();
-    const response = client.get(`/users/${id}?fields[user]=name`, { headers: header });
+    const response = client.get(`/users/${id}?fields[user]=name`);
     return response.then((res) => deserializeUser(res.data)).catch((err) => console.error(err));
 };
 
