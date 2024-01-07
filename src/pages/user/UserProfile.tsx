@@ -27,7 +27,7 @@ const UserProfile: React.FC = () => {
                 navigate("/404");
             }
         });
-    });
+    }, []);
 
     if (targetUser.id === -1) {
         return <div></div>;

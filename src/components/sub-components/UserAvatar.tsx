@@ -23,7 +23,7 @@ function stringToColor(string: string) {
     return color;
 }
 
-function stringAvatar(name: string) {
+function stringAvatar(name: string, width: number, height: number) {
     const names = name.split(" ");
     // create initials
     let initials: string = "";
@@ -39,6 +39,8 @@ function stringAvatar(name: string) {
     return {
         sx: {
             bgcolor: stringToColor(name),
+            width: width,
+            height: height,
         },
         children: initials,
     };
@@ -60,7 +62,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ userID, username, width, height
     }
 
     // get initial of name
-    return <Avatar {...stringAvatar(username)} sx={{ width: width, height: height }} onClick={handleAvatarClick} />;
+    return <Avatar {...stringAvatar(username, width!, height!)} onClick={handleAvatarClick} />;
 };
 
 UserAvatar.defaultProps = {
