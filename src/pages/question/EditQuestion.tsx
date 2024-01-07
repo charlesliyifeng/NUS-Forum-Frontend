@@ -2,7 +2,7 @@ import QuestionForm from "../../components/question/QuestionForm";
 import { Question, newQuestion } from "../../types/Question";
 import { getQuestionDetail, updateQuestion } from "../../lib/api/question";
 import getQuestionID from "../../lib/helper/get_url_id";
-import UserIdContext from "../../contexts/UserIdContext";
+import UserContext from "../../contexts/UserContext";
 
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
@@ -13,7 +13,7 @@ const EditQuestion: React.FC = () => {
     const questionID = getQuestionID();
     const navigate = useNavigate();
     // eslint-disable-next-line
-    const { userID, setUserID } = useContext(UserIdContext);
+    const { user, setUser } = useContext(UserContext);
     const [question, setQuestion] = useState<Question>(newQuestion());
 
     // get question details from backend
@@ -53,7 +53,7 @@ const EditQuestion: React.FC = () => {
     }
 
     // check if user is author
-    if (userID !== question.author.id) {
+    if (user.id !== question.author.id) {
         return <Navigate replace to="/access_denied" />;
     }
 

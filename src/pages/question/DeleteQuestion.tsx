@@ -2,7 +2,7 @@ import DeleteForm from "../../components/DeleteForm";
 import { Question, newQuestion } from "../../types/Question";
 import { getQuestionDetail, deleteQuestion } from "../../lib/api/question";
 import getQuestionID from "../../lib/helper/get_url_id";
-import UserIdContext from "../../contexts/UserIdContext";
+import UserContext from "../../contexts/UserContext";
 
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
@@ -11,7 +11,7 @@ const DeleteQuestion: React.FC = () => {
     const navigate = useNavigate();
     const questionID = getQuestionID();
     // eslint-disable-next-line
-    const { userID, setUserID } = useContext(UserIdContext);
+    const { user, setUser } = useContext(UserContext);
     const [question, setQuestion] = useState<Question>(newQuestion());
 
     // get question details from backend
@@ -48,7 +48,7 @@ const DeleteQuestion: React.FC = () => {
     }
 
     // check if user is author
-    if (userID !== question.author.id) {
+    if (user.id !== question.author.id) {
         return <Navigate replace to="/access_denied" />;
     }
 

@@ -14,8 +14,10 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
 import AccessDenied from "./pages/AccessDenied";
-import UserIdContext from "./contexts/UserIdContext";
+import UserContext from "./contexts/UserContext";
 import { getSession } from "./lib/api/session";
+import { User, newUser } from "./types/User";
+import { deserializeUser } from "./lib/serializers/UserDeserializer";
 
 import React, { useEffect, useState } from "react";
 import "./App.css";
@@ -32,8 +34,7 @@ const theme = createTheme({
 });
 
 const App: React.FC = () => {
-    // userID: -1 = not signed in
-    const [userID, setUserID] = useState(-1);
+    const [user, setUser] = useState<User>(newUser());
 
     useEffect(() => {
         // get userID from session token
@@ -43,7 +44,7 @@ const App: React.FC = () => {
     const fetchUserID = async () => {
         try {
             const response = await getSession();
-            setUserID(response.data.userId);
+            setUser(deserializeUser(response.data));
             // eslint-disable-next-line
         } catch (error: any) {
             if (error.message === "missing token") {
@@ -92,9 +93,9 @@ const App: React.FC = () => {
     return (
         <div className="App">
             <ThemeProvider theme={theme}>
-                <UserIdContext.Provider value={{ userID: userID, setUserID: setUserID }}>
+                <UserContext.Provider value={{ user: user, setUser: setUser }}>
                     <RouterProvider router={router} />
-                </UserIdContext.Provider>
+                </UserContext.Provider>
             </ThemeProvider>
         </div>
     );

@@ -1,5 +1,5 @@
 import client from "./client";
-import { deserializeUser } from "../serializers/UserDeserializer";
+import { deserializeUser, deserializeUserDetails } from "../serializers/UserDeserializer";
 import loadHeader from "../helper/loadHeader";
 
 export interface createUserParams {
@@ -12,6 +12,12 @@ export interface createUserParams {
 export const getUser = (id: number) => {
     const response = client.get(`/users/${id}?fields[user]=name`);
     return response.then((res) => deserializeUser(res.data)).catch((err) => console.error(err));
+};
+
+// get
+export const getUserDetails = (id: number) => {
+    const response = client.get(`/users/${id}?fields[user]=name,created_at,updated_at`);
+    return response.then((res) => deserializeUserDetails(res.data)).catch((err) => console.error(err));
 };
 
 // create

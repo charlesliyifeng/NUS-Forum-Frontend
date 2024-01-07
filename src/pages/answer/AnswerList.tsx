@@ -7,7 +7,7 @@ import { Answer, newAnswer } from "../../types/Answer";
 import { getQuestionDetail, updateQuestion } from "../../lib/api/question";
 import { createAnswer, getAnswersOfQuestion } from "../../lib/api/answer";
 import getQuestionID from "../../lib/helper/get_url_id";
-import UserIdContext from "../../contexts/UserIdContext";
+import UserContext from "../../contexts/UserContext";
 
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -31,8 +31,8 @@ const AnswerList: React.FC = () => {
     const questionID = getQuestionID();
     const navigate = useNavigate();
     // eslint-disable-next-line
-    const { userID, setUserID } = useContext(UserIdContext);
-    const [question, setQuestion] = useState<Question>(newQuestion(userID));
+    const { user, setUser } = useContext(UserContext);
+    const [question, setQuestion] = useState<Question>(newQuestion(user.id));
     const [Answers, setAnswers] = useState<Answer[]>([]);
     const [userAnswer, setUserAnswer] = useState("");
 
@@ -93,7 +93,7 @@ const AnswerList: React.FC = () => {
 
     async function handleUserAnswerSubmit() {
         // if not signed in
-        if (userID === -1) {
+        if (user.id === -1) {
             alert("please sign in first");
             return;
         }
@@ -102,7 +102,7 @@ const AnswerList: React.FC = () => {
             // update backend
             try {
                 // create new answer and submit to API
-                const answer = newAnswer(userID, questionID, userAnswer);
+                const answer = newAnswer(user.id, questionID, userAnswer);
                 await createAnswer(answer);
 
                 // reload page
@@ -151,8 +151,8 @@ const AnswerList: React.FC = () => {
                                 <EditBar
                                     subjectType="question"
                                     id={questionID}
-                                    allowEdit={question.author.id === userID}
-                                    allowDelete={question.author.id === userID}
+                                    allowEdit={question.author.id === user.id}
+                                    allowDelete={question.author.id === user.id}
                                 />
                             </Box>
                         </Box>
@@ -181,7 +181,7 @@ const AnswerList: React.FC = () => {
                     rows={8}
                     placeholder="Write your answer here"
                     onChange={handleUserAnswerChange}
-                    disabled={userID === -1}
+                    disabled={user.id === -1}
                 />
                 <Box position="relative" top={10} alignContent="center">
                     <Button variant="contained" onClick={handleUserAnswerSubmit}>

@@ -1,13 +1,13 @@
-import UserIdContext from "../../contexts/UserIdContext";
+import UserAvatar from "./UserAvatar";
+import UserContext from "../../contexts/UserContext";
 import { deleteSession } from "../../lib/api/session";
-import { getUser } from "../../lib/api/user";
+import { User, newUser } from "../../types/User";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import Avatar from "@mui/material/Avatar";
 
 // button style signin/signout/signup
 const BootstrapButton = styled(Button)({
@@ -40,18 +40,18 @@ const SigninButton: React.FC = () => {
 
 // props for sign out button
 type SignoutButtonProps = {
-    userID: number;
-    setUserID: React.Dispatch<React.SetStateAction<number>>;
+    user: User;
+    setUser: React.Dispatch<React.SetStateAction<User>>;
 };
 
-const SignoutButton: React.FC<SignoutButtonProps> = ({ userID, setUserID }) => {
+const SignoutButton: React.FC<SignoutButtonProps> = ({ user, setUser }) => {
     const navigate = useNavigate();
 
     async function handleButton() {
         // sign out
         try {
-            await deleteSession(userID);
-            setUserID(-1);
+            await deleteSession(user.id);
+            setUser(newUser());
             sessionStorage.removeItem("token");
             console.log("signed out");
             navigate("/");
@@ -75,78 +75,10 @@ const SignupButton: React.FC = () => {
     );
 };
 
-// helper functions to style UserAvatar
-function stringToColor(string: string) {
-    let hash = 0;
-    let i;
-
-    /* eslint-disable no-bitwise */
-    for (i = 0; i < string.length; i += 1) {
-        hash = string.charCodeAt(i) + ((hash << 5) - hash);
-    }
-
-    let color = "#";
-
-    for (i = 0; i < 3; i += 1) {
-        const value = (hash >> (i * 8)) & 0xff;
-        color += `00${value.toString(16)}`.slice(-2);
-    }
-    /* eslint-enable no-bitwise */
-
-    return color;
-}
-
-function stringAvatar(name: string) {
-    const names = name.split(" ");
-    // create initials
-    let initials: string = "";
-    let i = 0;
-    while (i < names.length && initials.length < 2) {
-        const char = names[i];
-        if (char) {
-            initials += char[0].toUpperCase();
-        }
-        i++;
-    }
-
-    return {
-        sx: {
-            bgcolor: stringToColor(name),
-        },
-        children: initials,
-    };
-}
-
-// props for UserAvatar
-type UserAvatarProps = {
-    userID: number;
-};
-
-const UserAvatar: React.FC<UserAvatarProps> = ({ userID }) => {
-    const navigate = useNavigate();
-    const [username, setUsername] = useState("");
-    useEffect(() => {
-        // get user profile from API
-        getUser(userID).then((data) => {
-            if (data) {
-                console.log(data.name);
-                setUsername(data.name);
-            }
-        });
-    }, []);
-
-    function handleAvatarClick() {
-        navigate(`/user/${userID}`);
-    }
-
-    // get initial of name
-    return <Avatar {...stringAvatar(username)} onClick={handleAvatarClick} />;
-};
-
 const TopBarOptions: React.FC = () => {
-    const { userID, setUserID } = useContext(UserIdContext);
+    const { user, setUser } = useContext(UserContext);
 
-    if (userID === -1) {
+    if (user.id === -1) {
         // display signin and signup if not signed in
         return (
             <Stack position={"relative"} left={250} direction={"row"} spacing={1}>
@@ -158,8 +90,8 @@ const TopBarOptions: React.FC = () => {
         // display avatar and sign out if signed in
         return (
             <Stack position={"relative"} left={250} direction={"row"} spacing={5}>
-                <SignoutButton userID={userID} setUserID={setUserID} />
-                <UserAvatar userID={userID} />
+                <SignoutButton user={user} setUser={setUser} />
+                <UserAvatar userID={user.id} username={user.name} />
             </Stack>
         );
     }

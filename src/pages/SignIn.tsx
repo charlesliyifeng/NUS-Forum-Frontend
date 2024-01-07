@@ -1,5 +1,6 @@
-import UserIdContext from "../contexts/UserIdContext";
+import UserContext from "../contexts/UserContext";
 import { createSession, createSessionParams } from "../lib/api/session";
+import { newUser } from "../types/User";
 
 import React, { useContext } from "react";
 import Avatar from "@mui/material/Avatar";
@@ -17,11 +18,11 @@ import Container from "@mui/material/Container";
 import { useNavigate, Navigate } from "react-router-dom";
 
 const SignIn: React.FC = () => {
-    const { userID, setUserID } = useContext(UserIdContext);
+    const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
 
     // if signed in
-    if (userID !== -1) {
+    if (user.id !== -1) {
         return <Navigate replace to="/" />;
     }
 
@@ -51,7 +52,7 @@ const SignIn: React.FC = () => {
         try {
             const response = await createSession(params);
             // set userID
-            setUserID(response.data.userId);
+            setUser(newUser(response.data.userId, response.data.username));
             console.log("signed in");
 
             // store token

@@ -11,3 +11,21 @@ export function newUser(userID = -1, name = ""): User {
 
     return newUser;
 }
+
+export type UserDetails = {
+    id: number;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export function newUserDetails(userID = -1, name = ""): UserDetails {
+    const newUser: UserDetails = {
+        id: userID,
+        name: name,
+        createdAt: "",
+        updatedAt: "",
+    };
+
+    return newUser;
+}

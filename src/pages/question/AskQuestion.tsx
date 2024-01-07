@@ -1,7 +1,7 @@
 import QuestionForm from "../../components/question/QuestionForm";
 import { Question, newQuestion } from "../../types/Question";
 import { createQuestion } from "../../lib/api/question";
-import UserIdContext from "../../contexts/UserIdContext";
+import UserContext from "../../contexts/UserContext";
 
 import React, { useContext, useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
@@ -10,12 +10,12 @@ import Typography from "@mui/material/Typography";
 
 const AskQuestion: React.FC = () => {
     // eslint-disable-next-line
-    const { userID, setUserID } = useContext(UserIdContext);
-    const [question, setQuestion] = useState<Question>(newQuestion(userID));
+    const { user, setUser } = useContext(UserContext);
+    const [question, setQuestion] = useState<Question>(newQuestion(user.id));
     const navigate = useNavigate();
 
     // if not signed in
-    if (userID === -1) {
+    if (user.id === -1) {
         return <Navigate replace to="/signin" />;
     }
 

@@ -1,6 +1,6 @@
 import { createUser, createUserParams } from "../lib/api/user";
 import { validatePassword, validateEmail } from "../lib/helper/validator";
-import UserIdContext from "../contexts/UserIdContext";
+import UserContext from "../contexts/UserContext";
 
 import React, { useContext } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
@@ -17,11 +17,11 @@ import Container from "@mui/material/Container";
 
 const SignUp: React.FC = () => {
     // eslint-disable-next-line
-    const { userID, setUserID } = useContext(UserIdContext);
+    const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
 
     // if signed in
-    if (userID !== -1) {
+    if (user.id !== -1) {
         return <Navigate replace to="/" />;
     }
 
