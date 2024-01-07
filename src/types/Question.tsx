@@ -8,6 +8,7 @@ export type Question = {
     createdAt: string;
     updatedAt: string;
     votes: number;
+    userVote: number;
     answersCount: number;
     accepted: boolean;
     views: number;
@@ -23,6 +24,7 @@ export function newQuestion(author = -1, title = "", body = "", tags: string[] =
         createdAt: "",
         updatedAt: "",
         votes: 0,
+        userVote: 0,
         answersCount: 0,
         accepted: false,
         views: 0,

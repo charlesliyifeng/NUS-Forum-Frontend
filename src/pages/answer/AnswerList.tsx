@@ -4,8 +4,8 @@ import EditBar from "../../components/sub-components/EditBar";
 import Item from "../../components/sub-components/Item";
 import { Question, newQuestion } from "../../types/Question";
 import { Answer, newAnswer } from "../../types/Answer";
-import { getQuestionDetail, updateQuestion } from "../../lib/api/question";
-import { createAnswer, getAnswersOfQuestion } from "../../lib/api/answer";
+import { getQuestionDetail, voteQuestion } from "../../lib/api/question";
+import { createAnswer, getAnswersOfQuestion, voteAnswer } from "../../lib/api/answer";
 import getQuestionID from "../../lib/helper/get_url_id";
 import UserContext from "../../contexts/UserContext";
 
@@ -66,18 +66,13 @@ const AnswerList: React.FC = () => {
 
         // update backend
         try {
-            await updateQuestion(questionID, newQuestion);
+            await voteQuestion(questionID, change);
         } catch (error) {
             console.error(error);
         }
     }
 
-    function handleUserAnswerChange(event: React.ChangeEvent<HTMLInputElement>) {
-        const text: string = event.target.value;
-        setUserAnswer(text);
-    }
-
-    function handleAnswerVoteChange(answerID: number, change: number) {
+    async function handleAnswerVoteChange(answerID: number, change: number) {
         // update vote of target answer
         const newAnswers: Answer[] = [];
         for (let i = 0; i < Answers.length; i++) {
@@ -89,6 +84,16 @@ const AnswerList: React.FC = () => {
         setAnswers(newAnswers);
 
         // update backend
+        try {
+            await voteAnswer(answerID, change);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    function handleUserAnswerChange(event: React.ChangeEvent<HTMLInputElement>) {
+        const text: string = event.target.value;
+        setUserAnswer(text);
     }
 
     async function handleUserAnswerSubmit() {
@@ -129,6 +134,7 @@ const AnswerList: React.FC = () => {
                                 votes={question.votes}
                                 accepted={false}
                                 handleVoteChange={handleQuestionVoteChange}
+                                userVote={question.userVote}
                             />
                             <Box display={"flex"} flexDirection={"column"} width="100%">
                                 <Typography variant="h5" p={0}>

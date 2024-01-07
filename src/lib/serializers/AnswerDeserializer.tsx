@@ -21,6 +21,7 @@ type dataParams = {
     attributes: {
         body: string;
         votes: number;
+        userVote: number;
         accepted: boolean;
         createdAt: string;
         updatedAt: string;
@@ -66,6 +67,7 @@ function processData(data: dataParams, authors: Dictionary<User>): Answer {
         createdAt: data.attributes.createdAt,
         updatedAt: data.attributes.updatedAt,
         votes: data.attributes.votes,
+        userVote: data.attributes.userVote,
         accepted: data.attributes.accepted,
     };
     return t;

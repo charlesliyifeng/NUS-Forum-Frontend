@@ -6,13 +6,15 @@ import { deserializeQuestion, deserializeQuestionList } from "../serializers/Que
 
 // get
 export const getQuestionList = () => {
-    const response = client.get("/questions?include=user&fields[user]=name");
+    const header = loadHeader(true);
+    const response = client.get("/questions?include=user&fields[user]=name", { headers: header });
     return response.then((res) => deserializeQuestionList(res.data)).catch((err) => console.error(err));
 };
 
 // detail
 export const getQuestionDetail = (id: number) => {
-    const response = client.get(`/questions/${id}?include=user&fields[user]=name`);
+    const header = loadHeader(true);
+    const response = client.get(`/questions/${id}?include=user&fields[user]=name`, { headers: header });
     return response.then((res) => deserializeQuestion(res.data)).catch((err) => console.error(err));
 };
 
@@ -28,6 +30,13 @@ export const updateQuestion = (id: number, q: Question) => {
     const header = loadHeader();
     const params = serializeUpdate(q);
     return client.put(`/questions/${id}`, params, { headers: header });
+};
+
+// vote (need token authentication)
+export const voteQuestion = (id: number, vote: number) => {
+    const header = loadHeader();
+    // update user vote
+    return client.put(`/questions/${id}/vote`, { question: { vote: vote } }, { headers: header });
 };
 
 // delete  (need token authentication)

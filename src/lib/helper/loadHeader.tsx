@@ -2,12 +2,20 @@ type Header = {
     auth_token: string;
 };
 
-function loadHeader(): Header {
-    const token = sessionStorage.getItem("token");
+function loadHeader(optional = false): Header {
+    let token = localStorage.getItem("token");
+    if (!token) {
+        token = sessionStorage.getItem("token");
+    }
+    // if token not found
     if (token) {
         return { auth_token: token };
     } else {
-        throw new Error("missing token");
+        if (optional) {
+            return { auth_token: "" };
+        } else {
+            throw new Error("missing token");
+        }
     }
 }
 

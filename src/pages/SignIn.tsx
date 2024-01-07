@@ -1,8 +1,10 @@
 import UserContext from "../contexts/UserContext";
 import { createSession, createSessionParams } from "../lib/api/session";
 import { newUser } from "../types/User";
+import { signin } from "../lib/helper/tokenManager";
 
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,11 +17,11 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { useNavigate, Navigate } from "react-router-dom";
 
 const SignIn: React.FC = () => {
     const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
+    const [remember, setRemember] = useState(false);
 
     // if signed in
     if (user.id !== -1) {
@@ -56,7 +58,7 @@ const SignIn: React.FC = () => {
             console.log("signed in");
 
             // store token
-            sessionStorage.setItem("token", response.data.authToken);
+            signin(response.data.authToken, remember);
 
             // navigate back
             navigate("/");
@@ -64,6 +66,10 @@ const SignIn: React.FC = () => {
             console.error(error);
             alert("email or password is incorrect");
         }
+    }
+
+    function handleCheckBox(event: React.ChangeEvent<HTMLInputElement>) {
+        setRemember(event.target.checked);
     }
 
     return (
@@ -104,7 +110,12 @@ const SignIn: React.FC = () => {
                         id="password"
                         autoComplete="current-password"
                     />
-                    <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+                    <FormControlLabel
+                        control={
+                            <Checkbox value="remember" color="primary" checked={remember} onChange={handleCheckBox} />
+                        }
+                        label="Remember me"
+                    />
                     <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                         Sign In
                     </Button>

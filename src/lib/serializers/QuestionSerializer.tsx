@@ -5,7 +5,6 @@ type outputCreateParams = {
     title: string;
     body: string;
     userId: number;
-    votes: number;
     views: number;
     tags: string;
 };
@@ -22,7 +21,6 @@ export function serializeCreate(t: Question): outputCreateParams {
         title: t.title,
         body: t.body,
         userId: t.author.id,
-        votes: t.votes,
         views: t.views,
         tags: t.tags.join(","),
     };

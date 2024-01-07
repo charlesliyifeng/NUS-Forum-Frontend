@@ -3,6 +3,7 @@ import getUserID from "../../lib/helper/get_url_id";
 import DeleteForm from "../../components/DeleteForm";
 import { User, newUser } from "../../types/User";
 import UserContext from "../../contexts/UserContext";
+import { signout } from "../../lib/helper/tokenManager";
 
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
@@ -43,7 +44,7 @@ const DeleteUser: React.FC = () => {
         // sign out if targetUser is current user
         if (targetUserID === user.id) {
             setUser(newUser());
-            sessionStorage.removeItem("token");
+            signout();
             console.log("signed out");
         }
 

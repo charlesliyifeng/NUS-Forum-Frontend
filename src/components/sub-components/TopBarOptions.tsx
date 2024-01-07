@@ -2,6 +2,7 @@ import UserAvatar from "./UserAvatar";
 import UserContext from "../../contexts/UserContext";
 import { deleteSession } from "../../lib/api/session";
 import { User, newUser } from "../../types/User";
+import { signout } from "../../lib/helper/tokenManager";
 
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -52,7 +53,7 @@ const SignoutButton: React.FC<SignoutButtonProps> = ({ user, setUser }) => {
         try {
             await deleteSession(user.id);
             setUser(newUser());
-            sessionStorage.removeItem("token");
+            signout();
             console.log("signed out");
             navigate("/");
         } catch (error) {

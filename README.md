@@ -12,11 +12,9 @@ This is the frontend of NUS-Forum.
     - update comments
     - delete comments
 
-- user profile page
-    - delete user
 - voting system
 - search
-    - pages with batch queries
+    - pagination
     - sort and filter
 - fix bugs
 
