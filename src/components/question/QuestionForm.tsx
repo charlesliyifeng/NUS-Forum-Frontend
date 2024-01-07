@@ -4,6 +4,7 @@ import { Question } from "../../types/Question";
 import React from "react";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -65,8 +66,8 @@ const QuestionForm: React.FC<Props> = ({ question, setQuestion, handleSubmit, bu
                 Tags
             </Typography>
             <TagInput tags={question.tags} setTags={setTags} />
-            <Box display={"flex"} flexDirection={"row"} padding={1}>
-                <Box paddingRight={2}>
+            <Box padding={1}>
+                <Stack direction="row" spacing={2}>
                     <Button
                         variant="contained"
                         onClick={handleSubmit}
@@ -74,12 +75,10 @@ const QuestionForm: React.FC<Props> = ({ question, setQuestion, handleSubmit, bu
                     >
                         {buttonType}
                     </Button>
-                </Box>
-                <Box>
                     <Button variant="outlined" component={Link} to=".." relative="path">
                         Cancel
                     </Button>
-                </Box>
+                </Stack>
             </Box>
         </>
     );

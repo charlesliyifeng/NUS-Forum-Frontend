@@ -6,6 +6,7 @@ import UserContext from "../../contexts/UserContext";
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -76,17 +77,15 @@ const EditAnswer: React.FC = () => {
 
             <TextField id="body" name="body" multiline required rows={8} onChange={handleChange} value={answer.body} />
 
-            <Box display={"flex"} flexDirection={"row"} padding={1}>
-                <Box paddingRight={2}>
+            <Box padding={1}>
+                <Stack direction={"row"} spacing={2}>
                     <Button variant="contained" onClick={handleSubmit} color="secondary">
                         Update
                     </Button>
-                </Box>
-                <Box>
                     <Button variant="outlined" onClick={() => navigate(-1)}>
                         Cancel
                     </Button>
-                </Box>
+                </Stack>
             </Box>
         </Box>
     );

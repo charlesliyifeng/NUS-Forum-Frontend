@@ -41,6 +41,7 @@ type dataParams = {
     };
 };
 
+// build authors dict
 function buildUsers(data: userParams[]): Dictionary<User> {
     const authors: Dictionary<User> = {};
     if (data) {

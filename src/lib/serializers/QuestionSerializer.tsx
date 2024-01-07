@@ -16,7 +16,7 @@ type outputUpdateParams = {
     tags: string;
 };
 
-// helper functions to serialize/deserialize questions
+// helper functions to serialize questions
 export function serializeCreate(t: Question): outputCreateParams {
     const p: outputCreateParams = {
         title: t.title,

@@ -14,7 +14,7 @@ type outputUpdateParams = {
     questionId: number;
 };
 
-// helper functions to serialize/deserialize questions
+// helper functions to serialize answers
 export function serializeCreate(t: Answer): outputCreateParams {
     const p: outputCreateParams = {
         body: t.body,
