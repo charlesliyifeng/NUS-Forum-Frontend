@@ -9,6 +9,8 @@ import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Divider";
 
 const UserProfile: React.FC = () => {
     // eslint-disable-next-line
@@ -34,13 +36,22 @@ const UserProfile: React.FC = () => {
     }
 
     return (
-        <Box className="centerBox" sx={{ flexGrow: 1, p: 3 }} top={80}>
-            <Typography variant="h4" padding={2}>
-                User Profile
+        <Box className="centerBox" sx={{ flexGrow: 1, p: 3 }} top={80} m={2}>
+            <Typography variant="h4" paddingBottom={2}>
+                {targetUser.id === user.id ? "Your Profile" : "User Profile"}
             </Typography>
-            <Box>
-                <UserAvatar userID={user.id} username={user.name} />
+            <Divider />
+            <Box paddingTop={5} paddingBottom={5}>
+                <Stack direction={"row"} spacing={5}>
+                    <UserAvatar userID={targetUser.id} username={targetUser.name} fontSize={100} />
+                    <Divider orientation="vertical" flexItem />
+                    <Stack direction="column" spacing={1}>
+                        <Typography variant="h5">{targetUser.name}</Typography>
+                        <Typography variant="body1">Joined on {targetUser.createdAt.split(" ")[0]}.</Typography>
+                    </Stack>
+                </Stack>
             </Box>
+            <Divider />
             <EditBar
                 subjectType="user"
                 id={targetUserID}

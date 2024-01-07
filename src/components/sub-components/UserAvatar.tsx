@@ -23,7 +23,7 @@ function stringToColor(string: string) {
     return color;
 }
 
-function stringAvatar(name: string, width: number, height: number) {
+function stringAvatar(name: string, fontSize: number) {
     const names = name.split(" ");
     // create initials
     let initials: string = "";
@@ -39,8 +39,9 @@ function stringAvatar(name: string, width: number, height: number) {
     return {
         sx: {
             bgcolor: stringToColor(name),
-            width: width,
-            height: height,
+            fontSize: `${fontSize}px`,
+            width: 2 * fontSize,
+            height: 2 * fontSize,
         },
         children: initials,
     };
@@ -50,11 +51,10 @@ function stringAvatar(name: string, width: number, height: number) {
 type UserAvatarProps = {
     userID: number;
     username: string;
-    width?: number;
-    height?: number;
+    fontSize?: number;
 };
 
-const UserAvatar: React.FC<UserAvatarProps> = ({ userID, username, width, height }) => {
+const UserAvatar: React.FC<UserAvatarProps> = ({ userID, username, fontSize }) => {
     const navigate = useNavigate();
 
     function handleAvatarClick() {
@@ -62,12 +62,11 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ userID, username, width, height
     }
 
     // get initial of name
-    return <Avatar {...stringAvatar(username, width!, height!)} onClick={handleAvatarClick} />;
+    return <Avatar {...stringAvatar(username, fontSize!)} onClick={handleAvatarClick} />;
 };
 
 UserAvatar.defaultProps = {
-    width: 40,
-    height: 40,
+    fontSize: 20,
 };
 
 export default UserAvatar;

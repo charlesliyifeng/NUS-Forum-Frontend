@@ -1,6 +1,8 @@
 import client from "./client";
 import { deserializeUser, deserializeUserDetails } from "../serializers/UserDeserializer";
 import loadHeader from "../helper/loadHeader";
+import { UserDetails } from "../../types/User";
+import { serializeUpdate } from "../serializers/UserSerializer";
 
 export interface createUserParams {
     name: string;
@@ -23,6 +25,13 @@ export const getUserDetails = (id: number) => {
 // create
 export const createUser = (params: createUserParams) => {
     return client.post("/users", { user: params });
+};
+
+// update (need token authorization)
+export const updateUser = (id: number, user: UserDetails) => {
+    const header = loadHeader();
+    const params = serializeUpdate(user);
+    return client.put(`/users/${id}`, params, { headers: header });
 };
 
 // delete (need token authorization)
