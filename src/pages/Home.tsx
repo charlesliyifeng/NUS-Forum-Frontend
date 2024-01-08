@@ -1,4 +1,4 @@
-import QuestionList from "./question/QuestionList";
+import QuestionPage from "./question/QuestionPage";
 import TopBar from "../components/TopBar";
 import SideBar from "../components/SideBar";
 import { Box } from "@mui/material";
@@ -9,7 +9,7 @@ const Home: React.FC = () => {
         <Box display={"flex"}>
             <TopBar />
             <SideBar />
-            <QuestionList isHome />
+            <QuestionPage isHome />
         </Box>
     );
 };

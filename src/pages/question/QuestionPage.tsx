@@ -1,7 +1,7 @@
-import QuestionCard from "../../components/question/QuestionCard";
 import BasicSelect from "../../components/sub-components/BasicSelect";
 import { Question } from "../../types/Question";
 import { getQuestionCount, getQuestionList } from "../../lib/api/question";
+import QuestionList from "../../components/question/QuestionList";
 
 import React, { useState, useEffect } from "react";
 import { Link, useSearchParams, Navigate } from "react-router-dom";
@@ -10,15 +10,13 @@ import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Pagination from "@mui/material/Pagination";
-import PaginationItem from "@mui/material/PaginationItem";
 
 // props for QuestionList
 type Props = {
     isHome: boolean;
 };
 
-const QuestionList: React.FC<Props> = ({ isHome }) => {
+const QuestionPage: React.FC<Props> = ({ isHome }) => {
     /*
         Structure: 
         - Ask question and filter/order by
@@ -78,34 +76,20 @@ const QuestionList: React.FC<Props> = ({ isHome }) => {
                 </Stack>
                 <BasicSelect placeholder={"Sort by"} choices={["votes", "answers", "views"]} />
                 <BasicSelect placeholder={"Filter by"} choices={["Accepted", "Not Accepted", "No Answer"]} />
-                <Box position={"relative"} left={300}>
+                <Box paddingLeft={40}>
                     <Button variant="contained" component={Link} to="/question/new">
                         Ask a Question
                     </Button>
                 </Box>
             </Toolbar>
-            <Box>
-                {questions.map((question: Question) => (
-                    <QuestionCard question={question} key={question.id} />
-                ))}
-            </Box>
-            <Box alignContent={"center"}>
-                <Pagination
-                    count={getPageCount(questionsCount, ITEMS_PER_PAGE)}
-                    page={currentPage}
-                    size="large"
-                    renderItem={(item) => (
-                        <PaginationItem
-                            component={Link}
-                            reloadDocument
-                            to={`/question${item.page === 1 ? "" : `?page=${item.page}`}`}
-                            {...item}
-                        />
-                    )}
-                />
-            </Box>
+            <QuestionList
+                questions={questions}
+                pageCount={getPageCount(questionsCount, ITEMS_PER_PAGE)}
+                currentPage={currentPage}
+                url="/question"
+            />
         </Box>
     );
 };
 
-export default QuestionList;
+export default QuestionPage;

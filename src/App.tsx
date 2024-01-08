@@ -1,6 +1,6 @@
 import Home from "./pages/Home";
 import PageLayout from "./pages/PageLayout";
-import QuestionList from "./pages/question/QuestionList";
+import QuestionPage from "./pages/question/QuestionPage";
 import AnswerList from "./pages/answer/AnswerList";
 import AskQuestion from "./pages/question/AskQuestion";
 import EditQuestion from "./pages/question/EditQuestion";
@@ -64,7 +64,7 @@ const App: React.FC = () => {
                 <Route path="404" element={<NotFound />} />
                 <Route path="access_denied" element={<AccessDenied />} />
                 <Route path="question" element={<PageLayout />}>
-                    <Route index element={<QuestionList isHome={false} />} />
+                    <Route index element={<QuestionPage isHome={false} />} />
                     <Route path="new" element={<AskQuestion />} />
                     <Route path=":id">
                         <Route index element={<AnswerList />} />
