@@ -4,21 +4,21 @@ import loadHeader from "../helper/loadHeader";
 import { serializeCreate, serializeUpdate } from "../serializers/AnswerSerializer";
 import { deserializeAnswer, deserializeAnswerList } from "../serializers/AnswerDeserializer";
 
-// get
+// get  (token authentication optional)
 export const getAnswerList = () => {
     const header = loadHeader(true);
     const response = client.get("/answers?include=user&fields[user]=name", { headers: header });
     return response.then((res) => deserializeAnswerList(res.data)).catch((err) => console.error(err));
 };
 
-// detail
+// detail  (token authentication optional)
 export const getAnswerDetail = (id: number) => {
     const header = loadHeader(true);
     const response = client.get(`/answers/${id}?include=user&fields[user]=name`, { headers: header });
     return response.then((res) => deserializeAnswer(res.data)).catch((err) => console.error(err));
 };
 
-// get_answers
+// get_answers  (token authentication optional)
 export const getAnswersOfQuestion = (questionID: number) => {
     // get all answers related to the question
     const header = loadHeader(true);
@@ -49,7 +49,7 @@ export const toggleAccept = (id: number, status: boolean) => {
     return client.put(`/answers/${id}/accept`, { accepted: status }, { headers: header });
 };
 
-// vote (need token authentication)
+// vote  (need token authentication)
 export const voteAnswer = (id: number, vote: number) => {
     const header = loadHeader();
     // update user vote
