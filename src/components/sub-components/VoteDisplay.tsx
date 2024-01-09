@@ -12,19 +12,25 @@ type Props = {
     accepted: boolean;
     handleVoteChange: (change: number) => void;
     userVote: number;
+    authorID: number;
 };
 
-const VoteDisplay: React.FC<Props> = ({ votes, accepted, handleVoteChange, userVote }) => {
+const VoteDisplay: React.FC<Props> = ({ votes, accepted, handleVoteChange, userVote, authorID }) => {
     // eslint-disable-next-line
     const { user, setUser } = useContext(UserContext);
     const [currentVote, setCurrentVote] = useState(userVote);
 
     function handleStatefulVoteChange(change: number) {
-        // check if user signed in
         if (user.id === -1) {
+            // check if user signed in
             alert("please sign in to vote");
             return;
+        } else if (user.id === authorID) {
+            // check if user is author
+            alert("you cannot vote for your own post");
+            return;
         }
+
         // reverse last vote if already voted
         if (currentVote === 0) {
             handleVoteChange(change);

@@ -27,6 +27,7 @@ const AnswerItem: React.FC<Props> = ({ answer, question, handleVoteChange }) => 
                             accepted={answer.accepted}
                             handleVoteChange={(change: number) => handleVoteChange(answer.answerID, change)}
                             userVote={answer.userVote}
+                            authorID={answer.author.id}
                         />
                         <Box display={"flex"} flexDirection={"column"} width={"100%"}>
                             <Typography color="text-secondary">

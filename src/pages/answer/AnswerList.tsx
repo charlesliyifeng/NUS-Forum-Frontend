@@ -135,6 +135,7 @@ const AnswerList: React.FC = () => {
                                 accepted={false}
                                 handleVoteChange={handleQuestionVoteChange}
                                 userVote={question.userVote}
+                                authorID={question.author.id}
                             />
                             <Box display={"flex"} flexDirection={"column"} width="100%">
                                 <Typography variant="h5" p={0}>
