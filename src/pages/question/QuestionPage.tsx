@@ -1,6 +1,6 @@
 import BasicSelect from "../../components/sub-components/BasicSelect";
 import { Question } from "../../types/Question";
-import { getQuestionCount, getQuestionList } from "../../lib/api/question";
+import { getQuestionList } from "../../lib/api/question";
 import QuestionList from "../../components/question/QuestionList";
 
 import React, { useState, useEffect } from "react";
@@ -37,25 +37,15 @@ const QuestionPage: React.FC<Props> = ({ isHome }) => {
     const [questions, setQuestions] = useState<Question[]>([]);
 
     useEffect(() => {
-        // fetch first page
+        // fetch first page and count
         loadPage(currentPage);
-        // fetch page count
-        loadQuestionsCount();
     }, []);
-
-    async function loadQuestionsCount() {
-        try {
-            const response = await getQuestionCount(filterBy);
-            setQuestionsCount(response.data.count);
-        } catch (error) {
-            console.error(error);
-        }
-    }
 
     function loadPage(page: number) {
         getQuestionList(page, ITEMS_PER_PAGE, orderBy, filterBy).then((data) => {
             if (data) {
-                setQuestions(data);
+                setQuestions(data.questions);
+                setQuestionsCount(data.count);
             }
         });
     }

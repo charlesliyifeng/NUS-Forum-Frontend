@@ -97,12 +97,27 @@ export function deserializeQuestion(response: singleResponse): Question {
     return q;
 }
 
+type paginationInfo = {
+    current: number;
+    next: number;
+    last: number;
+    records: number;
+};
+
 interface listResponse {
     data: dataParams[];
     included: userParams[];
+    meta: {
+        pagination: paginationInfo;
+    };
 }
 
-export function deserializeQuestionList(response: listResponse): Question[] {
+interface questionListReturn {
+    questions: Question[];
+    count: number;
+}
+
+export function deserializeQuestionList(response: listResponse): questionListReturn {
     const questions: Question[] = [];
 
     // build authors dict
@@ -116,5 +131,5 @@ export function deserializeQuestionList(response: listResponse): Question[] {
         });
     }
 
-    return questions;
+    return { questions: questions, count: response.meta.pagination.records };
 }

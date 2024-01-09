@@ -4,11 +4,6 @@ import loadHeader from "../helper/loadHeader";
 import { serializeCreate, serializeUpdate } from "../serializers/QuestionSerializer";
 import { deserializeQuestion, deserializeQuestionList } from "../serializers/QuestionDeserializer";
 
-// get
-export const getQuestionCount = (filterBy: string) => {
-    return client.get(`/questions/count?filter=${filterBy}`);
-};
-
 // get  (token authentication optional)
 export const getQuestionList = (page: number, pageSize: number, orderBy: string, filterBy: string) => {
     const header = loadHeader(true);
