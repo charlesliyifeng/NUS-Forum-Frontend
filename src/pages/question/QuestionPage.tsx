@@ -4,7 +4,7 @@ import { getQuestionCount, getQuestionList } from "../../lib/api/question";
 import QuestionList from "../../components/question/QuestionList";
 
 import React, { useState, useEffect } from "react";
-import { Link, useSearchParams, Navigate } from "react-router-dom";
+import { Link, useSearchParams, Navigate, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
@@ -25,9 +25,14 @@ const QuestionPage: React.FC<Props> = ({ isHome }) => {
     */
 
     const ITEMS_PER_PAGE = 15;
+    const BASE_URL = "/question";
+    const navigate = useNavigate();
     // eslint-disable-next-line
     const [searchParams, setSearchParams] = useSearchParams();
+    // get params
     const currentPage = parseInt(searchParams.get("page") || "1", 10);
+    const orderBy = searchParams.get("sort") || "Newest";
+    const filterBy = searchParams.get("filter") || "None";
     const [questionsCount, setQuestionsCount] = useState(-1);
     const [questions, setQuestions] = useState<Question[]>([]);
 
@@ -40,7 +45,7 @@ const QuestionPage: React.FC<Props> = ({ isHome }) => {
 
     async function loadQuestionsCount() {
         try {
-            const response = await getQuestionCount();
+            const response = await getQuestionCount(filterBy);
             setQuestionsCount(response.data.count);
         } catch (error) {
             console.error(error);
@@ -48,7 +53,7 @@ const QuestionPage: React.FC<Props> = ({ isHome }) => {
     }
 
     function loadPage(page: number) {
-        getQuestionList(page, ITEMS_PER_PAGE).then((data) => {
+        getQuestionList(page, ITEMS_PER_PAGE, orderBy, filterBy).then((data) => {
             if (data) {
                 setQuestions(data);
             }
@@ -61,7 +66,7 @@ const QuestionPage: React.FC<Props> = ({ isHome }) => {
 
     if (questionsCount === -1) {
         return <div></div>;
-    } else if (getPageCount(questionsCount, ITEMS_PER_PAGE) < currentPage) {
+    } else if (getPageCount(questionsCount, ITEMS_PER_PAGE) < currentPage && questionsCount) {
         return <Navigate replace to="/404" />;
     }
 
@@ -74,8 +79,24 @@ const QuestionPage: React.FC<Props> = ({ isHome }) => {
                     </Typography>
                     {!isHome ? <Typography variant="subtitle1">{questionsCount} questions</Typography> : null}
                 </Stack>
-                <BasicSelect placeholder={"Sort by"} choices={["votes", "answers", "views"]} />
-                <BasicSelect placeholder={"Filter by"} choices={["Accepted", "Not Accepted", "No Answer"]} />
+                <BasicSelect
+                    placeholder={"Sort by"}
+                    choices={["Newest", "Votes", "Answers", "Views"]}
+                    defaultValue={orderBy}
+                    onChange={(value) => {
+                        navigate(BASE_URL + `?sort=${value}&filter=${filterBy}`);
+                        navigate(0);
+                    }}
+                />
+                <BasicSelect
+                    placeholder={"Filter by"}
+                    choices={["None", "Accepted", "Not Accepted", "No Answer"]}
+                    defaultValue={filterBy}
+                    onChange={(value) => {
+                        navigate(BASE_URL + `?sort=${orderBy}&filter=${value}`);
+                        navigate(0);
+                    }}
+                />
                 <Box paddingLeft={40}>
                     <Button variant="contained" component={Link} to="/question/new">
                         Ask a Question
@@ -86,7 +107,7 @@ const QuestionPage: React.FC<Props> = ({ isHome }) => {
                 questions={questions}
                 pageCount={getPageCount(questionsCount, ITEMS_PER_PAGE)}
                 currentPage={currentPage}
-                url="/question"
+                url={BASE_URL + `?sort=${orderBy}&filter=${filterBy}`}
             />
         </Box>
     );

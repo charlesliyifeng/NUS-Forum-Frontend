@@ -5,15 +5,15 @@ import { serializeCreate, serializeUpdate } from "../serializers/QuestionSeriali
 import { deserializeQuestion, deserializeQuestionList } from "../serializers/QuestionDeserializer";
 
 // get
-export const getQuestionCount = () => {
-    return client.get("/questions/count");
+export const getQuestionCount = (filterBy: string) => {
+    return client.get(`/questions/count?filter=${filterBy}`);
 };
 
 // get  (token authentication optional)
-export const getQuestionList = (page: number, pageSize: number) => {
+export const getQuestionList = (page: number, pageSize: number, orderBy: string, filterBy: string) => {
     const header = loadHeader(true);
     const response = client.get(
-        `/questions?include=user&fields[user]=name&page[number]=${page}&page[size]=${pageSize}`,
+        `/questions?include=user&fields[user]=name&page[number]=${page}&page[size]=${pageSize}&sort=${orderBy}&filter=${filterBy}`,
         { headers: header },
     );
     return response.then((res) => deserializeQuestionList(res.data)).catch((err) => console.error(err));
@@ -44,7 +44,7 @@ export const updateQuestion = (id: number, q: Question) => {
 export const voteQuestion = (id: number, vote: number) => {
     const header = loadHeader();
     // update user vote
-    return client.put(`/questions/${id}/vote`, { question: { vote: vote } }, { headers: header });
+    return client.put(`/questions/${id}/vote`, { vote: vote }, { headers: header });
 };
 
 // delete  (need token authentication)

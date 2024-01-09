@@ -14,13 +14,16 @@ type SelectChangeEvent<Value = string> =
 type Props = {
     placeholder: string;
     choices: string[];
+    defaultValue: string;
+    onChange: (value: string) => void;
 };
 
-const BasicSelect: React.FC<Props> = ({ placeholder, choices }) => {
-    const [value, setValue] = React.useState("");
+const BasicSelect: React.FC<Props> = ({ placeholder, choices, defaultValue, onChange }) => {
+    const [value, setValue] = React.useState(defaultValue);
 
     const handleChange = (event: SelectChangeEvent) => {
         setValue(event.target.value as string);
+        onChange(event.target.value);
     };
 
     return (

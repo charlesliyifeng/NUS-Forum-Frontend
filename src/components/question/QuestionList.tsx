@@ -32,7 +32,7 @@ const QuestionList: React.FC<Props> = ({ questions, pageCount, currentPage, url 
                         <PaginationItem
                             component={Link}
                             reloadDocument
-                            to={url + (item.page === 1 ? "" : `?page=${item.page}`)}
+                            to={url + (item.page === 1 ? "" : `&page=${item.page}`)}
                             {...item}
                         />
                     )}

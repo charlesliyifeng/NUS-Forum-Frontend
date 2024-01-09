@@ -25,6 +25,8 @@ type dataParams = {
         userVote: number;
         views: number;
         tags: string;
+        answersCount: number;
+        accepted: boolean;
         createdAt: string;
         updatedAt: string;
     };
@@ -37,10 +39,6 @@ type dataParams = {
                 type: "user";
             } | null;
         };
-    };
-    meta: {
-        answersCount: number;
-        accepted: boolean;
     };
 };
 
@@ -74,8 +72,8 @@ function processData(data: dataParams, authors: Dictionary<User>): Question {
         updatedAt: data.attributes.updatedAt,
         votes: data.attributes.votes,
         userVote: data.attributes.userVote,
-        answersCount: data.meta.answersCount,
-        accepted: data.meta.accepted,
+        answersCount: data.attributes.answersCount,
+        accepted: data.attributes.accepted,
         views: data.attributes.views,
         tags: tagArray,
     };
