@@ -27,35 +27,37 @@ const QuestionCard: React.FC<Props> = ({ question }) => {
         <Box padding={1}>
             <Card variant="outlined" style={cardStyle}>
                 <CardContent>
-                    <Box display={"flex"} flexDirection={"column"}>
-                        <Typography variant="h5" component="div">
-                            <Link to={`/question/${question.id}`} className="link">
-                                {question.title}
-                            </Link>
-                        </Typography>
-                        <Typography color="text-secondary">
-                            by {question.author.name} on {question.createdAt}
-                        </Typography>
-                        <Stack direction="row" spacing={1}>
-                            <Item>votes: {question.votes}</Item>
-                            <Item
-                                sx={{
-                                    backgroundColor: question.accepted ? "#00AA00" : "inherit",
-                                    color: question.accepted ? "#FFFFFF" : "#000000",
-                                }}
-                            >
-                                answers: {question.answersCount}
-                            </Item>
-                            <Item>views: {formatViews(question.views)}</Item>
-                        </Stack>
-                        <Stack direction="row" spacing={1} paddingTop={2}>
-                            {question.tags.map((tag: string) => (
-                                <Item sx={{ backgroundColor: "#777", color: "#fff" }} key={tag}>
-                                    {tag}
+                    <Typography variant="h5" component="div">
+                        <Link to={`/question/${question.id}`} className="link">
+                            {question.title}
+                        </Link>
+                    </Typography>
+                    <Stack direction={"row"} spacing={4}>
+                        <Box display={"flex"} flexDirection={"column"} minWidth={250}>
+                            <Typography color="text-secondary">
+                                by {question.author.name} on {question.createdAt}
+                            </Typography>
+                            <Stack direction="row" spacing={1}>
+                                <Item>votes: {question.votes}</Item>
+                                <Item
+                                    sx={{
+                                        backgroundColor: question.accepted ? "#00AA00" : "inherit",
+                                        color: question.accepted ? "#FFFFFF" : "#000000",
+                                    }}
+                                >
+                                    answers: {question.answersCount}
                                 </Item>
-                            ))}
-                        </Stack>
-                    </Box>
+                                <Item>views: {formatViews(question.views)}</Item>
+                            </Stack>
+                            <Stack direction="row" spacing={1} paddingTop={2}>
+                                {question.tags.map((tag: string) => (
+                                    <Item sx={{ backgroundColor: "#777", color: "#fff" }} key={tag}>
+                                        {tag}
+                                    </Item>
+                                ))}
+                            </Stack>
+                        </Box>
+                    </Stack>
                 </CardContent>
             </Card>
         </Box>

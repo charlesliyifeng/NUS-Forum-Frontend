@@ -24,7 +24,7 @@ type dataParams = {
         votes: number;
         userVote: number;
         views: number;
-        tags: string;
+        tagList: string[];
         answersCount: number;
         accepted: boolean;
         createdAt: string;
@@ -59,7 +59,8 @@ function processData(data: dataParams, authors: Dictionary<User>): Question {
     const author: User = userdata ? authors[+userdata.id] : { id: 0, name: "deleted user" };
 
     // remove empty tags
-    let tagArray = data.attributes.tags.split(",");
+    let tagArray: string[] = data.attributes.tagList;
+    tagArray = tagArray.map((x) => x.trim());
     tagArray = tagArray.filter((x) => x);
 
     // create question

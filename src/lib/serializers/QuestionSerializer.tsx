@@ -6,13 +6,13 @@ type outputCreateParams = {
     body: string;
     userId: number;
     views: number;
-    tags: string;
+    tagList: string;
 };
 
 type outputUpdateParams = {
     title: string;
     body: string;
-    tags: string;
+    tagList: string;
 };
 
 // helper functions to serialize questions
@@ -22,7 +22,7 @@ export function serializeCreate(t: Question): outputCreateParams {
         body: t.body,
         userId: t.author.id,
         views: t.views,
-        tags: t.tags.join(","),
+        tagList: t.tags.join(","),
     };
 
     return p;
@@ -32,7 +32,7 @@ export function serializeUpdate(t: Question): outputUpdateParams {
     const p: outputUpdateParams = {
         title: t.title,
         body: t.body,
-        tags: t.tags.join(","),
+        tagList: t.tags.join(","),
     };
 
     return p;
