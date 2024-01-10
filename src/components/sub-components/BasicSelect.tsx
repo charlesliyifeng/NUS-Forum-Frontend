@@ -27,7 +27,7 @@ const BasicSelect: React.FC<Props> = ({ placeholder, choices, defaultValue, onCh
     };
 
     return (
-        <Box position={"relative"} left={200} sx={{ minWidth: 120, padding: 2 }}>
+        <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
                 <InputLabel id="simple-select-label">{placeholder}</InputLabel>
                 <Select id="simple-select" value={value} label={placeholder} onChange={handleChange}>

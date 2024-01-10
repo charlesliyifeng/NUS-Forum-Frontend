@@ -4,6 +4,7 @@ import { Question } from "../../types/Question";
 import React from "react";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 
@@ -16,8 +17,16 @@ type Props = {
 };
 
 const QuestionList: React.FC<Props> = ({ questions, pageCount, currentPage, url }) => {
+    if (questions.length === 0) {
+        return (
+            <Typography variant="h5" display={"flex"} justifyContent={"center"} p={20}>
+                No questions found.
+            </Typography>
+        );
+    }
+
     return (
-        <Box>
+        <Box paddingTop={5}>
             <Box>
                 {questions.map((question: Question) => (
                     <QuestionCard question={question} key={question.id} />

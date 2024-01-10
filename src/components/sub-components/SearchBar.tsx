@@ -45,12 +45,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-const SearchBar: React.FC = () => {
+// Props for Search Bar
+type Props = {
+    defaultValue: string;
+    onSearch: (value: string) => void;
+};
+
+const SearchBar: React.FC<Props> = ({ defaultValue, onSearch }) => {
     function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
         if (event.key === "Enter") {
             const value: string = event.currentTarget.value;
             if (value) {
-                alert(value);
+                onSearch(value);
             }
         }
     }
@@ -63,6 +69,7 @@ const SearchBar: React.FC = () => {
             <StyledInputBase
                 id="search"
                 placeholder={"Search…"}
+                defaultValue={defaultValue}
                 inputProps={{ "aria-label": "search" }}
                 onKeyDown={handleKeyPress}
             />

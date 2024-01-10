@@ -1,7 +1,8 @@
-import BasicSelect from "../../components/sub-components/BasicSelect";
-import { Question } from "../../types/Question";
-import { getQuestionList } from "../../lib/api/question";
-import QuestionList from "../../components/question/QuestionList";
+import BasicSelect from "../components/sub-components/BasicSelect";
+import { Question } from "../types/Question";
+import { getQuestionList } from "../lib/api/question";
+import QuestionList from "../components/question/QuestionList";
+import extractTags from "../lib/helper/extractTags";
 
 import React, { useState, useEffect } from "react";
 import { Link, useSearchParams, Navigate, useNavigate } from "react-router-dom";
@@ -11,12 +12,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-// props for QuestionList
-type Props = {
-    isHome: boolean;
-};
-
-const QuestionPage: React.FC<Props> = ({ isHome }) => {
+const SearchPage: React.FC = () => {
     /*
         Structure: 
         - Ask question and filter/order by
@@ -25,7 +21,7 @@ const QuestionPage: React.FC<Props> = ({ isHome }) => {
     */
 
     const ITEMS_PER_PAGE = 15;
-    const BASE_URL = "/question";
+    const BASE_URL = "/search";
     const navigate = useNavigate();
     // eslint-disable-next-line
     const [searchParams, setSearchParams] = useSearchParams();
@@ -33,6 +29,8 @@ const QuestionPage: React.FC<Props> = ({ isHome }) => {
     const currentPage = parseInt(searchParams.get("page") || "1", 10);
     const orderBy = searchParams.get("sort") || "Newest";
     const filterBy = searchParams.get("filter") || "None";
+    const q = searchParams.get("q") || "";
+    const [tags, query] = extractTags(q);
     const [questionsCount, setQuestionsCount] = useState(-1);
     const [questions, setQuestions] = useState<Question[]>([]);
 
@@ -42,7 +40,7 @@ const QuestionPage: React.FC<Props> = ({ isHome }) => {
     }, []);
 
     function loadPage(page: number) {
-        getQuestionList(page, ITEMS_PER_PAGE, orderBy, filterBy).then((data) => {
+        getQuestionList(page, ITEMS_PER_PAGE, orderBy, filterBy, tags, query).then((data) => {
             if (data) {
                 setQuestions(data.questions);
                 setQuestionsCount(data.count);
@@ -65,9 +63,9 @@ const QuestionPage: React.FC<Props> = ({ isHome }) => {
             <Toolbar>
                 <Stack direction={"column"} spacing={1} width={"25%"}>
                     <Typography variant="h4" position="static">
-                        {isHome ? "Top Questions" : "All Questions"}
+                        Search Results
                     </Typography>
-                    {!isHome ? <Typography variant="subtitle1">{questionsCount} questions</Typography> : null}
+                    <Typography variant="subtitle1">{questionsCount} results</Typography>
                 </Stack>
                 <Stack direction={"row"} spacing={4} width={"50%"} justifyContent={"center"}>
                     <BasicSelect
@@ -75,7 +73,7 @@ const QuestionPage: React.FC<Props> = ({ isHome }) => {
                         choices={["Newest", "Votes", "Answers", "Views"]}
                         defaultValue={orderBy}
                         onChange={(value) => {
-                            navigate(BASE_URL + `?sort=${value}&filter=${filterBy}`);
+                            navigate(BASE_URL + `?q=${q}&sort=${value}&filter=${filterBy}`);
                             navigate(0);
                         }}
                     />
@@ -84,7 +82,7 @@ const QuestionPage: React.FC<Props> = ({ isHome }) => {
                         choices={["None", "Accepted", "Not Accepted", "No Answer"]}
                         defaultValue={filterBy}
                         onChange={(value) => {
-                            navigate(BASE_URL + `?sort=${orderBy}&filter=${value}`);
+                            navigate(BASE_URL + `?q=${q}&sort=${orderBy}&filter=${value}`);
                             navigate(0);
                         }}
                     />
@@ -99,10 +97,10 @@ const QuestionPage: React.FC<Props> = ({ isHome }) => {
                 questions={questions}
                 pageCount={getPageCount(questionsCount, ITEMS_PER_PAGE)}
                 currentPage={currentPage}
-                url={BASE_URL + `?sort=${orderBy}&filter=${filterBy}`}
+                url={BASE_URL + `?q=${q}&sort=${orderBy}&filter=${filterBy}`}
             />
         </Box>
     );
 };
 
-export default QuestionPage;
+export default SearchPage;

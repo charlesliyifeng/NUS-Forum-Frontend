@@ -5,10 +5,17 @@ import { serializeCreate, serializeUpdate } from "../serializers/QuestionSeriali
 import { deserializeQuestion, deserializeQuestionList } from "../serializers/QuestionDeserializer";
 
 // get  (token authentication optional)
-export const getQuestionList = (page: number, pageSize: number, orderBy: string, filterBy: string) => {
+export const getQuestionList = (
+    page: number,
+    pageSize: number,
+    orderBy: string,
+    filterBy: string,
+    tags = "",
+    q = "",
+) => {
     const header = loadHeader(true);
     const response = client.get(
-        `/questions?include=user&fields[user]=name&page[number]=${page}&page[size]=${pageSize}&sort=${orderBy}&filter=${filterBy}`,
+        `/questions?include=user&fields[user]=name&page[number]=${page}&page[size]=${pageSize}&sort=${orderBy}&filter=${filterBy}&tags=${tags}&q=${q}`,
         { headers: header },
     );
     return response.then((res) => deserializeQuestionList(res.data)).catch((err) => console.error(err));
