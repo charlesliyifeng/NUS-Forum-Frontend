@@ -28,6 +28,7 @@ type userDetailsParams = {
     type: "user";
     attributes: {
         name: string;
+        email: string;
         createdAt: string;
         updatedAt: string;
     };
@@ -43,6 +44,8 @@ export function deserializeUserDetails(response: userDetailsResponse): UserDetai
     const user: UserDetails = {
         id: +response.data.id,
         name: response.data.attributes.name,
+        email: response.data.attributes.email,
+        password: "",
         createdAt: response.data.attributes.createdAt,
         updatedAt: response.data.attributes.updatedAt,
     };

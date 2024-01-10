@@ -2,13 +2,7 @@ import client from "./client";
 import { deserializeUser, deserializeUserDetails } from "../serializers/UserDeserializer";
 import loadHeader from "../helper/loadHeader";
 import { UserDetails } from "../../types/User";
-import { serializeUpdate } from "../serializers/UserSerializer";
-
-export interface createUserParams {
-    name: string;
-    email: string;
-    password: string;
-}
+import { serializeUser } from "../serializers/UserSerializer";
 
 // get
 export const getUser = (id: number) => {
@@ -16,22 +10,24 @@ export const getUser = (id: number) => {
     return response.then((res) => deserializeUser(res.data)).catch((err) => console.error(err));
 };
 
-// get
+// get (token authentication optional)
 export const getUserDetails = (id: number) => {
-    const response = client.get(`/users/${id}?fields[user]=name,created_at,updated_at`);
+    const header = loadHeader();
+    const response = client.get(`/users/${id}?fields[user]=name,email,created_at,updated_at`, { headers: header });
     return response.then((res) => deserializeUserDetails(res.data)).catch((err) => console.error(err));
 };
 
 // create
-export const createUser = (params: createUserParams) => {
+export const createUser = (user: UserDetails) => {
+    const params = serializeUser(user);
     return client.post("/users", { user: params });
 };
 
 // update (need token authorization)
 export const updateUser = (id: number, user: UserDetails) => {
     const header = loadHeader();
-    const params = serializeUpdate(user);
-    return client.put(`/users/${id}`, params, { headers: header });
+    const params = serializeUser(user);
+    return client.put(`/users/${id}`, { user: params }, { headers: header });
 };
 
 // delete (need token authorization)

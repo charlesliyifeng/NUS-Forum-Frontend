@@ -1,6 +1,7 @@
-import { createUser, createUserParams } from "../lib/api/user";
-import { validatePassword, validateEmail } from "../lib/helper/validator";
+import { createUser } from "../lib/api/user";
+import validateInput from "../lib/helper/validator";
 import UserContext from "../contexts/UserContext";
+import { UserDetails } from "../types/User";
 
 import React, { useContext } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
@@ -25,38 +26,16 @@ const SignUp: React.FC = () => {
         return <Navigate replace to="/" />;
     }
 
-    function validateInput(params: createUserParams, confirmPassword: string): boolean {
-        // validate input
-        if (!(params.email && params.password && params.name)) {
-            alert("name, email and password cannot be empty");
-            return false;
-        }
-        // validate email
-        if (!validateEmail(params.email)) {
-            alert("please enter a valid email");
-            return false;
-        }
-        // validate password strength
-        const passwordErrors = validatePassword(params.password);
-        if (passwordErrors.length > 0) {
-            alert(passwordErrors.join("\n"));
-            return false;
-        }
-        // check confirm password
-        if (params.password !== confirmPassword) {
-            alert("passwords do not match");
-            return false;
-        }
-        return true;
-    }
-
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const params: createUserParams = {
+        const params: UserDetails = {
+            id: -1,
             name: data.get("username")!.toString().trim(),
             email: data.get("email")!.toString().trim(),
             password: data.get("password")!.toString(),
+            createdAt: "",
+            updatedAt: "",
         };
 
         if (!validateInput(params, data.get("confirmPassword")!.toString())) {

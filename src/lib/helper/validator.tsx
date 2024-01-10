@@ -1,4 +1,6 @@
-export function validatePassword(password: string): string[] {
+import { UserDetails } from "../../types/User";
+
+function validatePassword(password: string): string[] {
     // return list of errors, returns empty list if password is valid
     const errors: string[] = [];
     const re = {
@@ -21,9 +23,36 @@ export function validatePassword(password: string): string[] {
     return errors;
 }
 
-export function validateEmail(email: string): boolean {
+function validateEmail(email: string): boolean {
     if (/^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/.test(email)) {
         return true;
     }
     return false;
 }
+
+function validateInput(params: UserDetails, confirmPassword: string): boolean {
+    // validate input
+    if (!(params.email && params.password && params.name)) {
+        alert("name, email and password cannot be empty");
+        return false;
+    }
+    // validate email
+    if (!validateEmail(params.email)) {
+        alert("please enter a valid email");
+        return false;
+    }
+    // validate password strength
+    const passwordErrors = validatePassword(params.password);
+    if (passwordErrors.length > 0) {
+        alert(passwordErrors.join("\n"));
+        return false;
+    }
+    // check confirm password
+    if (params.password !== confirmPassword) {
+        alert("passwords do not match");
+        return false;
+    }
+    return true;
+}
+
+export default validateInput;

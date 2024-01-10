@@ -2,6 +2,9 @@ import { getUserDetails, updateUser } from "../../lib/api/user";
 import { UserDetails, newUserDetails, newUser } from "../../types/User";
 import getUserID from "../../lib/helper/get_url_id";
 import UserContext from "../../contexts/UserContext";
+import validateInput from "../../lib/helper/validator";
+import { createSession, createSessionParams } from "../../lib/api/session";
+import { signin, signout } from "../../lib/helper/tokenManager";
 
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
@@ -18,6 +21,7 @@ const EditUser: React.FC = () => {
     // eslint-disable-next-line
     const { user, setUser } = useContext(UserContext);
     const [targetUser, setTargetUser] = useState<UserDetails>(newUserDetails());
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     // get user details from backend
     useEffect(() => {
@@ -42,20 +46,40 @@ const EditUser: React.FC = () => {
     }
 
     async function handleSubmit() {
-        if (!targetUser.name) {
-            alert("Your username cannot be empty");
+        if (!validateInput(targetUser, confirmPassword)) {
             return;
         }
 
         // update backend
         try {
             await updateUser(targetUserID, targetUser);
-            // if target user is current user, update user global context
+
+            // if target user is current user, sign in again
+            const params: createSessionParams = {
+                email: targetUser.email,
+                password: targetUser.password,
+            };
+
             if (targetUserID === user.id) {
-                setUser(newUser(targetUser.id, targetUser.name));
+                // create session from API
+                try {
+                    const response = await createSession(params);
+                    // set userID
+                    setUser(newUser(response.data.userId, response.data.username));
+                    console.log("signed in");
+                    // store token
+                    signin(response.data.authToken, false);
+                    // navigate back
+                    navigate(-1);
+                } catch (error) {
+                    console.error(error);
+                    alert("An unknown error occured, please signin");
+                    setUser(newUser());
+                    signout();
+                    console.log("signed out");
+                    navigate("/");
+                }
             }
-            // navigate back
-            navigate(-1);
         } catch (error) {
             console.error(error);
         }
@@ -76,9 +100,9 @@ const EditUser: React.FC = () => {
                 Edit your profile
             </Typography>
             <Divider />
-            <Box padding={3}>
-                <Stack direction={"row"} spacing={2}>
-                    <Typography variant="body1" p={2}>
+            <Stack padding={3} direction={"column"} spacing={1}>
+                <Box display={"flex"} flexDirection={"row"}>
+                    <Typography variant="body1" p={2} minWidth={200}>
                         Username
                     </Typography>
                     <TextField
@@ -89,8 +113,49 @@ const EditUser: React.FC = () => {
                         value={targetUser.name}
                         size="small"
                     />
-                </Stack>
-            </Box>
+                </Box>
+                <Box display={"flex"} flexDirection={"row"}>
+                    <Typography variant="body1" p={2} minWidth={200}>
+                        Email
+                    </Typography>
+                    <TextField
+                        id="email"
+                        name="email"
+                        required
+                        onChange={handleChange}
+                        value={targetUser.email}
+                        size="small"
+                    />
+                </Box>
+                <Box display={"flex"} flexDirection={"row"}>
+                    <Typography variant="body1" p={2} minWidth={200}>
+                        New Password
+                    </Typography>
+                    <TextField
+                        id="password"
+                        name="password"
+                        type="password"
+                        required
+                        onChange={handleChange}
+                        value={targetUser.password}
+                        size="small"
+                    />
+                </Box>
+                <Box display={"flex"} flexDirection={"row"}>
+                    <Typography variant="body1" p={2} minWidth={200}>
+                        Confirm New Password
+                    </Typography>
+                    <TextField
+                        id="confirm_password"
+                        name="confirm_password"
+                        type="password"
+                        required
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        value={confirmPassword}
+                        size="small"
+                    />
+                </Box>
+            </Stack>
             <Divider />
             <Box padding={1}>
                 <Stack direction={"row"} spacing={2}>

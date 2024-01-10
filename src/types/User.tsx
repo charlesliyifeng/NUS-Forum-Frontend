@@ -15,6 +15,8 @@ export function newUser(userID = -1, name = ""): User {
 export type UserDetails = {
     id: number;
     name: string;
+    email: string;
+    password: string;
     createdAt: string;
     updatedAt: string;
 };
@@ -23,6 +25,8 @@ export function newUserDetails(userID = -1, name = ""): UserDetails {
     const newUser: UserDetails = {
         id: userID,
         name: name,
+        email: "",
+        password: "",
         createdAt: "",
         updatedAt: "",
     };
