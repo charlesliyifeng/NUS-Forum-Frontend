@@ -15,7 +15,7 @@ export const getQuestionList = (
 ) => {
     const header = loadHeader(true);
     const response = client.get(
-        `/questions?include=user&fields[user]=name&page[number]=${page}&page[size]=${pageSize}&sort=${orderBy}&filter=${filterBy}&tags=${tags}&q=${q}`,
+        `/questions?include=user&fields[user]=name&page[number]=${page}&page[size]=${pageSize}&sort=${orderBy}&filter_by=${filterBy}&tags=${tags}&filter[title_or_body_cont]=${q}`,
         { headers: header },
     );
     return response.then((res) => deserializeQuestionList(res.data)).catch((err) => console.error(err));

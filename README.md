@@ -11,8 +11,6 @@ This is the frontend of NUS-Forum.
     - read comments
     - update comments
     - delete comments
-- search
-    - sort and filter
 - fix bugs
 
 
