@@ -3,7 +3,7 @@ import TopBarOptions from "./sub-components/TopBarOptions";
 
 import React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { AppBar, Toolbar } from "@mui/material";
+import { AppBar, Toolbar, Box } from "@mui/material";
 
 const TopBar: React.FC = () => {
     // eslint-disable-next-line
@@ -20,9 +20,15 @@ const TopBar: React.FC = () => {
     return (
         <AppBar position={"fixed"} sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
             <Toolbar>
-                <h2>NUS Forum</h2>
-                <SearchBar defaultValue={q} onSearch={handleSearch} />
-                <TopBarOptions />
+                <Box display="flex" width={"25%"}>
+                    <h2>NUS Forum</h2>
+                </Box>
+                <Box display="flex" width={"50%"} justifyContent={"center"}>
+                    <SearchBar defaultValue={q} onSearch={handleSearch} />
+                </Box>
+                <Box display="flex" width={"25%"} justifyContent={"right"}>
+                    <TopBarOptions />
+                </Box>
             </Toolbar>
         </AppBar>
     );

@@ -82,7 +82,7 @@ const TopBarOptions: React.FC = () => {
     if (user.id === -1) {
         // display signin and signup if not signed in
         return (
-            <Stack position={"relative"} left={250} direction={"row"} spacing={1}>
+            <Stack direction={"row"} spacing={1}>
                 <SigninButton />
                 <SignupButton />
             </Stack>
@@ -90,7 +90,7 @@ const TopBarOptions: React.FC = () => {
     } else {
         // display avatar and sign out if signed in
         return (
-            <Stack position={"relative"} left={250} direction={"row"} spacing={5}>
+            <Stack direction={"row"} spacing={5}>
                 <SignoutButton user={user} setUser={setUser} />
                 <UserAvatar userID={user.id} username={user.name} />
             </Stack>

@@ -6,7 +6,6 @@ import InputBase from "@mui/material/InputBase";
 // styling functions for SearchBar
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
-    left: 150,
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
     "&:hover": {
@@ -68,7 +67,7 @@ const SearchBar: React.FC<Props> = ({ defaultValue, onSearch }) => {
             </SearchIconWrapper>
             <StyledInputBase
                 id="search"
-                placeholder={"Search…"}
+                placeholder={"Search… (use [tag] to search for tags)"}
                 defaultValue={defaultValue}
                 inputProps={{ "aria-label": "search" }}
                 onKeyDown={handleKeyPress}

@@ -26,7 +26,7 @@ const QuestionList: React.FC<Props> = ({ questions, pageCount, currentPage, url 
     }
 
     return (
-        <Box paddingTop={5}>
+        <Box paddingTop={3}>
             <Box>
                 {questions.map((question: Question) => (
                     <QuestionCard question={question} key={question.id} />
