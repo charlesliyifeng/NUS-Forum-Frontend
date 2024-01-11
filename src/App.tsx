@@ -2,6 +2,7 @@ import Home from "./pages/Home";
 import PageLayout from "./pages/PageLayout";
 import QuestionPage from "./pages/question/QuestionPage";
 import SearchPage from "./pages/SearchPage";
+import TagsPage from "./pages/TagsPage";
 import AnswerList from "./pages/answer/AnswerList";
 import AskQuestion from "./pages/question/AskQuestion";
 import EditQuestion from "./pages/question/EditQuestion";
@@ -66,6 +67,9 @@ const App: React.FC = () => {
                 <Route path="access_denied" element={<AccessDenied />} />
                 <Route path="search" element={<PageLayout />}>
                     <Route index element={<SearchPage />} />
+                </Route>
+                <Route path="tags" element={<PageLayout />}>
+                    <Route index element={<TagsPage />} />
                 </Route>
                 <Route path="question" element={<PageLayout />}>
                     <Route index element={<QuestionPage isHome={false} />} />

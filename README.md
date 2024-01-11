@@ -11,7 +11,8 @@ This is the frontend of NUS-Forum.
     - read comments
     - update comments
     - delete comments
-- tags page
+- simplify/improve styles
+- deployment
 - fix bugs
 
 

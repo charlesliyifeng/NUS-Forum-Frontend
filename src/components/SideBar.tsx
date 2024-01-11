@@ -24,7 +24,7 @@ const SideBar: React.FC = () => {
         },
         {
             text: "Tags",
-            onclick: () => navigate("/question/1"),
+            onclick: () => navigate("/tags"),
         },
     ];
 

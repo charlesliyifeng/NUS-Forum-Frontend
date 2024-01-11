@@ -67,7 +67,7 @@ const SearchBar: React.FC<Props> = ({ defaultValue, onSearch }) => {
             </SearchIconWrapper>
             <StyledInputBase
                 id="search"
-                placeholder={"Search… (use [tag] to search for tags)"}
+                placeholder={"Search… (use [tag] to filter by tags)"}
                 defaultValue={defaultValue}
                 inputProps={{ "aria-label": "search" }}
                 onKeyDown={handleKeyPress}
