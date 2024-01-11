@@ -103,7 +103,7 @@ const AnswerList: React.FC = () => {
             return;
         }
 
-        if (userAnswer) {
+        if (userAnswer.trim()) {
             // update backend
             try {
                 // create new answer and submit to API

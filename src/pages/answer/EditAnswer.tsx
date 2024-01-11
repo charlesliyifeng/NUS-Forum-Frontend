@@ -41,7 +41,7 @@ const EditAnswer: React.FC = () => {
     }
 
     async function handleSubmit() {
-        if (!answer.body) {
+        if (!answer.body.trim()) {
             alert("Your answer cannot be empty");
             return;
         }

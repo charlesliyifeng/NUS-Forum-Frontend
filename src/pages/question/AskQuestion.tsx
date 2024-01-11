@@ -20,18 +20,18 @@ const AskQuestion: React.FC = () => {
     }
 
     async function handleSubmit() {
-        if (!question!.title) {
+        if (!question.title.trim()) {
             alert("Your title cannot be empty");
             return;
         }
-        if (!question!.body) {
+        if (!question.body.trim()) {
             alert("Your body cannot be empty");
             return;
         }
 
         try {
             // create new question through API
-            await createQuestion(question!);
+            await createQuestion(question);
             navigate("/question");
         } catch (error) {
             console.error(error);

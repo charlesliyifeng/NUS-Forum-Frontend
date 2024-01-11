@@ -29,11 +29,11 @@ const EditQuestion: React.FC = () => {
     }, []);
 
     async function handleSubmit() {
-        if (!question.title) {
+        if (!question.title.trim()) {
             alert("Your title cannot be empty");
             return;
         }
-        if (!question.body) {
+        if (!question.body.trim()) {
             alert("Your body cannot be empty");
             return;
         }
