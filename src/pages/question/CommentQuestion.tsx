@@ -4,12 +4,11 @@ import { newComment } from "../../types/Comment";
 import getQuestionID from "../../lib/helper/get_url_id";
 import UserContext from "../../contexts/UserContext";
 import { createComment } from "../../lib/api/comment";
+import FormSubmitControl from "../../components/sub-components/FormSubmitControl";
 
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 
@@ -73,16 +72,7 @@ const CommentQuestion: React.FC = () => {
                 }}
             />
 
-            <Box padding={1}>
-                <Stack direction={"row"} spacing={2}>
-                    <Button variant="contained" onClick={handleSubmit} color="primary">
-                        Submit
-                    </Button>
-                    <Button variant="outlined" onClick={() => navigate(-1)}>
-                        Cancel
-                    </Button>
-                </Stack>
-            </Box>
+            <FormSubmitControl buttonText="Submit" buttonColor="primary" handleSubmit={handleSubmit} />
         </Box>
     );
 };

@@ -5,6 +5,7 @@ import UserContext from "../../contexts/UserContext";
 import validateInput from "../../lib/helper/validator";
 import { createSession, createSessionParams } from "../../lib/api/session";
 import { signin, signout } from "../../lib/helper/tokenManager";
+import FormSubmitControl from "../../components/sub-components/FormSubmitControl";
 
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
@@ -13,7 +14,6 @@ import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 
 const EditUser: React.FC = () => {
     const targetUserID = getUserID();
@@ -157,16 +157,7 @@ const EditUser: React.FC = () => {
                 </Box>
             </Stack>
             <Divider />
-            <Box padding={1}>
-                <Stack direction={"row"} spacing={2}>
-                    <Button variant="contained" onClick={handleSubmit} color="secondary">
-                        Update
-                    </Button>
-                    <Button variant="outlined" onClick={() => navigate(-1)}>
-                        Cancel
-                    </Button>
-                </Stack>
-            </Box>
+            <FormSubmitControl buttonText="Update" buttonColor="secondary" handleSubmit={handleSubmit} />
         </Box>
     );
 };

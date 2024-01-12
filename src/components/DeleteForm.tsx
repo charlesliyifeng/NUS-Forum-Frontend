@@ -1,9 +1,8 @@
+import FormSubmitControl from "./sub-components/FormSubmitControl";
+
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 
 function capitalize(word: string): string {
     return word.charAt(0).toUpperCase() + word.slice(1);
@@ -15,8 +14,6 @@ type Props = {
 };
 
 const DeleteForm: React.FC<Props> = ({ subjectType, handleSubmit }) => {
-    const navigate = useNavigate();
-
     return (
         <Box
             className="centerBox"
@@ -32,16 +29,7 @@ const DeleteForm: React.FC<Props> = ({ subjectType, handleSubmit }) => {
                 Warning: This process is not reversible!
             </Typography>
 
-            <Box padding={1}>
-                <Stack direction={"row"} spacing={2}>
-                    <Button variant="contained" onClick={handleSubmit} color="warning">
-                        Delete
-                    </Button>
-                    <Button variant="outlined" onClick={() => navigate(-1)}>
-                        Cancel
-                    </Button>
-                </Stack>
-            </Box>
+            <FormSubmitControl buttonText="Delete" buttonColor="warning" handleSubmit={handleSubmit} />
         </Box>
     );
 };

@@ -1,13 +1,10 @@
 import TagInput from "../sub-components/TagInput";
 import { Question } from "../../types/Question";
+import FormSubmitControl from "../sub-components/FormSubmitControl";
 
 import React from "react";
-import { Link } from "react-router-dom";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 
 type Props = {
     question: Question;
@@ -66,20 +63,11 @@ const QuestionForm: React.FC<Props> = ({ question, setQuestion, handleSubmit, bu
                 Tags
             </Typography>
             <TagInput tags={question.tags} setTags={setTags} />
-            <Box padding={1}>
-                <Stack direction="row" spacing={2}>
-                    <Button
-                        variant="contained"
-                        onClick={handleSubmit}
-                        color={buttonType === "Update" ? "secondary" : "primary"}
-                    >
-                        {buttonType}
-                    </Button>
-                    <Button variant="outlined" component={Link} to=".." relative="path">
-                        Cancel
-                    </Button>
-                </Stack>
-            </Box>
+            <FormSubmitControl
+                buttonText={buttonType}
+                buttonColor={buttonType === "Update" ? "secondary" : "primary"}
+                handleSubmit={handleSubmit}
+            />
         </>
     );
 };

@@ -2,14 +2,13 @@ import { Answer, newAnswer } from "../../types/Answer";
 import { getAnswerDetail, updateAnswer } from "../../lib/api/answer";
 import getAnswerID from "../../lib/helper/get_url_id";
 import UserContext from "../../contexts/UserContext";
+import FormSubmitControl from "../../components/sub-components/FormSubmitControl";
 
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 
 const EditAnswer: React.FC = () => {
     const answerID = getAnswerID();
@@ -76,17 +75,7 @@ const EditAnswer: React.FC = () => {
             </Typography>
 
             <TextField id="body" name="body" multiline required rows={8} onChange={handleChange} value={answer.body} />
-
-            <Box padding={1}>
-                <Stack direction={"row"} spacing={2}>
-                    <Button variant="contained" onClick={handleSubmit} color="secondary">
-                        Update
-                    </Button>
-                    <Button variant="outlined" onClick={() => navigate(-1)}>
-                        Cancel
-                    </Button>
-                </Stack>
-            </Box>
+            <FormSubmitControl buttonText="Update" buttonColor="secondary" handleSubmit={handleSubmit} />
         </Box>
     );
 };
