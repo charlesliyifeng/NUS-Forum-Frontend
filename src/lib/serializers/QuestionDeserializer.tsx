@@ -1,19 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import deserializeComment from "./CommentDeserializer";
+import { Comment } from "../../types/Comment";
 import { Question } from "../../types/Question";
 import { User } from "../../types/User";
 
 interface Dictionary<T> {
     [Key: number]: T;
 }
-
-type userParams = {
-    id: string;
-    type: "user";
-    attributes: {
-        name: string;
-    };
-    // eslint-disable-next-line
-    relationships: any;
-};
 
 type dataParams = {
     id: string;
@@ -31,8 +25,8 @@ type dataParams = {
         updatedAt: string;
     };
     relationships: {
-        // eslint-disable-next-line
         answers: any;
+        comments: any;
         user: {
             data: {
                 id: string;
@@ -42,21 +36,38 @@ type dataParams = {
     };
 };
 
-// build authors dict
-function buildUsers(data: userParams[]): Dictionary<User> {
+// build authors and comments dict
+function buildDicts(data: any[]): [Dictionary<User>, Dictionary<Comment>] {
     const authors: Dictionary<User> = {};
+    const comments: Dictionary<Comment> = {};
     if (data) {
-        data.forEach((user: userParams) => {
-            authors[+user.id] = { id: +user.id, name: user.attributes.name };
+        data.forEach((item: any) => {
+            if (item.type === "user") {
+                authors[+item.id] = { id: +item.id, name: item.attributes.name };
+            } else if (item.type === "comment") {
+                comments[+item.id] = deserializeComment(item);
+            }
         });
     }
-    return authors;
+    return [authors, comments];
 }
 
-function processData(data: dataParams, authors: Dictionary<User>): Question {
+function processData(data: dataParams, authors: Dictionary<User>, comments: Dictionary<Comment>): Question {
     // look up username from authors dict
-    const userdata = data.relationships.user.data;
-    const author: User = userdata ? authors[+userdata.id] : { id: 0, name: "deleted user" };
+    const userData = data.relationships.user.data;
+    const author: User = userData ? authors[+userData.id] : { id: 0, name: "deleted user" };
+
+    // fill comment list
+    const commentList: Comment[] = [];
+    if (data.relationships.comments) {
+        const commentData: any[] = data.relationships.comments.data;
+        if (commentData) {
+            commentData.forEach((params) => {
+                const id: number = +params.id;
+                commentList.push(comments[id]);
+            });
+        }
+    }
 
     // remove empty tags
     let tagArray: string[] = data.attributes.tagList;
@@ -77,23 +88,22 @@ function processData(data: dataParams, authors: Dictionary<User>): Question {
         accepted: data.attributes.accepted,
         views: data.attributes.views,
         tags: tagArray,
+        comments: commentList,
     };
-    //console.log(t);
-
     return t;
 }
 
 interface singleResponse {
     data: dataParams;
-    included: userParams[];
+    included: any[];
 }
 
 export function deserializeQuestion(response: singleResponse): Question {
     // build authors dict
-    const authors = buildUsers(response.included);
+    const [authors, comments] = buildDicts(response.included);
 
     // process main body
-    const q = processData(response.data, authors);
+    const q = processData(response.data, authors, comments);
 
     return q;
 }
@@ -107,7 +117,7 @@ type paginationInfo = {
 
 interface listResponse {
     data: dataParams[];
-    included: userParams[];
+    included: any[];
     meta: {
         pagination: paginationInfo;
     };
@@ -122,12 +132,12 @@ export function deserializeQuestionList(response: listResponse): questionListRet
     const questions: Question[] = [];
 
     // build authors dict
-    const authors = buildUsers(response.included);
+    const [authors, comments] = buildDicts(response.included);
 
     // process main body
     if (response.data) {
         response.data.forEach((data: dataParams) => {
-            const q = processData(data, authors);
+            const q = processData(data, authors, comments);
             questions.push(q);
         });
     }

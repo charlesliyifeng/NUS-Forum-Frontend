@@ -1,5 +1,6 @@
 import VoteDisplay from "../sub-components/VoteDisplay";
 import EditBar from "../sub-components/EditBar";
+import CommentList from "../sub-components/CommentList";
 import { Answer } from "../../types/Answer";
 import { Question } from "../../types/Question";
 import UserContext from "../../contexts/UserContext";
@@ -16,7 +17,6 @@ type Props = {
 const AnswerItem: React.FC<Props> = ({ answer, question, handleVoteChange }) => {
     // eslint-disable-next-line
     const { user, setUser } = useContext(UserContext);
-
     return (
         <Box padding={1}>
             <Card variant="outlined">
@@ -44,7 +44,9 @@ const AnswerItem: React.FC<Props> = ({ answer, question, handleVoteChange }) => 
                                 allowEdit={answer.author.id === user.id}
                                 allowDelete={answer.author.id === user.id}
                                 allowAccept={question.author.id === user.id && (answer.accepted || !question.accepted)}
+                                allowComment
                             />
+                            <CommentList comments={answer.comments} />
                         </Box>
                     </Box>
                 </CardContent>

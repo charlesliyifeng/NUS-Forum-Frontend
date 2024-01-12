@@ -15,7 +15,7 @@ export const getQuestionList = (
 ) => {
     const header = loadHeader(true);
     const response = client.get(
-        `/questions?include=user&fields[user]=name&page[number]=${page}&page[size]=${pageSize}&sort=${orderBy}&filter_by=${filterBy}&tags=${tags}&filter[title_or_body_cont]=${q}`,
+        `/questions?include=user&fields[user]=name&fields[question]=created_at,updated_at,title,views,tag_list,answers_count,body,votes,accepted,user_vote,user&page[number]=${page}&page[size]=${pageSize}&sort=${orderBy}&filter_by=${filterBy}&tags=${tags}&filter[title_or_body_cont]=${q}`,
         { headers: header },
     );
     return response.then((res) => deserializeQuestionList(res.data)).catch((err) => console.error(err));
@@ -24,7 +24,7 @@ export const getQuestionList = (
 // detail  (token authentication optional)
 export const getQuestionDetail = (id: number) => {
     const header = loadHeader(true);
-    const response = client.get(`/questions/${id}?include=user&fields[user]=name`, { headers: header });
+    const response = client.get(`/questions/${id}?include=user,comments&fields[user]=name`, { headers: header });
     return response.then((res) => deserializeQuestion(res.data)).catch((err) => console.error(err));
 };
 

@@ -1,3 +1,4 @@
+import { Comment } from "./Comment";
 import { User, newUser } from "./User";
 
 export type Answer = {
@@ -10,6 +11,7 @@ export type Answer = {
     votes: number;
     userVote: number;
     accepted: boolean;
+    comments: Comment[];
 };
 
 export function newAnswer(author = -1, questionID = -1, body = ""): Answer {
@@ -23,6 +25,7 @@ export function newAnswer(author = -1, questionID = -1, body = ""): Answer {
         votes: 0,
         userVote: 0,
         accepted: false,
+        comments: [],
     };
     return ans;
 }

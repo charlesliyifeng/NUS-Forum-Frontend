@@ -7,8 +7,10 @@ import AnswerList from "./pages/answer/AnswerList";
 import AskQuestion from "./pages/question/AskQuestion";
 import EditQuestion from "./pages/question/EditQuestion";
 import DeleteQuestion from "./pages/question/DeleteQuestion";
+import CommentQuestion from "./pages/question/CommentQuestion";
 import EditAnswer from "./pages/answer/EditAnswer";
 import DeleteAnswer from "./pages/answer/DeleteAnswer";
+import CommentAnswer from "./pages/answer/CommentAnswer";
 import UserProfile from "./pages/user/UserProfile";
 import EditUser from "./pages/user/EditUser";
 import DeleteUser from "./pages/user/DeleteUser";
@@ -78,12 +80,14 @@ const App: React.FC = () => {
                         <Route index element={<AnswerList />} />
                         <Route path="edit" element={<EditQuestion />} />
                         <Route path="delete" element={<DeleteQuestion />} />
+                        <Route path="comment" element={<CommentQuestion />} />
                     </Route>
                 </Route>
                 <Route path="answer" element={<PageLayout />}>
                     <Route path=":id">
                         <Route path="edit" element={<EditAnswer />} />
                         <Route path="delete" element={<DeleteAnswer />} />
+                        <Route path="comment" element={<CommentAnswer />} />
                     </Route>
                 </Route>
                 <Route path="user" element={<PageLayout />}>

@@ -1,3 +1,4 @@
+import { Comment } from "./Comment";
 import { User, newUser } from "./User";
 
 export type Question = {
@@ -13,6 +14,7 @@ export type Question = {
     accepted: boolean;
     views: number;
     tags: string[];
+    comments: Comment[];
 };
 
 export function newQuestion(author = -1, title = "", body = "", tags: string[] = []): Question {
@@ -29,6 +31,7 @@ export function newQuestion(author = -1, title = "", body = "", tags: string[] =
         accepted: false,
         views: 0,
         tags: tags,
+        comments: [],
     };
 
     return question;

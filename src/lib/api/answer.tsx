@@ -14,7 +14,7 @@ export const getAnswerList = () => {
 // detail  (token authentication optional)
 export const getAnswerDetail = (id: number) => {
     const header = loadHeader(true);
-    const response = client.get(`/answers/${id}?include=user&fields[user]=name`, { headers: header });
+    const response = client.get(`/answers/${id}?include=user,comments&fields[user]=name`, { headers: header });
     return response.then((res) => deserializeAnswer(res.data)).catch((err) => console.error(err));
 };
 
@@ -22,7 +22,7 @@ export const getAnswerDetail = (id: number) => {
 export const getAnswersOfQuestion = (questionID: number) => {
     // get all answers related to the question
     const header = loadHeader(true);
-    const response = client.get(`/questions/${questionID}/get_answers?include=user&fields[user]=name`, {
+    const response = client.get(`/questions/${questionID}/get_answers?include=user,comments&fields[user]=name`, {
         headers: header,
     });
     return response.then((res) => deserializeAnswerList(res.data)).catch((err) => console.error(err));

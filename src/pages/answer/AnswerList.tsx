@@ -2,6 +2,7 @@ import AnswerItem from "../../components/answer/AnswerItem";
 import VoteDisplay from "../../components/sub-components/VoteDisplay";
 import EditBar from "../../components/sub-components/EditBar";
 import Item from "../../components/sub-components/Item";
+import CommentList from "../../components/sub-components/CommentList";
 import { Question, newQuestion } from "../../types/Question";
 import { Answer, newAnswer } from "../../types/Answer";
 import { getQuestionDetail, voteQuestion } from "../../lib/api/question";
@@ -111,7 +112,7 @@ const AnswerList: React.FC = () => {
                 await createAnswer(answer);
 
                 // reload page
-                window.location.reload();
+                navigate(0);
             } catch (error) {
                 console.error(error);
             }
@@ -160,7 +161,9 @@ const AnswerList: React.FC = () => {
                                     id={questionID}
                                     allowEdit={question.author.id === user.id}
                                     allowDelete={question.author.id === user.id}
+                                    allowComment
                                 />
+                                <CommentList comments={question.comments} />
                             </Box>
                         </Box>
                     </CardContent>
