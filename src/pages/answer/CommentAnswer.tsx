@@ -5,12 +5,16 @@ import getAnswerID from "../../lib/helper/get_url_id";
 import UserContext from "../../contexts/UserContext";
 import { createComment } from "../../lib/api/comment";
 import FormSubmitControl from "../../components/sub-components/FormSubmitControl";
+import CommentList from "../../components/sub-components/CommentList";
 
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Divider from "@mui/material/Divider";
 
 const CommentAnswer: React.FC = () => {
     const answerID = getAnswerID();
@@ -61,6 +65,25 @@ const CommentAnswer: React.FC = () => {
             <Typography variant="h4" padding={2}>
                 Add a comment
             </Typography>
+
+            <Box padding={1}>
+                <Card variant="outlined">
+                    <CardContent>
+                        <Box display={"flex"} flexDirection={"row"}>
+                            <Box display={"flex"} flexDirection={"column"} width={"100%"}>
+                                <Typography color="text-secondary">
+                                    by {answer.author.name} on {answer.createdAt}
+                                </Typography>
+                                <Divider />
+                                <Typography p={1} minHeight="7vw" style={{ whiteSpace: "pre-line" }}>
+                                    {answer.body}
+                                </Typography>
+                                <CommentList comments={answer.comments} />
+                            </Box>
+                        </Box>
+                    </CardContent>
+                </Card>
+            </Box>
 
             <TextField
                 id="comment"

@@ -5,12 +5,18 @@ import getQuestionID from "../../lib/helper/get_url_id";
 import UserContext from "../../contexts/UserContext";
 import { createComment } from "../../lib/api/comment";
 import FormSubmitControl from "../../components/sub-components/FormSubmitControl";
+import Item from "../../components/sub-components/Item";
+import CommentList from "../../components/sub-components/CommentList";
 
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Divider from "@mui/material/Divider";
 
 const CommentQuestion: React.FC = () => {
     const questionID = getQuestionID();
@@ -62,6 +68,32 @@ const CommentQuestion: React.FC = () => {
                 Add a comment
             </Typography>
 
+            <Box padding={1}>
+                <Card variant="outlined">
+                    <CardContent>
+                        <Box display={"flex"} flexDirection={"column"} width="100%">
+                            <Typography variant="h5" p={0}>
+                                {question.title}
+                            </Typography>
+                            <Typography>
+                                by {question.author.name} on {question.createdAt}
+                            </Typography>
+                            <Stack direction="row" spacing={1} paddingTop={1} paddingBottom={1}>
+                                {question.tags.map((tag: string) => (
+                                    <Item sx={{ backgroundColor: "#777", color: "#fff" }} key={tag}>
+                                        {tag}
+                                    </Item>
+                                ))}
+                            </Stack>
+                            <Divider />
+                            <Typography p={1} minHeight="3vw" style={{ whiteSpace: "pre-line" }}>
+                                {question.body}
+                            </Typography>
+                            <CommentList comments={question.comments} />
+                        </Box>
+                    </CardContent>
+                </Card>
+            </Box>
             <TextField
                 id="comment"
                 name="comment"

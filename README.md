@@ -7,8 +7,6 @@ This is the frontend of NUS-Forum.
 ### Frontend
 (CRUD)
 - Comments
-    - create comments
-    - read comments
     - update comments
     - delete comments
 - simplify/improve styles
