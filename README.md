@@ -5,14 +5,22 @@ This is the frontend of NUS-Forum.
 ## TODO list
 
 ### Frontend
-(CRUD)
-- Comments
-    - update comments
-    - delete comments
+Requirements
 - simplify/improve styles
 - deployment
 - fix bugs
 
+Submission
+A README file containing your name. Your README file must have clear instructions on how to setup your application to facilitate grading.
+
+A short write-up on what you feel about your accomplishments in this
+assignment as well as a short user manual. This write-up must be
+no longer than 3 A4 sides, with a 12pt.
+
+Optional Requirements
+- Cron
+- Redux
+- Docker
 
 ## Getting Started
 

@@ -11,6 +11,8 @@ import CommentQuestion from "./pages/question/CommentQuestion";
 import EditAnswer from "./pages/answer/EditAnswer";
 import DeleteAnswer from "./pages/answer/DeleteAnswer";
 import CommentAnswer from "./pages/answer/CommentAnswer";
+import EditComment from "./pages/comment/EditComment";
+import DeleteComment from "./pages/comment/DeleteComment";
 import UserProfile from "./pages/user/UserProfile";
 import EditUser from "./pages/user/EditUser";
 import DeleteUser from "./pages/user/DeleteUser";
@@ -95,6 +97,13 @@ const App: React.FC = () => {
                         <Route index element={<UserProfile />} />
                         <Route path="edit" element={<EditUser />} />
                         <Route path="delete" element={<DeleteUser />} />
+                    </Route>
+                </Route>
+                <Route path="comment" element={<PageLayout />}>
+                    <Route path=":id">
+                        <Route path="edit" element={<EditComment />} />
+                        <Route path="delete" element={<DeleteComment />} />
+                        <Route path="*" element={<Navigate replace to="/404" />} />
                     </Route>
                 </Route>
                 <Route path="*" element={<Navigate replace to="/404" />} />

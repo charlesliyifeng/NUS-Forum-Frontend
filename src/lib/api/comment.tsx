@@ -2,6 +2,13 @@ import client from "./client";
 import { Comment } from "../../types/Comment";
 import loadHeader from "../helper/loadHeader";
 import { serializeComment } from "../serializers/CommentSerializer";
+import deserializeComment from "../serializers/CommentDeserializer";
+
+// detail
+export const getCommentDetail = (id: number) => {
+    const response = client.get(`/comments/${id}`);
+    return response.then((res) => deserializeComment(res.data.data)).catch((err) => console.error(err));
+};
 
 // create  (need token authentication)
 export const createComment = (a: Comment) => {
