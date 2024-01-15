@@ -1,21 +1,15 @@
 # NUS-Forum-Frontend
 
+First Name: Yifeng  
+Last Name: Li
+
 This is the frontend of NUS-Forum.
 
 ## TODO list
-
-### Frontend
 Requirements
 - simplify/improve styles
 - deployment
 - fix bugs
-
-Submission
-A README file containing your name. Your README file must have clear instructions on how to setup your application to facilitate grading.
-
-A short write-up on what you feel about your accomplishments in this
-assignment as well as a short user manual. This write-up must be
-no longer than 3 A4 sides, with a 12pt.
 
 Optional Requirements
 - Cron
@@ -23,6 +17,9 @@ Optional Requirements
 - Docker
 
 ## Getting Started
+
+### Installation
+1. This assumes that you have installed React with typescript
 
 ### Running the app
 
@@ -45,6 +42,5 @@ yarn start
 
 ## Acknowledgements
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 This project uses [MUI](https://mui.com/),
 [ESLint](https://eslint.org/), [Prettier](https://prettier.io/).
