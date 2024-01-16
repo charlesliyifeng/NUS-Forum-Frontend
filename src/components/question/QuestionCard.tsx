@@ -23,6 +23,11 @@ type Props = {
 };
 
 const QuestionCard: React.FC<Props> = ({ question }) => {
+    const authorLink = (
+        <Link to={`/user/${question.author.id}`} className="link">
+            {question.author.name}
+        </Link>
+    );
     return (
         <Box padding={1}>
             <Card variant="outlined" style={cardStyle}>
@@ -35,7 +40,7 @@ const QuestionCard: React.FC<Props> = ({ question }) => {
                     <Stack direction={"row"} spacing={4}>
                         <Box display={"flex"} flexDirection={"column"} minWidth={250}>
                             <Typography color="text-secondary">
-                                by {question.author.name} on {question.createdAt}
+                                by {authorLink} on {question.createdAt}
                             </Typography>
                             <Stack direction="row" spacing={1}>
                                 <Item>votes: {question.votes}</Item>

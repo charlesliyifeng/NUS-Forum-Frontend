@@ -12,7 +12,7 @@ export const getUser = (id: number) => {
 
 // get (token authentication optional)
 export const getUserDetails = (id: number) => {
-    const header = loadHeader();
+    const header = loadHeader(true);
     const response = client.get(`/users/${id}?fields[user]=name,email,created_at,updated_at`, { headers: header });
     return response.then((res) => deserializeUserDetails(res.data)).catch((err) => console.error(err));
 };

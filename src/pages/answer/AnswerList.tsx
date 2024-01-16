@@ -11,7 +11,7 @@ import getQuestionID from "../../lib/helper/get_url_id";
 import UserContext from "../../contexts/UserContext";
 
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -125,6 +125,12 @@ const AnswerList: React.FC = () => {
         return <div></div>;
     }
 
+    const authorLink = (
+        <Link to={`/user/${question.author.id}`} className="link">
+            {question.author.name}
+        </Link>
+    );
+
     return (
         <Box className="centerBox" sx={{ flexGrow: 1, p: 3 }} top={80}>
             <Box padding={1}>
@@ -143,7 +149,7 @@ const AnswerList: React.FC = () => {
                                     {question.title}
                                 </Typography>
                                 <Typography>
-                                    by {question.author.name} on {question.createdAt}
+                                    by {authorLink} on {question.createdAt}
                                 </Typography>
                                 <Stack direction="row" spacing={1} paddingTop={1} paddingBottom={1}>
                                     {question.tags.map((tag: string) => (

@@ -6,6 +6,7 @@ import { Question } from "../../types/Question";
 import UserContext from "../../contexts/UserContext";
 
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { Box, Card, CardContent, Typography, Divider } from "@mui/material";
 
 type Props = {
@@ -17,6 +18,11 @@ type Props = {
 const AnswerItem: React.FC<Props> = ({ answer, question, handleVoteChange }) => {
     // eslint-disable-next-line
     const { user, setUser } = useContext(UserContext);
+    const authorLink = (
+        <Link to={`/user/${answer.author.id}`} className="link">
+            {answer.author.name}
+        </Link>
+    );
     return (
         <Box padding={1}>
             <Card variant="outlined">
@@ -31,7 +37,7 @@ const AnswerItem: React.FC<Props> = ({ answer, question, handleVoteChange }) => 
                         />
                         <Box display={"flex"} flexDirection={"column"} width={"100%"}>
                             <Typography color="text-secondary">
-                                by {answer.author.name} on {answer.createdAt}
+                                by {authorLink} on {answer.createdAt}
                             </Typography>
                             <Divider />
                             <Typography p={1} minHeight="7vw" style={{ whiteSpace: "pre-line" }}>
