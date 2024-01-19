@@ -5,16 +5,9 @@ Last Name: Li
 
 This is the frontend of NUS-Forum.
 
-## TODO list
-Requirements
-- simplify/improve styles
-- deployment
-- fix bugs
+Note: this is the main (development) branch, so you can only run the app in development mode locally with the backend in development mode as well.
 
-Optional Requirements
-- Cron
-- Redux
-- Docker
+To see the code for the deployed version, switch to the production branch.
 
 ## Getting Started
 
@@ -29,7 +22,7 @@ Optional Requirements
 yarn install
 ```
 
-2. Run the backend
+2. Run the backend (from port 3000 locally in development mode)
 
 3. Run the app in development mode by entering this command:
 
