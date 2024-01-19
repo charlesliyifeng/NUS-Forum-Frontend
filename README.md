@@ -5,7 +5,7 @@ Last Name: Li
 
 This is the frontend of NUS-Forum.
 
-Note: this is the production branch, so you can open the app from https://nus-forum.netlify.app
+Note: this is the production branch that is deployed on netlify, so you can open the app from https://nus-forum.netlify.app
 
 To see the code for the development version, switch to the main branch.
 
