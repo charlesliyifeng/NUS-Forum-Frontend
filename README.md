@@ -5,40 +5,9 @@ Last Name: Li
 
 This is the frontend of NUS-Forum.
 
-## TODO list
-Requirements
-- simplify/improve styles
-- deployment
-- fix bugs
+Note: this is the production branch, so you can open the app from [here](https://nus-forum.netlify.app)
 
-Optional Requirements
-- Cron
-- Redux
-- Docker
-
-## Getting Started
-
-### Installation
-1. This assumes that you have installed React with typescript
-
-### Running the app
-
-1. Install dependencies for the project by entering this command:
-
-```bash
-yarn install
-```
-
-2. Run the backend
-
-3. Run the app in development mode by entering this command:
-
-```bash
-yarn start
-```
-
-4. Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
-
+To see the code for the development version, switch to the main branch.
 
 ## Acknowledgements
 
