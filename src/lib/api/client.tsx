@@ -7,7 +7,7 @@ const options = {
 
 const client = applyCaseMiddleware(
     axios.create({
-        baseURL: "http://localhost:3000/api/v1",
+        baseURL: "https://polar-island-74482-b8f5f81d2313.herokuapp.com/api/v1",
     }),
     options,
 );
